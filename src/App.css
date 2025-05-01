@@ -1,1 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap');
+
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'URW Gothic L';
+  src: url('./assets/fonts/URW_Gothic_L.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --color-anomaly-blue: #2752A3;
+  --color-reality-yellow: #ECAF20;
+  --color-agency-red: #ca2230;
+  --deep-purple: #251c46;
+}
+
+@layer utilities {
+  .font-roboto {
+    font-family: 'Roboto';
+  }
+  .font-poppins {
+    font-family: 'Poppins';
+  }
+  .font-urw {
+    font-family: 'URW Gothic L';
+  }
+}
+
+body {
+  font-family: 'Poppins';
+  color: #251c46;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'URW Gothic L';
+}
