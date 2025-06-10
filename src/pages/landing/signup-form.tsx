@@ -1,5 +1,5 @@
-import { signup } from "@/api/auth";
-import { useState, useTransition } from "react";
+import { useRegisterMutation } from "@/api/auth.api";
+import { useEffect, useState } from "react";
 
 export default function SignupForm() {
 
@@ -7,12 +7,20 @@ export default function SignupForm() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [isPending, startTransition] = useTransition();
-    const submitRegister = () => {
-        startTransition(async () => {
-            await signup({ username, password });
+    const [triggerLogin, { error, isLoading }] = useRegisterMutation();
+
+    const handleRegister = () => {
+        triggerLogin({
+            credentials: {
+                username,
+                password
+            }
         });
     };
+
+    useEffect(() => {
+        if (error) { console.log(error) }
+    }, [error]);
 
     return (
         <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white'>
@@ -45,8 +53,8 @@ export default function SignupForm() {
             <div className="flex flex-col space-y-2">
                 <button 
                     className='border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
-                    onClick={submitRegister}
-                    disabled={isPending}
+                    onClick={handleRegister}
+                    disabled={isLoading}
                 >
                     Sign Up
                 </button>

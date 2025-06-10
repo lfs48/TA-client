@@ -1,17 +1,25 @@
-import { login } from "@/api/auth";
-import { useState, useTransition } from "react";
+import { useLoginMutation } from "@/api/auth.api";
+import { useEffect, useState } from "react";
 
 export default function LoginForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [isPending, startTransition] = useTransition();
-    const submitLogin = () => {
-        startTransition(async () => {
-            await login({ username, password });
+    const [triggerLogin, { error, isLoading }] = useLoginMutation();
+
+    const handleLogin = () => {
+        triggerLogin({
+            credentials: {
+                username,
+                password
+            }
         });
     };
+
+    useEffect(() => {
+        if (error) { console.log(error) }
+    }, [error])
 
     return (
         <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white'>
@@ -35,8 +43,8 @@ export default function LoginForm() {
             <div className="flex flex-col space-y-2">
                 <button 
                     className='border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
-                    onClick={submitLogin}
-                    disabled={isPending}
+                    onClick={handleLogin}
+                    disabled={isLoading}
                 >
                     Log In
                 </button>
