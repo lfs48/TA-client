@@ -11,10 +11,23 @@
 }
 
 @theme {
-  --color-anomaly-blue: #2752A3;
+  --color-anomaly-blue: #2854A4;
   --color-reality-yellow: #ECAF20;
+
+  --color-agency-red-50: #fef2f3;
+  --color-agency-red-100: #fee2e4;
+  --color-agency-red-200: #fecace;
+  --color-agency-red-300: #fba6ad;
+  --color-agency-red-400: #f7727d;
+  --color-agency-red-500: #ee4553;
+  --color-agency-red-600: #ca2230;
   --color-agency-red: #ca2230;
-  --deep-purple: #251c46;
+  --color-agency-red-700: #b81d2a;
+  --color-agency-red-800: #981c26;
+  --color-agency-red-900: #7e1e26;
+  --color-agency-red-950: #450a0f;
+
+  --color-deep-purple: #251c46;
 }
 
 @layer utilities {
@@ -37,3 +50,23 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'URW Gothic L';
 }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: gray white;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #888;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    background-clip: padding-box;
+  }
