@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { Game, RootState } from "types";
 
 interface GameCardProps {
@@ -8,8 +9,14 @@ export default function GameCard({
     game
 }:GameCardProps) {
 
+    const navigate = useNavigate();
+
     const id = useSelector((state:RootState) => state.session.id);
     const isGM = id === game.gm.id;
+
+    const handleOpenGame = () => {
+        navigate(`/game/${game.id}`);
+    };
 
     return (
         <div 
@@ -20,7 +27,10 @@ export default function GameCard({
                     <h2 className='text-[1.5rem]'>{game.title}</h2>
                     <h4 className='text-[0.75rem] text-agency-red'>{isGM ? 'General Manager' : 'Agent'}</h4>
                 </div>
-                <button className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'>Open Game</button>
+                <button 
+                    className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                    onClick={handleOpenGame}
+                >Open Game</button>
             </header>
             <div className='h-[20rem] overflow-y-auto scrollbar-thin'>
                 <p className='px-4 py-2'>{game.description}</p>

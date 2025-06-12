@@ -11,3 +11,7 @@ export interface Game {
 export interface UserGamesResponse {
     games: Game[];
 }
+
+export interface GameResponse {
+    game: Game;
+}
