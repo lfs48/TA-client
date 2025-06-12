@@ -6,7 +6,7 @@ export default function LobbyControls() {
     const {setCreating} = useContext(LobbyContext);
 
     const handleNewGame = () => {
-        if (setCreating) { setCreating(true) }
+        setCreating(true);
     }
 
     return (

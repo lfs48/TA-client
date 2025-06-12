@@ -1,5 +1,5 @@
 import { rootApi } from './root.api';
-import { GameResponse, UserGamesResponse } from 'types/Game.types';
+import { GameResponse, PostGameRequest, UserGamesResponse } from 'types/Game.types';
 
 const gameApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -15,6 +15,13 @@ const gameApi = rootApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
+        postGame: builder.mutation<GameResponse, PostGameRequest>({
+            query: (data) => ({
+                url: `game`,
+                method: 'POST',
+                body: data,
+            }),
+        }),
     }),
     overrideExisting: false
 });
@@ -22,6 +29,7 @@ const gameApi = rootApi.injectEndpoints({
 export const { 
     useGetUserGamesQuery,
     useGetGameQuery,
+    usePostGameMutation,
 } = gameApi;
 
 export default gameApi;

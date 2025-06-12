@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
 import gameApi from "@/api/game.api";
 import { Game, RootState } from "@/types";
@@ -15,7 +15,10 @@ const gameSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addMatcher(
-            gameApi.endpoints.getGame.matchFulfilled,
+            isAnyOf(
+                gameApi.endpoints.getGame.matchFulfilled,
+                gameApi.endpoints.postGame.matchFulfilled,
+            ),
             (state, action) => {
                 const {game} = action.payload;
                 state[game.id] = game;
