@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 export default function LobbyControls() {
 
-    const {setCreating} = useContext(LobbyContext);
+    const {creating, setCreating} = useContext(LobbyContext);
 
     const handleNewGame = () => {
         setCreating(true);
@@ -15,6 +15,7 @@ export default function LobbyControls() {
             <button
                 className='w-40 border-2 border-deep-purple bg-deep-purple rounded py-2 font-bold cursor-pointer text-white'
                 onClick={handleNewGame}
+                disabled={creating}
             >New Game
             </button>
         </div>
