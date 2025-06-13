@@ -53,14 +53,14 @@ export default function NewGameForm() {
                 <div className="space-x-2">
                     <button 
                         className='w-40 border-2 border-agency-red-700 bg-agency-red text-white rounded py-2 font-bold cursor-pointer'
-                        onClick={handleCancel}
-                        disabled={isLoading}
-                    >Cancel</button>
-                    <button 
-                        className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
                         onClick={handleCreate}
                         disabled={isLoading}
                     >Create</button>
+                    <button 
+                        className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                        onClick={handleCancel}
+                        disabled={isLoading}
+                    >Cancel</button>
                 </div>
             </header>
             <textarea
