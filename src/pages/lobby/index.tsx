@@ -25,7 +25,7 @@ export default function Lobby() {
     ));
 
     return(
-        <div className='w-screen h-screen bg-agency-red p-6 space-y-6 overflow-y-auto'>
+        <div className='px-12 py-6 bg-agency-red space-y-6'>
             <LobbyContext value={{creating, setCreating}}>
                <LobbyControls />
                {creating && <NewGameForm />}

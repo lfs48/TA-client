@@ -30,6 +30,10 @@
   --color-deep-purple: #251c46;
 }
 
+:root {
+  --nav: 3rem;
+}
+
 @layer utilities {
   .font-roboto {
     font-family: 'Roboto';
@@ -40,6 +44,8 @@
   .font-urw {
     font-family: 'URW Gothic L';
   }
+
+  .h-nav { height: var(--nav); }
 }
 
 body {
@@ -51,22 +57,26 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'URW Gothic L';
 }
 
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: gray white;
-  }
+div {
+  box-sizing: border-box;
+}
 
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 12px;
-  }
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: gray white;
+}
 
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+.scrollbar-thin::-webkit-scrollbar {
+  width: 12px;
+}
 
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #888;
-    border: 2px solid rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    background-clip: padding-box;
-  }
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #888;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  background-clip: padding-box;
+}
