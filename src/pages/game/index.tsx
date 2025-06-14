@@ -2,15 +2,25 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
-import { useGetGameQuery } from '@/api/game.api';
+import { useGetGameByPassphraseQuery } from '@/api/game.api';
 import { RootState } from '@/types';
 import { selectGameById } from '@/reducers/entities/games.reducer';
+import { useEffect, useState } from 'react';
 
 export default function Game() {
 
-    const { id } = useParams();
+    const [id, setId] = useState<string | undefined>(undefined);
+
+    const { passphrase } = useParams();
+    const { data, isSuccess, isLoading } = useGetGameByPassphraseQuery(passphrase ?? skipToken);
+
     const game = useSelector((state: RootState) => selectGameById(state, id));
-    const { isLoading } = useGetGameQuery(id ?? skipToken);
+
+    useEffect(() => {
+        if(isSuccess && data.game && data.game.id) {
+            setId(data.game.id);
+        }
+    }, [data, isSuccess])
 
     return(
         <div className='w-screen h-screen bg-agency-red p-6 space-y-6'>

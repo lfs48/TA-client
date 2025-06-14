@@ -8,6 +8,7 @@ import AuthRoute from "./auth.route";
 import ProtectedRoute from "./protected.route";
 import Landing from "@/pages/landing";
 import Lobby from "@/pages/lobby";
+import Game from "@/pages/game";
 
 export default function AppRoutes() {
     return(
@@ -26,6 +27,14 @@ export default function AppRoutes() {
                     element={
                         <ProtectedRoute>
                             <Lobby />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path='/game/:passphrase'
+                    element={
+                        <ProtectedRoute>
+                            <Game />
                         </ProtectedRoute>
                     }
                 />

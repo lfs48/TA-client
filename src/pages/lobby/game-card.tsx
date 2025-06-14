@@ -15,7 +15,7 @@ export default function GameCard({
     const isGM = id === game.gm.id;
 
     const handleOpenGame = () => {
-        navigate(`/game/${game.id}`);
+        navigate(`/game/${game.passphrase}`);
     };
 
     return (

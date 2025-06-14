@@ -9,9 +9,15 @@ const gameApi = rootApi.injectEndpoints({
                 method: 'GET',
             }),
         }),
-        getGame: builder.query<GameResponse, string>({
-            query: (gameId) => ({
-                url: `game/${gameId}`,
+        getGameById: builder.query<GameResponse, string>({
+            query: (id) => ({
+                url: `game/${id}`,
+                method: 'GET',
+            }),
+        }),
+        getGameByPassphrase: builder.query<GameResponse, string>({
+            query: (passphrase) => ({
+                url: `game?passphrase=${passphrase}`,
                 method: 'GET',
             }),
         }),
@@ -28,7 +34,8 @@ const gameApi = rootApi.injectEndpoints({
 
 export const { 
     useGetUserGamesQuery,
-    useGetGameQuery,
+    useGetGameByIdQuery,
+    useGetGameByPassphraseQuery,
     usePostGameMutation,
 } = gameApi;
 

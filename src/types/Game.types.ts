@@ -5,8 +5,10 @@ export interface Game {
     title: string;
     description: string;
     active: boolean;
+    passphrase: string;
     gm: User;
     players: User[];
+    createdAt: string;
 }
 
 export interface UserGamesResponse {

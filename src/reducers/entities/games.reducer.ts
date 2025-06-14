@@ -3,6 +3,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import gameApi from "@/api/game.api";
 import { Game, RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
+import { spaceship } from "@/util/spaceship";
 
 interface GameState {
     [id: string]: Game;
@@ -16,7 +17,8 @@ const gameSlice = createSlice({
     builder
         .addMatcher(
             isAnyOf(
-                gameApi.endpoints.getGame.matchFulfilled,
+                gameApi.endpoints.getGameById.matchFulfilled,
+                gameApi.endpoints.getGameByPassphrase.matchFulfilled,
                 gameApi.endpoints.postGame.matchFulfilled,
             ),
             (state, action) => {
@@ -39,6 +41,7 @@ const gameSlice = createSlice({
 export const selectGames = createAppSelector(
     (state: RootState) => state.entities.games,
     (games) => Object.values(games)
+        .sort( (a,b) => spaceship(b.createdAt, a.createdAt))
 );
 
 export const selectGameById = createAppSelector(
