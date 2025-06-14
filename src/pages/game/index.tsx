@@ -23,7 +23,7 @@ export default function Game() {
     }, [data, isSuccess])
 
     return(
-        <div className='w-screen h-screen bg-agency-red p-6 space-y-6'>
+        <div className='px-12 py-6 space-y-6 bg-agency-red'>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
