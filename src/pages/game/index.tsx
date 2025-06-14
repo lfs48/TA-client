@@ -6,6 +6,7 @@ import { useGetGameByPassphraseQuery } from '@/api/game.api';
 import { RootState } from '@/types';
 import { selectGameById } from '@/reducers/entities/games.reducer';
 import { useEffect, useState } from 'react';
+import GameSidebar from './game-sidebar';
 
 export default function Game() {
 
@@ -23,7 +24,8 @@ export default function Game() {
     }, [data, isSuccess])
 
     return(
-        <div className='px-12 py-6 space-y-6 bg-agency-red'>
+        <div className='relative bg-agency-red'>
+            <div className='px-12 py-6'>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
@@ -32,6 +34,10 @@ export default function Game() {
                     <div>{game?.description}</div>
                 </div>
             )}
+            </div>
+            {(isSuccess && game) &&
+                <GameSidebar game={game}/>
+            }
         </div>
     )
 }

@@ -46,6 +46,7 @@
   }
 
   .h-nav { height: var(--nav); }
+  .h-screen-minus-nav { height: calc(100vh - var(--nav)) }
 }
 
 body {
@@ -60,6 +61,16 @@ h1, h2, h3, h4, h5, h6 {
 
 div {
   box-sizing: border-box;
+}
+
+input, textarea {
+  @apply
+  focus:outline-none
+}
+
+textarea {
+  @apply
+  resize-none
 }
 
 .scrollbar-thin {
