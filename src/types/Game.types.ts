@@ -9,19 +9,28 @@ export interface Game {
     gm: User;
     players: User[];
     createdAt: string;
-}
+};
 
 export interface UserGamesResponse {
     games: Game[];
-}
+};
 
 export interface GameResponse {
     game: Game;
-}
+};
 
 export interface PostGameRequest {
     game: {
         title: string;
         description: string;
     }
-}
+};
+
+export interface PatchGameRequest {
+    game: {
+        id: string;
+        title?: string;
+        description?:string;
+        active?: boolean;
+    }
+};

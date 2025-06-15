@@ -1,7 +1,8 @@
 import { Game } from "@/types";
 import Button from "@/components/UI/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
+import { usePatchGameMutation } from "@/api/game.api";
 
 interface GameSidebarProps {
     game: Game;
@@ -19,6 +20,39 @@ export default function GameSidebar({
     const [editingDescription, setEditingDescription] = useState(false);
     const [descriptionInput, setDescriptionInput] = useState(description);
 
+    const [triggerPatchGame, { data, isLoading, isSuccess }] = usePatchGameMutation();
+
+    const handleSaveTitle = () => {
+        const patchedGame = {
+            ...game,
+            title: titleInput,
+        };
+        submitPatch(patchedGame);
+    }
+
+        const handleSaveDescription = () => {
+        const patchedGame = {
+            ...game,
+            description: descriptionInput,
+        };
+        submitPatch(patchedGame);
+    }
+
+    const submitPatch = (patchedGame:Game) => {
+        triggerPatchGame({
+            game: patchedGame,
+        });
+    }
+
+    useEffect(() => {
+        if (isSuccess) {
+            setTitleInput(data.game.title);
+            setDescriptionInput(data.game.description);
+            setEditingTitle(false);
+            setEditingDescription(false);
+        }
+    }, [isSuccess]);
+
     return(
         <div className="w-[25rem] h-screen-minus-nav absolute top-0 right-0 bg-white">
             <div className="flex flex-col p-4 space-y-6">
@@ -29,15 +63,17 @@ export default function GameSidebar({
                         className="px-1 py-0.5 bg-gray-200 disabled:bg-gray-300 rounded"
                         value={titleInput}
                         onChange={(e)=>setTitleInput(e.target.value)}
-                        disabled={!editingTitle}
+                        disabled={!editingTitle || isLoading}
                     />
                     <div className="w-full flex justify-end space-x-2">
                     {editingTitle ? (
                             <>
                             <Button
                                 className='w-20 px-2 py-0.5'
-                                color={ButtonColors.RED} 
+                                color={ButtonColors.RED}
                                 style={ButtonStyles.FILL}
+                                onClick={handleSaveTitle}
+                                disabled={isLoading}
                             >Save</Button>
                             <Button
                                 className='w-20 px-2 py-0.5'
@@ -52,6 +88,7 @@ export default function GameSidebar({
                             color={ButtonColors.RED} 
                             style={ButtonStyles.FILL}
                             onClick={()=>setEditingTitle(true)}
+                            disabled={isLoading}
                         >Edit</Button>
                     )}
                     </div>
@@ -62,7 +99,7 @@ export default function GameSidebar({
                         className="h-40 px-1 py-0.5 bg-gray-200 disabled:bg-gray-300 overflow-y-auto"
                         value={descriptionInput}
                         onChange={(e)=>setDescriptionInput(e.target.value)}
-                        disabled={!editingDescription}
+                        disabled={!editingDescription || isLoading}
                     />
                     <div className="flex justify-end space-x-2">
                     {editingDescription ? (
@@ -71,6 +108,8 @@ export default function GameSidebar({
                                 className='w-20 px-2 py-0.5'
                                 color={ButtonColors.RED} 
                                 style={ButtonStyles.FILL}
+                                onClick={handleSaveDescription}
+                                disabled={isLoading}
                             >Save</Button>
                             <Button
                                 className='w-20 px-2 py-0.5'

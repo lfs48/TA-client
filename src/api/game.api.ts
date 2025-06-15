@@ -1,5 +1,5 @@
 import { rootApi } from './root.api';
-import { GameResponse, PostGameRequest, UserGamesResponse } from 'types/Game.types';
+import { GameResponse, PatchGameRequest, PostGameRequest, UserGamesResponse } from 'types/Game.types';
 
 const gameApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -28,6 +28,13 @@ const gameApi = rootApi.injectEndpoints({
                 body: data,
             }),
         }),
+        patchGame: builder.mutation<GameResponse, PatchGameRequest>({
+            query: (data) => ({
+                url: `game/${data.game.id}`,
+                method: 'PATCH',
+                body: data,
+            }),
+        }),
     }),
     overrideExisting: false
 });
@@ -37,6 +44,7 @@ export const {
     useGetGameByIdQuery,
     useGetGameByPassphraseQuery,
     usePostGameMutation,
+    usePatchGameMutation,
 } = gameApi;
 
 export default gameApi;
