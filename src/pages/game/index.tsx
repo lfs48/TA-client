@@ -36,7 +36,7 @@ export default function Game() {
             )}
             </div>
             {(isSuccess && game) &&
-                <GameSidebar game={game}/>
+                <GameSidebar />
             }
         </div>
     )

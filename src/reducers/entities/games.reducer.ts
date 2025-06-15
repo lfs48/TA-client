@@ -53,4 +53,12 @@ export const selectGameById = createAppSelector(
     (games, id) => (id ? games[id] : undefined)
 );
 
+export const selectGameByPassphrase = createAppSelector(
+    [
+        (state) => state.entities.games,
+        (_, passphrase?: string) => passphrase
+    ],
+    (games, passphrase) => (passphrase ? Object.values(games).find(game => game.passphrase === passphrase) : undefined)
+);
+
 export default gameSlice.reducer;
