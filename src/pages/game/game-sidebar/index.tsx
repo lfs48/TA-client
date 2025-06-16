@@ -26,7 +26,7 @@ export default function GameSidebar({
             case(GameSidebarTabs.PLAYERS):
                 return <PlayersTab game={game}/>
         }
-    }, [tab]);
+    }, [tab, game]);
 
     const activeTab = useMemo(
         ()=>getActiveTab(), 

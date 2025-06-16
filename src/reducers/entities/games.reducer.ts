@@ -21,6 +21,7 @@ const gameSlice = createSlice({
                 gameApi.endpoints.getGameByPassphrase.matchFulfilled,
                 gameApi.endpoints.postGame.matchFulfilled,
                 gameApi.endpoints.patchGame.matchFulfilled,
+                gameApi.endpoints.removePlayer.matchFulfilled,
             ),
             (state, action) => {
                 const {game} = action.payload;
