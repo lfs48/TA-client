@@ -7,11 +7,13 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { selectGameByPassphrase } from "@/reducers/entities/games.reducer";
 
-export default function SettingsTab() {
+interface SettingsTabProps {
+    game: Game;
+}
 
-    const { passphrase } = useParams();
-
-    const game = useSelector((state:RootState) => selectGameByPassphrase(state, passphrase)) as Game;
+export default function SettingsTab({
+    game,
+}: SettingsTabProps) {
 
     const { title, description } = game;
 

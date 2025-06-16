@@ -2,22 +2,29 @@ import { useCallback, useMemo, useState } from "react";
 import SettingsTab from "./settings-tab";
 import { GameSidebarTabs } from "@/enum/game-sidebar-tabs.enum";
 import PlayersTab from "./players-tab";
+import { Game } from "@/types";
 
 const TAB_LABELS = {
     [GameSidebarTabs.SETTINGS]: "Settings",
     [GameSidebarTabs.PLAYERS]: "Players",
 };
 
-export default function GameSidebar() {
+interface GameSidebarProps {
+    game: Game;
+}
+
+export default function GameSidebar({
+    game,
+}: GameSidebarProps) {
 
     const [tab, setTab] = useState(GameSidebarTabs.SETTINGS);
     
     const getActiveTab = useCallback(() => {
         switch(tab) {
             case(GameSidebarTabs.SETTINGS):
-                return <SettingsTab />;
+                return <SettingsTab game={game}/>;
             case(GameSidebarTabs.PLAYERS):
-                return <PlayersTab />
+                return <PlayersTab game={game}/>
         }
     }, [tab]);
 
