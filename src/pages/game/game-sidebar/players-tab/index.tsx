@@ -1,9 +1,10 @@
 import { Game, User } from "@/types"
 import Button from "@/components/UI/button";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { useRemovePlayerMutation } from "@/api/game.api";
 import confirmKick from "./confirm-kick";
+import { RiSearchLine, RiUserFill } from "@remixicon/react";
 
 interface PlayersTabProps {
     game: Game;
@@ -14,6 +15,8 @@ export default function PlayersTab({
 }: PlayersTabProps) {
 
     const { id, players } = game;
+
+    const [inviteInput, setInviteInput] = useState('');
 
     const [triggerRemovePlayer, {}] = useRemovePlayerMutation();
 
@@ -53,6 +56,21 @@ export default function PlayersTab({
             <h2>Manage Players</h2>
             <div className="flex flex-col space-y-2">
                 {playerList}
+            </div>
+            <div className="flex flex-col space-y-2">
+                <div className="flex space-x-2 px-2 py-1 bg-gray-200 rounded">
+                    <RiUserFill className="opacity-50"/>
+                    <input
+                        value={inviteInput}
+                        onChange={(e)=>setInviteInput(e.target.value)}
+                        placeholder='Username'
+                    />
+                </div>
+                <Button
+                    color={ButtonColors.PURPLE}
+                    style={ButtonStyles.FILL}
+                    className="py-1"
+                >Invite Player</Button>
             </div>
         </div>
     )
