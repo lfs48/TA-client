@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { useRemovePlayerMutation } from "@/api/game.api";
 import confirmKick from "./confirm-kick";
-import { RiSearchLine, RiUserFill } from "@remixicon/react";
+import { RiUserFill } from "@remixicon/react";
+import { usePostInviteMutation } from "@/api/invite.api";
 
 interface PlayersTabProps {
     game: Game;
@@ -19,6 +20,7 @@ export default function PlayersTab({
     const [inviteInput, setInviteInput] = useState('');
 
     const [triggerRemovePlayer, {}] = useRemovePlayerMutation();
+    const [triggerInvitePlayer, { isLoading }] = usePostInviteMutation();
 
     const handleRemoveConfirmation = async (player:User) => {
         const confirm = await confirmKick({
@@ -36,6 +38,18 @@ export default function PlayersTab({
         };
         triggerRemovePlayer(data);
     }
+
+    const handleInvitePlayer = () => {
+        const data = {
+            inviteeUsername: inviteInput,
+            gameId: id,
+        };
+        triggerInvitePlayer({
+            invite: data,
+        });
+    };
+
+    const disableInvite = isLoading || inviteInput.length < 4;
 
     const playerList = useMemo(()=>(
         players.map((player) => (
@@ -70,6 +84,8 @@ export default function PlayersTab({
                     color={ButtonColors.PURPLE}
                     style={ButtonStyles.FILL}
                     className="py-1"
+                    onClick={handleInvitePlayer}
+                    disabled={disableInvite}
                 >Invite Player</Button>
             </div>
         </div>
