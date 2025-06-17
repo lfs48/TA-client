@@ -34,3 +34,8 @@ export interface PatchGameRequest {
         active?: boolean;
     }
 };
+
+export interface RemovePlayerRequest {
+    gameId: string;
+    playerId: string;
+}
