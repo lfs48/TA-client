@@ -2,11 +2,18 @@ import { useCallback, useMemo, useState } from "react";
 import SettingsTab from "./settings-tab";
 import { GameSidebarTabs } from "@/enum/game-sidebar-tabs.enum";
 import PlayersTab from "./players-tab";
-import { Game } from "@/types";
+import { Game, RootState } from "@/types";
+import { useSelector } from "react-redux";
 
-const TAB_LABELS = {
-    [GameSidebarTabs.SETTINGS]: "Settings",
-    [GameSidebarTabs.PLAYERS]: "Players",
+const tabs = {
+    [GameSidebarTabs.SETTINGS]: {
+        label: "Settings",
+        gmTab: true,
+    },
+    [GameSidebarTabs.PLAYERS]: {
+        label: "Players",
+        gmTab: true,
+    }
 };
 
 interface GameSidebarProps {
@@ -16,6 +23,9 @@ interface GameSidebarProps {
 export default function GameSidebar({
     game,
 }: GameSidebarProps) {
+
+    const userId = useSelector((state:RootState) => state.session.id) ?? '';
+    const isGM = userId === game.gm.id;
 
     const [tab, setTab] = useState(GameSidebarTabs.SETTINGS);
     
@@ -30,20 +40,22 @@ export default function GameSidebar({
 
     const activeTab = useMemo(
         ()=>getActiveTab(), 
-        [tab, getActiveTab]
+        [tab]
     );
 
     const tabButtons = useMemo( () => {
-        return Object.keys(TAB_LABELS).map(key => (
+        return Object.entries(tabs)
+        .filter(([_, {gmTab}]) => isGM || !gmTab)
+        .map(([key, {label}]) => (
             <button
                 key={key} 
                 className={`w-20 transform -rotate-90 origin-bottom-right cursor-pointer
                     rounded-t-lg border-b-2 ${tab === key ? 'border-b-white bg-white' : 'border-b-agency-red-500 bg-gray-200'}
                     `}
                 onClick={()=>setTab(key as GameSidebarTabs)}
-            >{TAB_LABELS[key]}</button>
+            >{label}</button>
         ))
-    }, [tab]);
+    }, [userId, tab]);
 
     return(
         <div className="h-screen-minus-nav absolute top-0 right-0 flex">
