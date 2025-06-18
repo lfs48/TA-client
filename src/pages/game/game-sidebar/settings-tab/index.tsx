@@ -1,11 +1,8 @@
-import { Game, RootState } from "@/types";
+import { Game } from "@/types";
 import Button from "@/components/UI/button";
 import { useEffect, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { usePatchGameMutation } from "@/api/game.api";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
-import { selectGameByPassphrase } from "@/reducers/entities/games.reducer";
 
 interface SettingsTabProps {
     game: Game;
