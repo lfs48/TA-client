@@ -16,7 +16,7 @@ export default function Button({
     return(
         <button 
             className={`
-                font-bold rounded cursor-pointer
+                font-bold rounded cursor-pointer disabled:cursor-default
                 ${buttonClasses(color, style)} 
                 ${className}`}
             {...props}
