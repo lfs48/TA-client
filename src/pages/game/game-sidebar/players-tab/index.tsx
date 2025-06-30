@@ -1,13 +1,15 @@
-import { Game, RootState, User } from "@/types"
-import Button from "@/components/UI/button";
 import { useMemo, useState } from "react";
-import { ButtonColors, ButtonStyles } from "@/enum";
-import { useRemovePlayerMutation } from "@/api/game.api";
-import confirmKick from "./confirm-kick";
-import { RiUserFill } from "@remixicon/react";
-import { usePostInviteMutation } from "@/api/invite.api";
 import { useSelector } from "react-redux";
+import { RiUserFill } from "@remixicon/react";
+import toast from 'react-hot-toast';
+
+import confirmKick from "./confirm-kick";
+import { useRemovePlayerMutation } from "@/api/game.api";
+import { usePostInviteMutation } from "@/api/invite.api";
+import Button from "@/components/UI/button";
+import { ButtonColors, ButtonStyles } from "@/enum";
 import { selectUsersById } from "@/reducers/entities/users.reducer";
+import { Game, RootState, User } from "@/types";
 
 interface PlayersTabProps {
     game: Game;
@@ -19,41 +21,53 @@ export default function PlayersTab({
 
     const { id, playerIds } = game;
 
-    const players = useSelector((state:RootState) => selectUsersById(state, playerIds))
-
+    const players = useSelector((state:RootState) => selectUsersById(state, playerIds));
+    
     const [inviteInput, setInviteInput] = useState('');
 
-    const [triggerRemovePlayer, {}] = useRemovePlayerMutation();
-    const [triggerInvitePlayer, { isLoading }] = usePostInviteMutation();
+    const [triggerRemovePlayer, removeProps] = useRemovePlayerMutation();
+    const [triggerInvitePlayer, inviteProps] = usePostInviteMutation();
 
     const handleRemoveConfirmation = async (player:User) => {
         const confirm = await confirmKick({
             player
         })
         if (confirm) {
-            handleRemovePlayer(player.id);
+            handleRemovePlayer(player);
         }
     }
 
-    const handleRemovePlayer = (playerId:string) => {
+    const handleRemovePlayer = (player:User) => {
         const data = {
             gameId: id,
-            playerId,
+            playerId: player.id,
         };
-        triggerRemovePlayer(data);
+        toast.promise(
+            triggerRemovePlayer(data).unwrap(),
+            {
+                loading: `Removing ${player.username}...`,
+                success: `${player.username} has been removed!`,
+                error: 'Oops, something went wrong. Please try again.',
+            }
+        );
     }
 
-    const handleInvitePlayer = () => {
+    const handleInvitePlayer = async () => {
         const data = {
             inviteeUsername: inviteInput,
             gameId: id,
         };
-        triggerInvitePlayer({
-            invite: data,
-        });
+        toast.promise(
+            triggerInvitePlayer({invite: data}).unwrap(),
+            {
+                loading: 'Sending invitation...',
+                success: 'Invitation sent!',
+                error: 'Oops, something went wrong. Please try again.',
+            }
+        );
     };
 
-    const disableInvite = isLoading || inviteInput.length < 4;
+    const disableInvite = inviteProps.isLoading || inviteInput.length < 4;
 
     const playerList = useMemo(()=>(
         players.map((player) => (
@@ -64,10 +78,11 @@ export default function PlayersTab({
                     color={ButtonColors.RED}
                     className="px-1 py-0.5"
                     onClick={()=>handleRemoveConfirmation(player)}
+                    disabled={removeProps.isLoading}
                 >Remove</Button>
             </div>
         ))
-    ), [game, players]);
+    ), [playerIds]);
 
     return(
         <div className="flex flex-col p-4 space-y-6">
