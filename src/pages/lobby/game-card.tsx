@@ -12,7 +12,7 @@ export default function GameCard({
     const navigate = useNavigate();
 
     const id = useSelector((state:RootState) => state.session.id);
-    const isGM = id === game.gm.id;
+    const isGM = id === game.gmId;
 
     const handleOpenGame = () => {
         navigate(`/game/${game.passphrase}`);

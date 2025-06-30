@@ -1,4 +1,4 @@
-import { User } from "./User.types";
+import { User } from "types/User.types";
 
 export interface Game {
     id: string;
@@ -6,17 +6,22 @@ export interface Game {
     description: string;
     active: boolean;
     passphrase: string;
-    gm: User;
-    players: User[];
+    gmId: string;
+    playerIds: string[];
     createdAt: string;
 };
 
+export type APIGame = Game & {
+    gm: User;
+    players: User[];
+}
+
 export interface UserGamesResponse {
-    games: Game[];
+    games: APIGame[];
 };
 
 export interface GameResponse {
-    game: Game;
+    game: APIGame;
 };
 
 export interface PostGameRequest {

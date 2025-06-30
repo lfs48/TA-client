@@ -1,4 +1,4 @@
-import { Game, User } from "@/types"
+import { Game, RootState, User } from "@/types"
 import Button from "@/components/UI/button";
 import { useMemo, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
@@ -6,6 +6,8 @@ import { useRemovePlayerMutation } from "@/api/game.api";
 import confirmKick from "./confirm-kick";
 import { RiUserFill } from "@remixicon/react";
 import { usePostInviteMutation } from "@/api/invite.api";
+import { useSelector } from "react-redux";
+import { selectUsersById } from "@/reducers/entities/users.reducer";
 
 interface PlayersTabProps {
     game: Game;
@@ -15,7 +17,9 @@ export default function PlayersTab({
     game,
 }: PlayersTabProps) {
 
-    const { id, players } = game;
+    const { id, playerIds } = game;
+
+    const players = useSelector((state:RootState) => selectUsersById(state, playerIds))
 
     const [inviteInput, setInviteInput] = useState('');
 
@@ -63,13 +67,17 @@ export default function PlayersTab({
                 >Remove</Button>
             </div>
         ))
-    ), [game]);
+    ), [game, players]);
 
     return(
         <div className="flex flex-col p-4 space-y-6">
             <h2>Manage Players</h2>
             <div className="flex flex-col space-y-2">
-                {playerList}
+                {players.length > 0 ? (
+                    playerList
+                ) : (
+                    <div>This game doesn't have any players yet</div>
+                )}
             </div>
             <div className="flex flex-col space-y-2">
                 <div className="flex space-x-2 px-2 py-1 bg-gray-200 rounded">

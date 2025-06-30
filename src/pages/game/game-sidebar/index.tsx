@@ -25,7 +25,7 @@ export default function GameSidebar({
 }: GameSidebarProps) {
 
     const userId = useSelector((state:RootState) => state.session.id) ?? '';
-    const isGM = userId === game.gm.id;
+    const isGM = userId === game.gmId;
 
     const [tab, setTab] = useState(GameSidebarTabs.SETTINGS);
     

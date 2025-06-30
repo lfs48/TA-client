@@ -1,7 +1,7 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
 import gameApi from "@/api/game.api";
-import { Game, RootState } from "@/types";
+import { APIGame, Game, RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import { spaceship } from "@/util/spaceship";
 
@@ -25,7 +25,7 @@ const gameSlice = createSlice({
             ),
             (state, action) => {
                 const {game} = action.payload;
-                state[game.id] = game;
+                state[game.id] = stripGameRelations(game);
             }
         )
         .addMatcher(
@@ -33,7 +33,7 @@ const gameSlice = createSlice({
             (state, action) => {
                 const {games} = action.payload;
                 games.forEach(game => {
-                    state[game.id] = game;
+                    state[game.id] = stripGameRelations(game);
                 });
             }
         );
@@ -63,3 +63,11 @@ export const selectGameByPassphrase = createAppSelector(
 );
 
 export default gameSlice.reducer;
+
+function stripGameRelations(game: APIGame) {
+    return {
+        ...game,
+        gm: undefined,
+        players: undefined,
+    };
+}
