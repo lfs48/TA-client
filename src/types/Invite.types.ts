@@ -1,8 +1,11 @@
+import { InviteStatus } from "@/enum";
+
 export interface Invite {
     id: string;
     inviteeId: string;
     inviterId: string;
     gameId: string;
+    status: InviteStatus;
 };
 
 export interface PostInviteRequest {

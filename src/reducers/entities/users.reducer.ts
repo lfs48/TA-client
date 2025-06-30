@@ -33,8 +33,11 @@ const usersSlice = createSlice({
         (state, action) => {
             const {game} = action.payload;
             game.players.forEach(
-                (player) => { state[player.id] = player; }
+              (player) => { state[player.id] = player; }
             );
+            game.invitees.forEach(
+              (invitee) => { state[invitee.id] = invitee; }
+            )
         }
     );
   },
