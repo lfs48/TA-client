@@ -48,6 +48,7 @@ const gameApi = rootApi.injectEndpoints({
 
 export const { 
     useGetUserGamesQuery,
+    useLazyGetUserGamesQuery,
     useGetGameByIdQuery,
     useGetGameByPassphraseQuery,
     usePostGameMutation,

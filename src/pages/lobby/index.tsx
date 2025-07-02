@@ -10,6 +10,9 @@ import { selectGames } from '@/reducers/entities/games.reducer';
 import LobbyContext from './lobby-context';
 import { useState } from 'react';
 import NewGameForm from './new-game-form';
+import InviteCard from './invite-card';
+import { selectPendingUserInvites } from '@/reducers/entities/invites.reducer';
+import { useGetUserInvitesQuery } from '@/api/invite.api';
 
 export default function Lobby() {
 
@@ -17,11 +20,17 @@ export default function Lobby() {
 
     const userId = useSelector((state:RootState) => state.session.id);
     const games = useSelector((state: RootState) => selectGames(state));
+    const invites = useSelector((state: RootState) => selectPendingUserInvites(state, userId));
 
-    const { isLoading } = useGetUserGamesQuery(userId ?? skipToken);
+    const getGamesProps = useGetUserGamesQuery(userId ?? skipToken);
+    const getInvitesProps = useGetUserInvitesQuery(userId ?? skipToken);
 
-    const gameList = games.map((game, i) => (
-        <GameCard key={i} game={game}/>
+    const gameList = games.map((game) => (
+        <GameCard key={game.id} game={game}/>
+    ));
+
+    const inviteList = Object.values(invites).map((invite) => (
+        <InviteCard key={invite.id} invite={invite}/>
     ));
 
     return(
@@ -29,9 +38,10 @@ export default function Lobby() {
             <LobbyContext value={{creating, setCreating}}>
                <LobbyControls />
                {creating && <NewGameForm />}
+               {getInvitesProps.isSuccess && inviteList}
             </LobbyContext>
             <div className='grid grid-cols-3 gap-4'>
-                {isLoading ? (
+                {getGamesProps.isLoading ? (
                     [...Array(6).keys()].map((_, i) => <GameSkeleton key={i}/>)
                 ): (
                     gameList

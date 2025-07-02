@@ -32,6 +32,8 @@ function buttonClasses(color:ButtonColors, style:ButtonStyles) {
                     return 'border-2 border-agency-red bg-agency-red text-white';
                 case(ButtonColors.PURPLE):
                     return 'border-2 border-deep-purple bg-deep-purple text-white';
+                case(ButtonColors.GREEN):
+                    return 'border-2 border-green-600 bg-green-600 text-white';
             }
         case(ButtonStyles.OUTLINE):
             switch(color) {
@@ -39,6 +41,8 @@ function buttonClasses(color:ButtonColors, style:ButtonStyles) {
                     return 'border-2 border-agency-red text-agency-red';
                 case(ButtonColors.PURPLE):
                     return 'border-2 border-deep-purple text-deep-purple';
+                case(ButtonColors.GREEN):
+                    return 'border-2 border-green-600 text-green-600';
             }
     }
 }

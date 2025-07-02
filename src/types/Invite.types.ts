@@ -14,8 +14,12 @@ export interface PostInviteRequest {
         gameId: string;
     }
 
-}
+};
 
 export interface InviteResponse {
   invite: Invite;
-}
+};
+
+export interface UserInvitesResponse {
+    invites: Invite[];
+};
