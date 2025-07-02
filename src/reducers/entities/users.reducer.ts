@@ -5,6 +5,7 @@ import { RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import gameApi from "@/api/game.api";
 import { logout } from "@/reducers/session.reducer";
+import inviteApi from "@/api/invite.api";
 
 interface UsersState {
   [id: string]: User;
@@ -35,15 +36,29 @@ const usersSlice = createSlice({
             gameApi.endpoints.removePlayer.matchFulfilled,
         ),
         (state, action) => {
-            const {game} = action.payload;
-            game.players.forEach(
-              (player) => { state[player.id] = player; }
-            );
-            game.invitees.forEach(
-              (invitee) => { state[invitee.id] = invitee; }
-            )
+          const {game} = action.payload;
+          game.players.forEach(
+            (player) => { state[player.id] = player; }
+          );
+          game.invitees.forEach(
+            (invitee) => { state[invitee.id] = invitee; }
+          )
         }
-    );
+    )
+    .addMatcher(
+      inviteApi.endpoints.getUserInvites.matchFulfilled,
+      (state, action) => {
+        const { invites } = action.payload;
+        invites.forEach((invite) => {
+          if (invite.inviter) {
+            state[invite.inviter.id] = invite.inviter;
+          }
+          if (invite.invitee) {
+            state[invite.invitee.id] = invite.invitee;
+          }
+        });
+      }
+    )
   }
 });
 

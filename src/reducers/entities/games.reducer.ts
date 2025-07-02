@@ -5,6 +5,7 @@ import { APIGame, Game, RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import { spaceship } from "@/util/spaceship";
 import { logout } from "@/reducers/session.reducer";
+import inviteApi from "@/api/invite.api";
 
 interface GameState {
     [id: string]: Game;
@@ -40,7 +41,18 @@ const gameSlice = createSlice({
                     state[game.id] = stripGameRelations(game);
                 });
             }
-        );
+        )
+        .addMatcher(
+            inviteApi.endpoints.getUserInvites.matchFulfilled,
+            (state, action) => {
+                const { invites } = action.payload;
+                invites.forEach(invite => {
+                    if (invite.game) {
+                        state[invite.game.id] = invite.game;
+                    }
+                });
+            }
+        )
   }
 });
 

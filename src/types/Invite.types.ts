@@ -1,4 +1,6 @@
 import { InviteStatus } from "@/enum";
+import { Game } from "types/Game.types";
+import { User } from "types/User.types";
 
 export interface Invite {
     id: string;
@@ -17,9 +19,15 @@ export interface PostInviteRequest {
 };
 
 export interface InviteResponse {
-  invite: Invite;
+  invite: APIInvite;
 };
 
 export interface UserInvitesResponse {
-    invites: Invite[];
+    invites: APIInvite[];
 };
+
+export interface APIInvite extends Invite {
+    invitee: User;
+    inviter: User;
+    game: Game;
+}
