@@ -4,6 +4,7 @@ import { User } from "@/types/User.types";
 import { RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import gameApi from "@/api/game.api";
+import { logout } from "@/reducers/session.reducer";
 
 interface UsersState {
   [id: string]: User;
@@ -15,6 +16,9 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+    .addCase(
+      logout.type, () => {}
+    )
     .addMatcher(
       userApi.endpoints.getUser.matchFulfilled,
       (state, action) => {
@@ -40,7 +44,7 @@ const usersSlice = createSlice({
             )
         }
     );
-  },
+  }
 });
 
 export const selectUserById = createAppSelector(

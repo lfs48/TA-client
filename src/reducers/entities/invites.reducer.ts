@@ -4,6 +4,7 @@ import { Invite, RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import { InviteStatus } from "@/enum";
 import inviteApi from "@/api/invite.api";
+import { logout } from "@/reducers/session.reducer";
 
 interface InvitesState {
   [id: string]: Invite;
@@ -15,56 +16,58 @@ const invitesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addMatcher(
+    .addCase(
+        logout.type, () => {}
+    )
+    .addMatcher(
         isAnyOf(
-          gameApi.endpoints.getGameById.matchFulfilled,
-          gameApi.endpoints.getGameByPassphrase.matchFulfilled,
-          gameApi.endpoints.postGame.matchFulfilled,
-          gameApi.endpoints.patchGame.matchFulfilled,
-          gameApi.endpoints.removePlayer.matchFulfilled,
+            gameApi.endpoints.getGameById.matchFulfilled,
+            gameApi.endpoints.getGameByPassphrase.matchFulfilled,
+            gameApi.endpoints.postGame.matchFulfilled,
+            gameApi.endpoints.patchGame.matchFulfilled,
+            gameApi.endpoints.removePlayer.matchFulfilled,
         ),
         (state, action) => {
-          const { game } = action.payload;
-          if (game && Array.isArray(game.invites)) {
-            game.invites.forEach((invite: Invite) => {
-              state[invite.id] = invite;
-            });
-          }
+            const { game } = action.payload;
+            if (game && Array.isArray(game.invites)) {
+                game.invites.forEach((invite: Invite) => {
+                state[invite.id] = invite;
+                });
+            }
         }
-      )
+    )
     .addMatcher(
         inviteApi.endpoints.getUserInvites.matchFulfilled,
         (state, action) => {
-          const { invites } = action.payload;
-          invites.forEach((inv) => {
+        const { invites } = action.payload;
+        invites.forEach((inv) => {
             state[inv.id] = stripInviteRelations(inv);
-          });
+        });
         }
-      )
+    )
     .addMatcher(
         isAnyOf(
             inviteApi.endpoints.acceptInvite.matchFulfilled,
             inviteApi.endpoints.rejectInvite.matchFulfilled,
         ),
         (state, action) => {
-          const { invite } = action.payload;
-          state[invite.id] = stripInviteRelations(invite);
+        const { invite } = action.payload;
+        state[invite.id] = stripInviteRelations(invite);
         }
-      )
-      .addMatcher(
+    )
+    .addMatcher(
         gameApi.endpoints.getUserGames.matchFulfilled,
         (state, action) => {
-          const { games } = action.payload;
-          games.forEach((game) => {
+            const { games } = action.payload;
+            games.forEach((game) => {
             if (game.invites && Array.isArray(game.invites)) {
-              game.invites.forEach((invite: Invite) => {
-                state[invite.id] = invite;
-              });
-            }
-          });
+                game.invites.forEach((invite: Invite) => {
+                    state[invite.id] = invite;
+                });
+            }});
         }
-      );
-  },
+    );
+    },
 });
 
 export const selectInviteById = createAppSelector(

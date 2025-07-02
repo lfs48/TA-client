@@ -4,6 +4,7 @@ import gameApi from "@/api/game.api";
 import { APIGame, Game, RootState } from "@/types";
 import { createAppSelector } from "@/util/appSelector";
 import { spaceship } from "@/util/spaceship";
+import { logout } from "@/reducers/session.reducer";
 
 interface GameState {
     [id: string]: Game;
@@ -15,6 +16,9 @@ const gameSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+        builder.addCase(
+            logout.type, () => { return {} }
+        )
         .addMatcher(
             isAnyOf(
                 gameApi.endpoints.getGameById.matchFulfilled,
