@@ -8,7 +8,7 @@ import GameCard from './game-card';
 import LobbyControls from './lobby-controls';
 import { selectGames } from '@/reducers/entities/games.reducer';
 import LobbyContext from './lobby-context';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NewGameForm from './new-game-form';
 import InviteCard from './invite-card';
 import { selectPendingUserInvites } from '@/reducers/entities/invites.reducer';
@@ -24,6 +24,11 @@ export default function Lobby() {
 
     const getGamesProps = useGetUserGamesQuery(userId ?? skipToken);
     const getInvitesProps = useGetUserInvitesQuery(userId ?? skipToken);
+
+    useEffect(() => {
+        getGamesProps.refetch();
+        getInvitesProps.refetch();
+    }, [userId]);
 
     const gameList = games.map((game) => (
         <GameCard key={game.id} game={game}/>
