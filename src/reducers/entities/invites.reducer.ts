@@ -13,7 +13,12 @@ interface InvitesState {
 const invitesSlice = createSlice({
   name: "invites",
   initialState: {} as InvitesState,
-  reducers: {},
+  reducers: {
+    receiveInvite: (state, action) => {
+      const { invite } = action.payload;
+      state[invite.id] = stripInviteRelations(invite);
+    },
+  },
   extraReducers: (builder) => {
     builder
     .addCase(
@@ -66,7 +71,7 @@ const invitesSlice = createSlice({
                 });
             }});
         }
-    );
+    )
     },
 });
 
@@ -97,6 +102,10 @@ export const selectPendingUserInvites = createAppSelector(
       (invite) => invite.inviteeId === userId && invite.status === InviteStatus.PENDING
     ) : []
 );
+
+export const {
+    receiveInvite,
+} = invitesSlice.actions;
 
 export default invitesSlice.reducer;
 

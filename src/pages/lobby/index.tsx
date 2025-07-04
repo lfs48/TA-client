@@ -13,6 +13,7 @@ import NewGameForm from './new-game-form';
 import InviteCard from './invite-card';
 import { selectPendingUserInvites } from '@/reducers/entities/invites.reducer';
 import { useGetUserInvitesQuery } from '@/api/invite.api';
+import InviteEventListener from 'components/event-listeners/invite-event-listener';
 
 export default function Lobby() {
 
@@ -40,6 +41,7 @@ export default function Lobby() {
 
     return(
         <div className='px-12 py-6 bg-agency-red space-y-6'>
+            <InviteEventListener />
             <LobbyContext value={{creating, setCreating}}>
                <LobbyControls />
                {creating && <NewGameForm />}

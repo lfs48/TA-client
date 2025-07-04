@@ -6,6 +6,7 @@ import { createAppSelector } from "@/util/appSelector";
 import { spaceship } from "@/util/spaceship";
 import { logout } from "@/reducers/session.reducer";
 import inviteApi from "@/api/invite.api";
+import { receiveInvite } from "./invites.reducer";
 
 interface GameState {
     [id: string]: Game;
@@ -51,6 +52,19 @@ const gameSlice = createSlice({
                         state[invite.game.id] = invite.game;
                     }
                 });
+            }
+        )
+        .addMatcher(
+            isAnyOf(
+                inviteApi.endpoints.acceptInvite.matchFulfilled,
+                inviteApi.endpoints.rejectInvite.matchFulfilled,
+                receiveInvite,
+            ),
+            (state, action) => {
+                const { invite } = action.payload;
+                if (invite.game) {
+                    state[invite.game.id] = invite.game;
+                }
             }
         )
   }

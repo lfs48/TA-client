@@ -6,6 +6,7 @@ import { createAppSelector } from "@/util/appSelector";
 import gameApi from "@/api/game.api";
 import { logout } from "@/reducers/session.reducer";
 import inviteApi from "@/api/invite.api";
+import { receiveInvite } from "./invites.reducer";
 
 interface UsersState {
   [id: string]: User;
@@ -57,6 +58,22 @@ const usersSlice = createSlice({
             state[invite.invitee.id] = invite.invitee;
           }
         });
+      }
+    )
+    .addMatcher(
+      isAnyOf(
+        inviteApi.endpoints.acceptInvite.matchFulfilled,
+        inviteApi.endpoints.rejectInvite.matchFulfilled,
+        receiveInvite,
+      ),
+      (state, action) => {
+        const { invite } = action.payload;
+        if (invite.inviter) {
+          state[invite.inviter.id] = invite.inviter;
+        }
+        if (invite.invitee) {
+          state[invite.invitee.id] = invite.invitee;
+        }
       }
     )
   }
