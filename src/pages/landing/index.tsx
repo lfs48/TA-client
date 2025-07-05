@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import LoginForm from "./login-form";
 import SignupForm from "./signup-form";
@@ -23,15 +23,27 @@ export default function Landing() {
     }
 
     return (
-        <div className="flex justify-center items-center w-screen h-screen bg-agency-red">        
-            <div className="origin-top-left fixed -top-8 left-2/3 rotate-45 w-[150vw] h-8 bg-white text-agency-red font-bold text-nowrap overflow-hidden flex items-center justify-center select-none">
+        <div className={`
+            flex justify-center items-center w-screen h-screen bg-agency-red`
+        }>        
+            <div className={`
+                    origin-top-left fixed top-8 lg:-top-8 -left-1/3 lg:left-2/3 
+                    rotate-12 lg:rotate-45 w-[150vw] h-8 bg-white 
+                    text-agency-red font-bold text-nowrap overflow-hidden 
+                    flex items-center justify-center select-none shadow-md`}>
                 {stableText}
             </div>
-            <div className="origin-bottom-right fixed -bottom-8 right-2/3 rotate-45 w-[150vw] h-8 bg-white text-agency-red font-bold text-nowrap overflow-hidden flex items-center justify-center select-none">
+            <div className={`
+                origin-bottom-right fixed bottom-8 lg:-bottom-8 lg:right-2/3 
+                rotate-12 lg:rotate-45  w-[150vw] h-8 bg-white 
+                text-agency-red font-bold text-nowrap overflow-hidden 
+                flex items-center justify-center select-none shadow-md`}>
                 {stableText}
             </div>
             <div className='space-y-2'>
-                <h1 className="text-4xl font-bold mb-4 text-white select-none">Welcome, {'<'}Agent / User{'>'}</h1>
+                <h1 className={`
+                    text-xl md:text-4xl font-bold text-center mb-4 text-white select-none
+                `}>Welcome, {'<'}Agent / User{'>'}</h1>
                 <LandingContext value={{errors, setErrors}}> 
                     {(formState === FormState.Login) ? (
                         <LoginForm />

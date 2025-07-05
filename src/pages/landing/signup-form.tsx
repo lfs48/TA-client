@@ -49,7 +49,7 @@ export default function SignupForm() {
     );
 
     return (
-        <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white'>
+        <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white shadow-md'>
             <div className='flex flex-col space-y-0.5'>
                 <label className='px-0.5 text-agency-red font-bold text-xs'>Username</label>
                 <input 
