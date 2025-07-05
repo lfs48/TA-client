@@ -5,6 +5,7 @@ import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import LandingContext from "./landing-context";
 import { isErrorResponse } from "@/util/error.util";
+import PasswordInput from "./password-input";
 
 export default function LoginForm() {
 
@@ -50,9 +51,7 @@ export default function LoginForm() {
             </div>
             <div className='flex flex-col space-y-0.5'>
                 <label className='px-0.5 text-agency-red font-bold text-xs'>Password</label>
-                <input
-                    type='password'
-                    className='border-b border-agency-red px-0.5 pb-0.5 focus:outline-none'
+                <PasswordInput
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />

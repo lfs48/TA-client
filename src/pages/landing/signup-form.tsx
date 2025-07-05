@@ -5,12 +5,15 @@ import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import LandingContext from "./landing-context";
 import { isErrorResponse } from "@/util/error.util";
+import PasswordInput from "./password-input";
 
 export default function SignupForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     const { setErrors } = useContext(LandingContext);
 
     const [triggerLogin, { error, isLoading }] = useRegisterMutation();
@@ -57,20 +60,20 @@ export default function SignupForm() {
             </div>
             <div className='flex flex-col space-y-0.5'>
                 <label className='px-0.5 text-agency-red font-bold text-xs'>Password</label>
-                <input
-                    type='password'
-                    className='border-b border-agency-red px-0.5 pb-0.5 focus:outline-none'
+                <PasswordInput
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    show={showPassword}
+                    onToggleShow={() => setShowPassword(!showPassword)}
                 />
             </div>
             <div className='flex flex-col space-y-0.5'>
                 <label className='px-0.5 text-agency-red font-bold text-xs'>Confirm Password</label>
-                <input
-                    type='password'
-                    className='border-b border-agency-red px-0.5 pb-0.5 focus:outline-none'
-                    value={confirmPassword}
+                <PasswordInput
+                    value={password}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    show={showPassword}
+                    onToggleShow={() => setShowPassword(!showPassword)}
                 />
             </div>
             <div className="flex flex-col space-y-2">
