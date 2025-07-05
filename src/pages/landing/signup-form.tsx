@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useRegisterMutation } from "@/api/auth.api";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
+import LandingContext from "./landing-context";
+import { isErrorResponse } from "@/util/error.util";
 
 export default function SignupForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const { setErrors } = useContext(LandingContext);
 
     const [triggerLogin, { error, isLoading }] = useRegisterMutation();
 
     const handleRegister = () => {
+        if (password !== confirmPassword) {
+            setErrors(["Passwords must match"]);
+            return;
+        }
         triggerLogin({
             credentials: {
                 username,
@@ -22,7 +29,14 @@ export default function SignupForm() {
     };
 
     useEffect(() => {
-        if (error) { console.log(error) }
+        if (error) {
+            console.log(error)
+            if ( isErrorResponse(error) ) {
+                setErrors(error.data.messages);
+            } else {
+                setErrors(["Something went wrong."]);
+            }
+        }
     }, [error]);
     
     const signupDisabled = (

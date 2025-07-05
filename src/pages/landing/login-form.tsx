@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useLoginMutation } from "@/api/auth.api";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
+import LandingContext from "./landing-context";
+import { isErrorResponse } from "@/util/error.util";
 
 export default function LoginForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errorState, setErrorState] = useState<string | null>(null);
+    const { setErrors } = useContext(LandingContext);
 
     const [triggerLogin, { error, isLoading }] = useLoginMutation();
 
@@ -23,7 +25,12 @@ export default function LoginForm() {
 
     useEffect(() => {
         if (error) {
-            console.log(error);
+            console.log(error)
+            if ( isErrorResponse(error) ) {
+                setErrors(error.data.messages);
+            } else {
+                setErrors(["Something went wrong."]);
+            }
         }
     }, [error]);
 

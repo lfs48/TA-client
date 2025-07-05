@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import LoginForm from "./login-form";
 import SignupForm from "./signup-form";
+import LandingContext from "./landing-context";
+import ErrorList from "@/components/UI/errors/error-list";
 
 const stableText = Array(33).fill('STABILIZE REALITY').join(' ');
 
@@ -13,7 +15,12 @@ enum FormState {
 export default function Landing() {
 
     const [formState, setFormState] = useState(FormState.Login);
+    const [errors, setErrors] = useState<string[]>([]);
 
+    const handleSwitchForm = () => {
+        setFormState(formState === FormState.Login ? FormState.Register : FormState.Login);
+        setErrors([]);
+    }
 
     return (
         <div className="flex justify-center items-center w-screen h-screen bg-agency-red">        
@@ -25,14 +32,17 @@ export default function Landing() {
             </div>
             <div className='space-y-2'>
                 <h1 className="text-4xl font-bold mb-4 text-white select-none">Welcome, {'<'}Agent / User{'>'}</h1>
-                {(formState === FormState.Login) ? (
-                    <LoginForm />
-                ) : (
-                    <SignupForm />
-                )}
+                <LandingContext value={{errors, setErrors}}> 
+                    {(formState === FormState.Login) ? (
+                        <LoginForm />
+                    ) : (
+                        <SignupForm />
+                    )}
+                </LandingContext>
+                <ErrorList errors={errors} />
                 <button 
                     className="w-full flex justify-center text-white underline cursor-pointer"
-                    onClick={() => setFormState(formState === FormState.Login ? FormState.Register : FormState.Login)}
+                    onClick={handleSwitchForm}
                 >{formState === FormState.Login ? 'Create an Account' : 'Have an Account? Log In'}</button>
             </div>
         </div>
