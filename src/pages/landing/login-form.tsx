@@ -1,10 +1,14 @@
-import { useLoginMutation } from "@/api/auth.api";
 import { useEffect, useState } from "react";
+
+import { useLoginMutation } from "@/api/auth.api";
+import Button from "@/components/UI/button";
+import { ButtonColors, ButtonStyles } from "@/enum";
 
 export default function LoginForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorState, setErrorState] = useState<string | null>(null);
 
     const [triggerLogin, { error, isLoading }] = useLoginMutation();
 
@@ -18,8 +22,14 @@ export default function LoginForm() {
     };
 
     useEffect(() => {
-        if (error) { console.log(error) }
-    }, [error])
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
+
+    const loginDisabled = (
+        (username.length === 0 || password.length === 0)
+    )
 
     return (
         <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white'>
@@ -41,13 +51,17 @@ export default function LoginForm() {
                 />
             </div>
             <div className="flex flex-col space-y-2">
-                <button 
-                    className='border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                <Button
+                    color={ButtonColors.RED}
+                    style={ButtonStyles.OUTLINE}
+                    className='w-full'
+                    buttonClasses='w-full py-2'
                     onClick={handleLogin}
-                    disabled={isLoading}
+                    disabled={loginDisabled}
+                    loading={isLoading}
                 >
                     Log In
-                </button>
+                </Button>
             </div>
         </div>
     );

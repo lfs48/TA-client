@@ -68,14 +68,14 @@ export default function SettingsTab({
                 {editingTitle ? (
                         <>
                         <Button
-                            className='w-20 px-2 py-0.5'
+                            buttonClasses='w-20 px-2 py-0.5'
                             color={ButtonColors.RED}
                             style={ButtonStyles.FILL}
                             onClick={handleSaveTitle}
                             disabled={isLoading}
                         >Save</Button>
                         <Button
-                            className='w-20 px-2 py-0.5'
+                            buttonClasses='w-20 px-2 py-0.5'
                             color={ButtonColors.RED} 
                             style={ButtonStyles.OUTLINE}
                             onClick={()=>setEditingTitle(false)}
@@ -83,7 +83,7 @@ export default function SettingsTab({
                         </>
                 ) : (
                     <Button
-                        className='w-20 px-2 py-0.5'
+                        buttonClasses='w-20 px-2 py-0.5'
                         color={ButtonColors.RED} 
                         style={ButtonStyles.FILL}
                         onClick={()=>setEditingTitle(true)}
@@ -104,14 +104,14 @@ export default function SettingsTab({
                 {editingDescription ? (
                     <>
                         <Button
-                            className='w-20 px-2 py-0.5'
+                            buttonClasses='w-20 px-2 py-0.5'
                             color={ButtonColors.RED} 
                             style={ButtonStyles.FILL}
                             onClick={handleSaveDescription}
                             disabled={isLoading}
                         >Save</Button>
                         <Button
-                            className='w-20 px-2 py-0.5'
+                            buttonClasses='w-20 px-2 py-0.5'
                             color={ButtonColors.RED} 
                             style={ButtonStyles.OUTLINE}
                             onClick={()=>setEditingDescription(false)}
@@ -119,7 +119,7 @@ export default function SettingsTab({
                     </>
                 ) : (
                     <Button
-                        className='w-20 px-2 py-0.5'
+                        buttonClasses='w-20 px-2 py-0.5'
                         color={ButtonColors.RED} 
                         style={ButtonStyles.FILL}
                         onClick={()=>setEditingDescription(true)}

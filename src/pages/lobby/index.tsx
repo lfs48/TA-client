@@ -13,7 +13,7 @@ import NewGameForm from './new-game-form';
 import InviteCard from './invite-card';
 import { selectPendingUserInvites } from '@/reducers/entities/invites.reducer';
 import { useGetUserInvitesQuery } from '@/api/invite.api';
-import InviteEventListener from 'components/event-listeners/invite-event-listener';
+import InviteEventListener from '@/components/event-listeners/invite-event-listener';
 
 export default function Lobby() {
 

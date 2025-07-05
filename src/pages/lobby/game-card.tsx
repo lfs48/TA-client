@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Game, RootState } from "types";
+
+import Button from "@/components/UI/button";
+import { Game, RootState } from "@/types";
+import { ButtonColors, ButtonStyles } from "@/enum";
 
 interface GameCardProps {
     game: Game;
@@ -27,10 +30,12 @@ export default function GameCard({
                     <h2 className='text-[1.5rem]'>{game.title}</h2>
                     <h4 className='text-[0.75rem] text-agency-red'>{isGM ? 'General Manager' : 'Agent'}</h4>
                 </div>
-                <button 
-                    className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                <Button
+                    color={ButtonColors.RED}
+                    style={ButtonStyles.OUTLINE}
+                    buttonClasses='px-4 py-2'
                     onClick={handleOpenGame}
-                >Open Game</button>
+                >Open Game</Button>
             </header>
             <div className='h-[20rem] overflow-y-auto scrollbar-thin'>
                 <p className='px-4 py-2'>{game.description}</p>

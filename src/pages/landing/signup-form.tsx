@@ -1,5 +1,8 @@
-import { useRegisterMutation } from "@/api/auth.api";
 import { useEffect, useState } from "react";
+
+import { useRegisterMutation } from "@/api/auth.api";
+import Button from "@/components/UI/button";
+import { ButtonColors, ButtonStyles } from "@/enum";
 
 export default function SignupForm() {
 
@@ -21,6 +24,12 @@ export default function SignupForm() {
     useEffect(() => {
         if (error) { console.log(error) }
     }, [error]);
+    
+    const signupDisabled = (
+        username.length === 0 || 
+        password.length === 0 || 
+        confirmPassword.length === 0
+    );
 
     return (
         <div className='flex flex-col space-y-8 rounded-lg p-4 bg-white'>
@@ -51,13 +60,17 @@ export default function SignupForm() {
                 />
             </div>
             <div className="flex flex-col space-y-2">
-                <button 
-                    className='border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                <Button
+                    color={ButtonColors.RED}
+                    style={ButtonStyles.OUTLINE}
+                    className='w-full'
+                    buttonClasses='w-full py-2'
                     onClick={handleRegister}
-                    disabled={isLoading}
+                    disabled={signupDisabled}
+                    loading={isLoading}
                 >
                     Sign Up
-                </button>
+                </Button>
             </div>
         </div>
     );

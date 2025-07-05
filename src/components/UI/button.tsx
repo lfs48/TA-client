@@ -1,9 +1,15 @@
 import { ButtonColors, ButtonStyles } from "@/enum";
+import BallTriangle from "@/components/UI/spinning-triangles";
 
 interface ButtonProps {
     color: ButtonColors;
     style: ButtonStyles;
     className?: string;
+    buttonClasses?: string;
+    disabled?:boolean;
+    loading?:boolean;
+    children: React.ReactNode;
+    onClick?: () => void;
     [prop:string]: any;
 }
 
@@ -11,20 +17,46 @@ export default function Button({
     color,
     style,
     className='',
+    buttonClasses='',
+    disabled=false,
+    loading=false,
+    children,
+    onClick,
     ...props
 } : ButtonProps) {
     return(
-        <button 
-            className={`
-                font-bold rounded cursor-pointer disabled:cursor-default
-                ${buttonClasses(color, style)} 
-                ${className}`}
-            {...props}
-        />
-    )
+        <div className={`relative inline-block ${className}`}>
+            <button
+                className={`
+                    font-bold rounded cursor-pointer
+                    disabled:cursor-default
+                    ${buttonColorClasses(color, style)}
+                    ${buttonClasses}
+                `}
+                onClick={onClick}
+                disabled={disabled || loading}
+                {...props}
+            >
+                <span className={loading ? "invisible" : ""}>
+                    {children}
+                </span>
+                {loading && (
+                    <span className="absolute inset-0 flex items-center justify-center text-inherit">
+                        <BallTriangle stroke='currentColor' height="1em" width="2em"/>
+                    </span>
+                )}
+            </button>
+            {(disabled || loading) && (
+                <span
+                    className="absolute inset-0 bg-gray-300 opacity-60 rounded pointer-events-none"
+                    aria-hidden="true"
+                />
+            )}
+        </div>
+    );
 }
 
-function buttonClasses(color:ButtonColors, style:ButtonStyles) {
+function buttonColorClasses(color:ButtonColors, style:ButtonStyles) {
     switch(style) {
         case(ButtonStyles.FILL):
             switch(color) {

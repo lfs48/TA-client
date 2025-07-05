@@ -76,9 +76,9 @@ export default function PlayersTab({
                 <Button 
                     style={ButtonStyles.FILL} 
                     color={ButtonColors.RED}
-                    className="px-1 py-0.5"
+                    buttonClasses="px-1 py-0.5"
                     onClick={()=>handleRemoveConfirmation(player)}
-                    disabled={removeProps.isLoading}
+                    loading={removeProps.isLoading}
                 >Remove</Button>
             </div>
         ))
@@ -106,9 +106,11 @@ export default function PlayersTab({
                 <Button
                     color={ButtonColors.PURPLE}
                     style={ButtonStyles.FILL}
-                    className="py-1"
+                    className="w-full"
+                    buttonClasses="w-full py-1"
                     onClick={handleInvitePlayer}
                     disabled={disableInvite}
+                    loading={inviteProps.isLoading}
                 >Invite Player</Button>
             </div>
         </div>

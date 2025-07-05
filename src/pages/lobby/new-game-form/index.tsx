@@ -1,6 +1,8 @@
 import { usePostGameMutation } from "@/api/game.api";
 import LobbyContext from "../lobby-context";
 import { useCallback, useContext, useEffect, useState } from "react";
+import Button from "@/components/UI/button";
+import { ButtonColors, ButtonStyles } from "@/enum";
 
 export default function NewGameForm() {
 
@@ -51,16 +53,20 @@ export default function NewGameForm() {
                     />
                 </div>
                 <div className="space-x-2">
-                    <button 
-                        className='w-40 border-2 border-agency-red-700 bg-agency-red text-white rounded py-2 font-bold cursor-pointer'
+                    <Button 
+                        color={ButtonColors.RED}
+                        style={ButtonStyles.FILL}
+                        buttonClasses='w-[5rem] px-2 py-1'
                         onClick={handleCreate}
-                        disabled={isLoading}
-                    >Create</button>
-                    <button 
-                        className='w-40 border-2 border-agency-red-700 text-agency-red-700 rounded py-2 font-bold cursor-pointer'
+                        loading={isLoading}
+                    >Create</Button>
+                    <Button
+                        color={ButtonColors.RED}
+                        style={ButtonStyles.OUTLINE}
+                        buttonClasses='w-[5rem] px-2 py-1'
                         onClick={handleCancel}
                         disabled={isLoading}
-                    >Cancel</button>
+                    >Cancel</Button>
                 </div>
             </header>
             <textarea

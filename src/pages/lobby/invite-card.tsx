@@ -37,25 +37,25 @@ export default function InviteCard({
         }
     };
 
-    const disabled = acceptProps.isLoading || rejectProps.isLoading;
+    const loading = acceptProps.isLoading || rejectProps.isLoading;
 
     return (
         <div className="flex justify-between items-center px-4 py-2 bg-white rounded">
             <span>You've been invited to join <b>{game?.title}</b> by <b>{inviter?.username}</b></span>
             <div className="space-x-2">
                 <Button
-                    className="w-24 py-1"
+                    buttonClasses="w-[5rem] py-1"
                     color={ButtonColors.GREEN}
                     style={ButtonStyles.OUTLINE}
                     onClick={()=>handleAcceptReject(true)}
-                    disabled={disabled}
+                    loading={loading}
                 >Accept</Button>
                 <Button
-                    className="w-24 py-1"
+                    buttonClasses="w-[5rem] py-1"
                     color={ButtonColors.RED}
                     style={ButtonStyles.OUTLINE}
                     onClick={()=>handleAcceptReject(false)}
-                    disabled={disabled}
+                    loading={loading}
                 >Decline</Button>
             </div>
         </div>
