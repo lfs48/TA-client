@@ -13,8 +13,8 @@ export default function LobbyControls() {
     }
 
     return (
-        <div className='w-full flex justify-between items-center px-4 py-2 bg-white rounded'>
-            <h1 className='text-agency-red text-[1.75rem] leading-none'>Games</h1>
+        <div className='w-full flex justify-between items-center px-2 md:px-4 py-2 bg-white rounded'>
+            <h1 className='text-agency-red text-[1.5rem] md:text-[1.75rem] leading-none'>Games</h1>
             <Button
                 color={ButtonColors.PURPLE}
                 style={ButtonStyles.FILL}

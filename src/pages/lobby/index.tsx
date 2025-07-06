@@ -40,14 +40,14 @@ export default function Lobby() {
     ));
 
     return(
-        <div className='px-12 py-6 bg-agency-red space-y-6'>
+        <div className='px-4 md:px-12 py-6 bg-agency-red space-y-6'>
             <InviteEventListener />
             <LobbyContext value={{creating, setCreating}}>
                <LobbyControls />
                {creating && <NewGameForm />}
                {getInvitesProps.isSuccess && inviteList}
             </LobbyContext>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                 {getGamesProps.isLoading ? (
                     [...Array(6).keys()].map((_, i) => <GameSkeleton key={i}/>)
                 ): (

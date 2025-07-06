@@ -25,17 +25,17 @@ export default function GameCard({
         <div 
             className='w-full bg-white rounded'
         >
-            <header className='h-[5rem] flex justify-between items-center px-4 border-b-2 border-b-deep-purple py-2'>
+            <header className='flex justify-between items-center px-4 border-b-2 border-b-deep-purple py-2'>
                 <div className='flex flex-col'>
-                    <h2 className='text-[1.5rem]'>{game.title}</h2>
+                    <h2 className='text-[1.25rem] overflow-ellipsis'>{game.title}</h2>
                     <h4 className='text-[0.75rem] text-agency-red'>{isGM ? 'General Manager' : 'Agent'}</h4>
                 </div>
                 <Button
                     color={ButtonColors.RED}
                     style={ButtonStyles.OUTLINE}
-                    buttonClasses='px-4 py-2'
+                    buttonClasses='w-[5rem] text-[0.75rem] md:text-[1rem] py-1'
                     onClick={handleOpenGame}
-                >Open Game</Button>
+                >Open</Button>
             </header>
             <div className='h-[20rem] overflow-y-auto scrollbar-thin'>
                 <p className='px-4 py-2'>{game.description}</p>

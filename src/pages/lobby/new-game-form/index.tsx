@@ -44,14 +44,22 @@ export default function NewGameForm() {
         <div 
             className='bg-white rounded'
         >
-            <header className='h-[5rem] flex justify-between items-center px-4 border-b-2 border-b-deep-purple py-2'>
-                <div className='flex flex-col'>
-                    <input className='text-[1.5rem] font-bold focus:outline-none'
-                        placeholder='Title'
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
+            <header className='flex justify-start md:justify-between items-center px-2 md:px-4 border-b-2 border-b-deep-purple py-1'>
+                <input className='w-full text-[1.25rem] md:text-[1.5rem] font-bold focus:outline-none'
+                    placeholder='Title'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </header>
+            <div>
+            <textarea
+                className="w-full h-[20rem] px-4 py-1 focus:outline-none resize-none overflow-y-auto scrollbar-thin"
+                placeholder='Write a description for your game.'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+
+            />
+            <footer className="w-full flex justify-end px-2 md:px-4 py-2">
                 <div className="space-x-2">
                     <Button 
                         color={ButtonColors.RED}
@@ -68,14 +76,9 @@ export default function NewGameForm() {
                         disabled={isLoading}
                     >Cancel</Button>
                 </div>
-            </header>
-            <textarea
-                className="w-full h-[20rem] px-4 py-2 focus:outline-none resize-none overflow-y-auto scrollbar-thin"
-                placeholder='Write a description for your game.'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+            </footer>
+            </div>
 
-            />
         </div>
     )
 }
