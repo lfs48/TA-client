@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import LoginForm from "./login-form";
 import SignupForm from "./signup-form";
 import LandingContext from "./landing-context";
 import ErrorList from "@/components/UI/errors/error-list";
+import compatabilityUrl from '@/assets/svg/compatability.svg';
 
 const stableText = Array(33).fill('STABILIZE REALITY').join(' ');
 
@@ -27,15 +28,15 @@ export default function Landing() {
             flex justify-center items-center w-screen h-screen bg-agency-red`
         }>        
             <div className={`
-                    origin-top-left fixed top-8 lg:-top-8 -left-1/3 lg:left-2/3 
-                    rotate-12 lg:rotate-45 w-[150vw] h-8 bg-white 
+                    origin-top-left fixed top-8 md:-top-8 -left-1/3 md:left-2/3 
+                    rotate-12 md:rotate-45 w-[150vw] h-8 bg-white 
                     text-agency-red font-bold text-nowrap overflow-hidden 
                     flex items-center justify-center select-none shadow-md`}>
                 {stableText}
             </div>
             <div className={`
-                origin-bottom-right fixed bottom-8 lg:-bottom-8 lg:right-2/3 
-                rotate-12 lg:rotate-45  w-[150vw] h-8 bg-white 
+                origin-bottom-right fixed bottom-8 md:-bottom-8 md:right-2/3 
+                rotate-12 md:rotate-45  w-[150vw] h-8 bg-white 
                 text-agency-red font-bold text-nowrap overflow-hidden 
                 flex items-center justify-center select-none shadow-md`}>
                 {stableText}
@@ -57,6 +58,7 @@ export default function Landing() {
                     onClick={handleSwitchForm}
                 >{formState === FormState.Login ? 'Create an Account' : 'Have an Account? Log In'}</button>
             </div>
+            <img src={compatabilityUrl} className='size-24 md:size-32 fixed -bottom-4 left-4'/>
         </div>
     );
 }
