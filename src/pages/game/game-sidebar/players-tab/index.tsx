@@ -10,6 +10,7 @@ import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { selectUsersById } from "@/reducers/entities/users.reducer";
 import { Game, RootState, User } from "@/types";
+import { isErrorResponse } from "@/util/error.util";
 
 interface PlayersTabProps {
     game: Game;
@@ -62,12 +63,12 @@ export default function PlayersTab({
             {
                 loading: 'Sending invitation...',
                 success: 'Invitation sent!',
-                error: 'Oops, something went wrong. Please try again.',
+                error: formatInviteError(inviteProps.error),
             }
         );
     };
 
-    const disableInvite = inviteProps.isLoading || inviteInput.length < 4;
+    const disableInvite = inviteProps.isLoading || inviteInput.length < 3;
 
     const playerList = useMemo(()=>(
         players.map((player) => (
@@ -115,4 +116,12 @@ export default function PlayersTab({
             </div>
         </div>
     )
-}
+};
+
+function formatInviteError(error:unknown) {
+    if( isErrorResponse(error) ) {
+        return error.data.messages.join('\n\n');
+    } else {
+        return 'Something went wrong'
+    }
+};
