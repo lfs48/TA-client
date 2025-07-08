@@ -70,7 +70,7 @@ export default function SignupForm() {
             <div className='flex flex-col space-y-0.5'>
                 <label className='px-0.5 text-agency-red font-bold text-xs'>Confirm Password</label>
                 <PasswordInput
-                    value={password}
+                    value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     show={showPassword}
                     onToggleShow={() => setShowPassword(!showPassword)}
