@@ -32,7 +32,7 @@ export default function PasswordInput({
                 onClick={() => setShow(!showState)}
                 aria-label={showState ? "Hide password" : "Show password"}
             >
-                {show ? <RiEyeCloseLine size={18} /> : <RiEyeLine size={18} />}
+                {showState ? <RiEyeCloseLine size={18} /> : <RiEyeLine size={18} />}
             </button>
         </div>
     );
