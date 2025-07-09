@@ -1,4 +1,8 @@
-import { Invite, User } from "./index";
+import {
+    Agent,
+    Invite, 
+    User 
+} from "./index";
 
 export interface Game {
     id: string;
@@ -10,6 +14,7 @@ export interface Game {
     playerIds: string[];
     inviteIds: string[];
     inviteeIds: string[];
+    agentIds: string[];
     createdAt: string;
 };
 
@@ -18,6 +23,7 @@ export type APIGame = Game & {
     players: User[];
     invites: Invite[];
     invitees: User[];
+    agents: Agent[];
 }
 
 export interface UserGamesResponse {
