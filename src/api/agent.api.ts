@@ -17,7 +17,7 @@ export const agentApi = rootApi.injectEndpoints({
         }),
         getGameAgents: builder.query<AgentsResponse, string>({
             query: (gameId) => ({
-                url: `user/${gameId}/agents`,
+                url: `game/${gameId}/agents`,
                 method: 'GET',
             })
         }),
