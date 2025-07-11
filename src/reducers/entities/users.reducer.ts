@@ -30,11 +30,11 @@ const usersSlice = createSlice({
     )
     .addMatcher(
         isAnyOf(
-            gameApi.endpoints.getGameById.matchFulfilled,
-            gameApi.endpoints.getGameByPassphrase.matchFulfilled,
-            gameApi.endpoints.postGame.matchFulfilled,
-            gameApi.endpoints.patchGame.matchFulfilled,
-            gameApi.endpoints.removePlayer.matchFulfilled,
+          gameApi.endpoints.getGameById.matchFulfilled,
+          gameApi.endpoints.getGameByPassphrase.matchFulfilled,
+          gameApi.endpoints.postGame.matchFulfilled,
+          gameApi.endpoints.patchGame.matchFulfilled,
+          gameApi.endpoints.removePlayer.matchFulfilled,
         ),
         (state, action) => {
           const {game} = action.payload;

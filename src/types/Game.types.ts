@@ -1,5 +1,5 @@
 import {
-    Agent,
+    APIAgent,
     Invite, 
     User 
 } from "./index";
@@ -23,7 +23,7 @@ export type APIGame = Game & {
     players: User[];
     invites: Invite[];
     invitees: User[];
-    agents: Agent[];
+    agents: APIAgent[];
 }
 
 export interface UserGamesResponse {
