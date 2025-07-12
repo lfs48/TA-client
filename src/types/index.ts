@@ -1,6 +1,7 @@
 export type * from './Agent.types';
 export type * from './Anomaly.type';
 export type * from './Auth.types';
+export type * from './Competency.types';
 export type * from './Error.types';
 export type * from './Game.types';
 export type * from './Invite.types';
