@@ -4,6 +4,7 @@ import anomaliesReducer from './anomalies.reducer';
 import agentsReducer from './agent.reducer';
 import gamesReducer from './games.reducer';
 import invitesReducer from './invites.reducer';
+import realitiesReducer from './realities.reducer';
 import usersReducer from './users.reducer';
 
 const entitiesReducer = combineReducers({
@@ -11,6 +12,7 @@ const entitiesReducer = combineReducers({
     agents: agentsReducer,
     games: gamesReducer,
     invites: invitesReducer,
+    realities: realitiesReducer,
     users: usersReducer,
 });
 

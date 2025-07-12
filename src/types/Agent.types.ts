@@ -2,6 +2,7 @@ import {
     Anomaly,
     Game,
     User,
+    Reality
  } from "./index";
 
 export interface Agent {
@@ -10,12 +11,14 @@ export interface Agent {
     gameId: string;
     playerId: string;
     anomalyId: string;
+    realityId: string;
 }
 
 export type APIAgent = Agent & {
     game: Game;
     player: User;
     anomaly: Anomaly;
+    reality: Reality;
 }
 
 export interface AgentResponse {
