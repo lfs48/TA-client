@@ -156,8 +156,8 @@ export default function Select({
             {/* Select Button */}
             <div
                 className={`
-                    flex items-center justify-between w-full px-3 py-1
-                    bg-white ${colorClasses.border} rounded-md shadow-sm 
+                    flex items-center justify-between w-full px-2 py-1
+                    bg-white ${colorClasses.border} rounded
                     cursor-pointer focus:outline-none ${colorClasses.focus}
                     transition-colors
                     ${disabled ? 'bg-gray-100 cursor-not-allowed opacity-60' : ''}
@@ -190,7 +190,7 @@ export default function Select({
             {/* Dropdown Options */}
             {isOpen && (
                 <div className={`
-                    absolute z-50 w-full mt-1 bg-white ${colorClasses.border} rounded-md shadow-lg max-h-60 overflow-auto
+                    absolute z-50 w-full mt-1 bg-white ${colorClasses.border} rounded shadow-lg max-h-60 overflow-auto
                     ${menuClasses}
                 `}>
                     {options.length === 0 ? (
@@ -200,7 +200,7 @@ export default function Select({
                             <div
                                 key={option.value}
                                 className={`
-                                    px-3 py-2 cursor-pointer transition-colors
+                                    px-2 py-2 cursor-pointer transition-colors
                                     ${selectedValue === option.value 
                                         ? colorClasses.selected
                                         : `${colorClasses.hover} ${colorClasses.text}`

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Agent, RootState } from "@/types";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
@@ -16,27 +16,28 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
     const anomalies = useSelector((state:RootState) => state.entities.anomalies);
     const realities = useSelector((state:RootState) => state.entities.realities);
     const competencies = useSelector((state:RootState) => state.entities.competencies);
-    const anomaly = anomalies[anomalyId];
-    const anomalyOptions = Object.values(anomalies).map(anomaly => ({
+    const anomalyOptions = useMemo(() => Object.values(anomalies).map(anomaly => ({
         value: anomaly.id,
         label: anomaly.name
-    }));
-    const reality = realities[realityId];
-    const realityOptions = Object.values(realities).map(reality => ({
+    })), [anomalies]);
+    const realityOptions = useMemo(() => Object.values(realities).map(reality => ({
         value: reality.id,
         label: reality.name
-    }));
-    const competency = competencies[competencyId];
-    const competencyOptions = Object.values(competencies).map(competency => ({
+    })), [realities]);
+    const competencyOptions = useMemo(() => Object.values(competencies).map(competency => ({
         value: competency.id,
         label: competency.name
-    }));
+    })), [competencies]);
 
     const [nameInput, setNameInput] = useState(name);
-    const [anomalyInput, setAnomalyInput] = useState(anomaly.name);
-    const [realityInput, setRealityInput] = useState(reality.name);
-    const [competencyInput, setCompetencyInput] = useState(competency.name);
+    const [anomalyInput, setAnomalyInput] = useState(anomalyId);
+    const [realityInput, setRealityInput] = useState(realityId);
+    const [competencyInput, setCompetencyInput] = useState(competencyId);
     const [editing, setEditing] = useState(false);
+
+    const anomaly = anomalies[anomalyInput];
+    const reality = realities[realityInput];
+    const competency = competencies[competencyInput];
 
     return (
         <div className='bg-white p-4 rounded shadow-lg'>
@@ -70,7 +71,7 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                                 disabled={!editing}
                             />
                         ) : (
-                            <S.Value className="w-40 text-anomaly-blue border-anomaly-blue">{anomalyInput}</S.Value>
+                            <S.Value className="w-40 text-anomaly-blue border-anomaly-blue">{anomaly.name}</S.Value>
                         )}
                     </S.Field>
                     <S.Field>
@@ -86,7 +87,7 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                                 disabled={!editing}
                             />
                         ) : (
-                            <S.Value className="w-40 border-reality-yellow text-reality-yellow">{realityInput}</S.Value>
+                            <S.Value className="w-40 border-reality-yellow text-reality-yellow">{reality.name}</S.Value>
                         )}
                     </S.Field>
                     <S.Field>
@@ -102,7 +103,7 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                                 disabled={!editing}
                             />
                         ) : (
-                            <S.Value className="w-40 border-agency-red text-agency-red">{competencyInput}</S.Value>
+                            <S.Value className="w-40 border-agency-red text-agency-red">{competency.name}</S.Value>
                         )}
                     </S.Field>
                 </div>
