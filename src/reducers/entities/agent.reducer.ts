@@ -20,6 +20,7 @@ const agentsSlice = createSlice({
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,
           agentApi.endpoints.postAgent.matchFulfilled,
+          agentApi.endpoints.patchAgent.matchFulfilled,
         ),
         (state, action) => {
           const { agent } = action.payload;
