@@ -96,7 +96,7 @@ export default function PlayersTab({
                 )}
             </div>
             <div className="flex flex-col space-y-2">
-                <div className="flex space-x-2 px-2 py-1 bg-gray-200 rounded">
+                <div className="flex space-x-2 py-1 bg-gray-200 rounded">
                     <RiUserFill className="opacity-50"/>
                     <input
                         value={inviteInput}

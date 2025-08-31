@@ -7,7 +7,7 @@ import { RootState } from '@/types';
 import { selectGameById } from '@/reducers/entities/games.reducer';
 import { useEffect, useState } from 'react';
 import GameSidebar from './game-sidebar';
-import AgentSheet from '@/components/UI/agent';
+import AgentSheet from '@/components/agent/sheet';
 import { selectAgentById } from '@/reducers/entities/agent.reducer';
 import GameContext from '@/pages/game/game-context';
 import { useGetARCsQuery } from '@/api/arcs.api';

@@ -4,8 +4,13 @@ import { GameSidebarTabs } from "@/enum/game-sidebar-tabs.enum";
 import PlayersTab from "./players-tab";
 import { Game, RootState } from "@/types";
 import { useSelector } from "react-redux";
+import AgentsTab from "./agents-tab";
 
 const tabs = {
+    [GameSidebarTabs.AGENTS]: {
+        label: "Agents",
+        gmTab: false,
+    },
     [GameSidebarTabs.SETTINGS]: {
         label: "Settings",
         gmTab: true,
@@ -28,9 +33,11 @@ export default function GameSidebar({
     const isGM = userId === game.gmId;
 
     const [tab, setTab] = useState(GameSidebarTabs.SETTINGS);
-    
+
     const getActiveTab = useCallback(() => {
         switch(tab) {
+            case(GameSidebarTabs.AGENTS):
+                return <AgentsTab game={game} />;
             case(GameSidebarTabs.SETTINGS):
                 return <SettingsTab game={game}/>;
             case(GameSidebarTabs.PLAYERS):
@@ -62,7 +69,7 @@ export default function GameSidebar({
             <div className="flex flex-col space-y-16">
                 {tabButtons}
             </div>
-            <div className="w-[25rem] bg-white">
+            <div className="w-[20rem] flex flex-col bg-white">
                 {activeTab}
             </div>
         </div>
