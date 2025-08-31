@@ -1,9 +1,8 @@
-import AgentSheet from "@/components/agent/sheet";
 import GameContext from "../game-context";
 import { useSelector } from "react-redux";
 import { selectEntities } from "@/reducers/entities/entities.reducer";
 import { EntityTypeName, RootState } from "@/types";
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { RiCloseLine } from "@remixicon/react";
 
 export default function WorkspaceTabs() {

@@ -2,7 +2,7 @@ import { useGetGameAgentsQuery } from "@/api/agent.api";
 import { useSelector } from "react-redux";
 import { selectAgentsByIds } from "@/reducers/entities/agent.reducer";
 import { Game, RootState } from "@/types";
-import { use, useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import GameContext from "../../game-context";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
