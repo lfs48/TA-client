@@ -3,6 +3,8 @@ import { Competency, APIAgent, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
+import competenciesApi from "@/api/competencies.api";
+import arcsApi from "@/api/arcs.api";
 
 interface CompetenciesState {
   [id: string]: Competency;
@@ -15,6 +17,18 @@ const competenciesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
+      .addMatcher(competenciesApi.endpoints.getCompetencies.matchFulfilled, (state, action) => {
+        const { competencies } = action.payload;
+        competencies.forEach((competency: Competency) => {
+          state[competency.id] = competency;
+        });
+      })
+      .addMatcher(arcsApi.endpoints.getARCs.matchFulfilled, (state, action) => {
+        const { competencies } = action.payload;
+        competencies.forEach((competency: Competency) => {
+          state[competency.id] = competency;
+        });
+      })
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,

@@ -4,6 +4,7 @@ import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
 import anomaliesApi from "@/api/anomalies.api";
+import arcsApi from "@/api/arcs.api";
 
 interface AnomaliesState {
   [id: string]: Anomaly;
@@ -17,6 +18,12 @@ const anomaliesSlice = createSlice({
     builder
       .addCase(logout.type, () => ({}))
       .addMatcher(anomaliesApi.endpoints.getAnomalies.matchFulfilled, (state, action) => {
+        const { anomalies } = action.payload;
+        anomalies.forEach((anomaly: Anomaly) => {
+          state[anomaly.id] = anomaly;
+        });
+      })
+      .addMatcher(arcsApi.endpoints.getARCs.matchFulfilled, (state, action) => {
         const { anomalies } = action.payload;
         anomalies.forEach((anomaly: Anomaly) => {
           state[anomaly.id] = anomaly;

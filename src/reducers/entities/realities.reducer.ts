@@ -3,6 +3,8 @@ import { Reality, APIAgent, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
+import realitiesApi from "@/api/realities.api";
+import arcsApi from "@/api/arcs.api";
 
 interface RealitiesState {
   [id: string]: Reality;
@@ -15,6 +17,18 @@ const realitiesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
+      .addMatcher(realitiesApi.endpoints.getRealities.matchFulfilled, (state, action) => {
+        const { realities } = action.payload;
+        realities.forEach((reality: Reality) => {
+          state[reality.id] = reality;
+        });
+      })
+      .addMatcher(arcsApi.endpoints.getARCs.matchFulfilled, (state, action) => {
+        const { realities } = action.payload;
+        realities.forEach((reality: Reality) => {
+          state[reality.id] = reality;
+        });
+      })
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,
