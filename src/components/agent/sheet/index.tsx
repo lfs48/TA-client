@@ -13,10 +13,11 @@ interface AgentSheetProps {
 
 export default function AgentSheet({ agent }: AgentSheetProps) {
 
-    const { id, name, anomalyId, realityId, competencyId } = agent;
+    const { id, name, anomalyId, realityId, competencyId, playerId } = agent;
     const anomalies = useSelector((state:RootState) => state.entities.anomalies);
     const realities = useSelector((state:RootState) => state.entities.realities);
     const competencies = useSelector((state:RootState) => state.entities.competencies);
+    const { id: userId } = useSelector((state: RootState) => state.session);
     const anomalyOptions = useMemo(() => Object.values(anomalies).map(anomaly => ({
         value: anomaly.id,
         label: anomaly.name
@@ -39,6 +40,7 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
     const anomaly = anomalies[anomalyId];
     const reality = realities[realityId];
     const competency = competencies[competencyId];
+    const isOwner = userId === playerId;
 
     const [triggerPatchAgent, { isSuccess, isLoading }] = usePatchAgentMutation();
 
@@ -137,27 +139,29 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                         )}
                     </S.Field>
                 </div>
-                <div className="space-x-2">
-                    <Button 
-                        color={ButtonColors.PURPLE}
-                        style={editing ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
-                        buttonClasses="w-20 py-1"
-                        onClick={editing ? handleSave : () => setEditing(true)}
-                        disabled={isLoading}
-                    >
-                        {editing ? "Save" : "Edit"}
-                    </Button>
-                    {editing && (
-                        <Button
-                            color={ButtonColors.RED}
-                            style={ButtonStyles.OUTLINE}
+                {isOwner && (
+                    <div className="space-x-2">
+                        <Button 
+                            color={ButtonColors.PURPLE}
+                            style={editing ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
                             buttonClasses="w-20 py-1"
-                            onClick={() => setEditing(false)}
+                            onClick={editing ? handleSave : () => setEditing(true)}
+                            disabled={isLoading}
                         >
-                            Cancel
+                            {editing ? "Save" : "Edit"}
                         </Button>
-                    )}
-                </div>
+                        {editing && (
+                            <Button
+                                color={ButtonColors.RED}
+                                style={ButtonStyles.OUTLINE}
+                                buttonClasses="w-20 py-1"
+                                onClick={() => setEditing(false)}
+                            >
+                                Cancel
+                            </Button>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
