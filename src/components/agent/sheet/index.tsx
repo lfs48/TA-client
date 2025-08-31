@@ -6,14 +6,16 @@ import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import * as S from './styled';
 import { usePatchAgentMutation } from "@/api/agent.api";
+import { selectAgentById } from "@/reducers/entities/agent.reducer";
 
 interface AgentSheetProps {
-    agent: Agent;
+    id: string;
 };
 
-export default function AgentSheet({ agent }: AgentSheetProps) {
+export default function AgentSheet({ id }: AgentSheetProps) {
 
-    const { id, name, anomalyId, realityId, competencyId, playerId } = agent;
+    const agent = useSelector((state: RootState) => selectAgentById(state, id)) as Agent;
+    const { name, anomalyId, realityId, competencyId, playerId } = agent;
     const anomalies = useSelector((state:RootState) => state.entities.anomalies);
     const realities = useSelector((state:RootState) => state.entities.realities);
     const competencies = useSelector((state:RootState) => state.entities.competencies);

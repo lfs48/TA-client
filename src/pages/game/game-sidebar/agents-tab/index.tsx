@@ -2,7 +2,7 @@ import { useGetGameAgentsQuery } from "@/api/agent.api";
 import { useSelector } from "react-redux";
 import { selectAgentsByIds } from "@/reducers/entities/agent.reducer";
 import { Game, RootState } from "@/types";
-import { useContext, useMemo } from "react";
+import { use, useContext, useMemo } from "react";
 import GameContext from "../../game-context";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
@@ -13,16 +13,21 @@ interface AgentsTabProps {
 
 export default function AgentsTab({ game }: AgentsTabProps) {
 
+    const {openTab, setSelectedTab} = useContext(GameContext);
+
     const { isSuccess, isLoading } = useGetGameAgentsQuery(game.id);
     const agents = useSelector((state: RootState) => selectAgentsByIds(state, game.agentIds));
 
-    const { setAgentId } = useContext(GameContext);
+    const handleOpenAgent = (id: string) => {
+        openTab(id, 'agents');
+        setSelectedTab(id);
+    };
 
     const agentList = useMemo(() => agents.map(agent => (
         <li 
             key={agent.id} 
             className="p-2 bg-gray-100 rounded hover:bg-gray-200"
-            onClick={() => setAgentId(agent.id)}
+            onClick={() => handleOpenAgent(agent.id)}
         >
             {agent.name}
         </li>

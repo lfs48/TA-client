@@ -3,26 +3,38 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { useGetGameByPassphraseQuery } from '@/api/game.api';
-import { RootState } from '@/types';
+import { EntityTypeName, RootState } from '@/types';
 import { selectGameById } from '@/reducers/entities/games.reducer';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import GameSidebar from './game-sidebar';
-import AgentSheet from '@/components/agent/sheet';
-import { selectAgentById } from '@/reducers/entities/agent.reducer';
 import GameContext from '@/pages/game/game-context';
 import { useGetARCsQuery } from '@/api/arcs.api';
+import { WorkspaceTabs } from '@/types';
+import GameWorkspace from '@/pages/game/game-workspace';
 
 export default function Game() {
 
     const [id, setId] = useState<string | undefined>(undefined);
-    const [agentId, setAgentId] = useState<string | undefined>(undefined);
+    const [openTabs, setOpenTabs] = useState<WorkspaceTabs>({});
+    const [selectedTab, setSelectedTab] = useState<string | null>(null);
+
+    const openTab = useCallback((id: string, type: EntityTypeName) => {
+        setOpenTabs((prev) => ({ ...prev, [id]: type }));
+    }, []);
+
+    const closeTab = useCallback((id: string) => {
+        setOpenTabs((prev) => {
+            const newTabs = { ...prev };
+            delete newTabs[id];
+            return newTabs;
+        });
+    }, []);
 
     const { passphrase } = useParams();
     const { data, isSuccess, isLoading } = useGetGameByPassphraseQuery(passphrase ?? skipToken);
     const { data: arcData } = useGetARCsQuery();
 
     const game = useSelector((state: RootState) => selectGameById(state, id));
-    const agent = useSelector((state: RootState) => selectAgentById(state, agentId));
 
     useEffect(() => {
         if(isSuccess && data.game && data.game.id) {
@@ -32,19 +44,16 @@ export default function Game() {
 
     return(
         <div className='relative bg-agency-red'>
-            <div className='px-12 py-6 mr-[20rem]'>
-                {isLoading ? (
-                    <div>Loading...</div>
-                ) : (
-                    <div>
-                        {agent && (
-                            <AgentSheet agent={agent} />
-                        )}
-                    </div>
-                )}
-            </div>
             {(isSuccess && game) &&
-                <GameContext.Provider value={{ agentId, setAgentId }}>
+                <GameContext.Provider 
+                    value={{ 
+                        openTabs, 
+                        openTab, 
+                        closeTab, 
+                        selectedTab, 
+                        setSelectedTab 
+                }}>
+                    <GameWorkspace />
                     <GameSidebar game={game}/>
                 </GameContext.Provider>
             }
