@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { Agent, RootState } from "@/types";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import * as S from './styled';
+import { usePatchAgentMutation } from "@/api/agent.api";
 
 interface AgentSheetProps {
     agent: Agent;
@@ -35,14 +36,43 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
     const [competencyInput, setCompetencyInput] = useState(competencyId);
     const [editing, setEditing] = useState(false);
 
-    const anomaly = anomalies[anomalyInput];
-    const reality = realities[realityInput];
-    const competency = competencies[competencyInput];
+    const anomaly = anomalies[anomalyId];
+    const reality = realities[realityId];
+    const competency = competencies[competencyId];
+
+    const [triggerPatchAgent, { isSuccess, isLoading }] = usePatchAgentMutation();
+
+    const handleSave = () => {
+        const body = {
+            agent: {
+                name: nameInput,
+                anomalyId: anomalyInput,
+                realityId: realityInput,
+                competencyId: competencyInput
+            }
+        }
+        triggerPatchAgent({ id, data: body });
+    };
+
+    useEffect(() => {
+        if (isSuccess) {
+            setEditing(false);
+        }
+    }, [isSuccess]);
+
+    useEffect(() => {
+        if (editing) {
+            setNameInput(name);
+            setAnomalyInput(anomalyId);
+            setRealityInput(realityId);
+            setCompetencyInput(competencyId);
+        }
+    }, [editing]);
 
     return (
         <div className='bg-white p-4 rounded shadow-lg'>
             <div className="flex justify-between items-end">
-                <div className="flex space-x-4">
+                <div className="flex flex-col xl:flex-row space-x-4">
                     <div className="flex flex-col space-y-0.5">
                         <S.Label>Name</S.Label>
                         {editing ? (
@@ -54,7 +84,7 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                                 disabled={!editing}
                             />
                         ) : (
-                            <S.Value className="w-80 border-deep-purple">{nameInput}</S.Value>
+                            <S.Value className="w-80 border-deep-purple">{name}</S.Value>
                         )}
 
                     </div>
@@ -107,14 +137,27 @@ export default function AgentSheet({ agent }: AgentSheetProps) {
                         )}
                     </S.Field>
                 </div>
-                <Button 
-                    color={ButtonColors.PURPLE}
-                    style={editing ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
-                    buttonClasses="w-40 py-1"
-                    onClick={() => setEditing(!editing)}
-                >
-                    {editing ? "Save" : "Edit"}
-                </Button>
+                <div className="space-x-2">
+                    <Button 
+                        color={ButtonColors.PURPLE}
+                        style={editing ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
+                        buttonClasses="w-20 py-1"
+                        onClick={editing ? handleSave : () => setEditing(true)}
+                        disabled={isLoading}
+                    >
+                        {editing ? "Save" : "Edit"}
+                    </Button>
+                    {editing && (
+                        <Button
+                            color={ButtonColors.RED}
+                            style={ButtonStyles.OUTLINE}
+                            buttonClasses="w-20 py-1"
+                            onClick={() => setEditing(false)}
+                        >
+                            Cancel
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     );

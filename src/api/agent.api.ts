@@ -1,11 +1,15 @@
-import { AgentResponse, AgentsResponse, } from '@/types';
+import { 
+    AgentResponse, 
+    AgentsResponse,
+    PatchAgentRequest, 
+} from '@/types';
 import { rootApi } from './root.api';
 
 export const agentApi = rootApi.injectEndpoints({
     endpoints: (builder) => ({
         getAgent: builder.query<AgentResponse, string>({
             query: (id) => ({
-                url: `agents/${id}`,
+                url: `agent/${id}`,
                 method: 'GET',
             })
         }),
@@ -23,11 +27,18 @@ export const agentApi = rootApi.injectEndpoints({
         }),
         postAgent: builder.mutation<AgentResponse, string>({
             query: (data) => ({
-                url: `auth/register`,
+                url: `agent`,
                 method: 'POST',
                 body: data
             })
         }),
+        patchAgent: builder.mutation<AgentResponse, { id: string; data: PatchAgentRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}`,
+                method: 'PATCH',
+                body: data
+            })
+        })
     }),
     overrideExisting: false
 });
@@ -37,4 +48,5 @@ export const {
     useGetUserAgentsQuery,
     useGetGameAgentsQuery,
     usePostAgentMutation,
+    usePatchAgentMutation,
 } = agentApi;

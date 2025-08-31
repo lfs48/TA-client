@@ -35,3 +35,7 @@ export interface AgentsResponse {
 export interface PostAgentRequest {
     agent: Agent;
 }
+
+export interface PatchAgentRequest {
+    agent: Partial<Agent>;
+}
