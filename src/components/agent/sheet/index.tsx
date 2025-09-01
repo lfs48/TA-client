@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Agent, RootState } from "@/types";
+import { Agent, Anomaly, Competency, Reality, RootState } from "@/types";
 import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
@@ -39,9 +39,9 @@ export default function AgentSheet({ id }: AgentSheetProps) {
     const [competencyInput, setCompetencyInput] = useState(competencyId);
     const [editing, setEditing] = useState(false);
 
-    const anomaly = anomalies[anomalyId];
-    const reality = realities[realityId];
-    const competency = competencies[competencyId];
+    const anomaly = anomalies[anomalyId || ''] as Anomaly | undefined;
+    const reality = realities[realityId || ''] as Reality | undefined;
+    const competency = competencies[competencyId || ''] as Competency | undefined;
     const isOwner = userId === playerId;
 
     const [triggerPatchAgent, { isSuccess, isLoading }] = usePatchAgentMutation();
@@ -103,9 +103,10 @@ export default function AgentSheet({ id }: AgentSheetProps) {
                                 color="blue"
                                 className="w-40"
                                 disabled={!editing}
+                                placeholder="Unselected"
                             />
                         ) : (
-                            <S.Value className="w-40 text-anomaly-blue border-anomaly-blue">{anomaly.name}</S.Value>
+                            <S.Value className="w-40 text-anomaly-blue border-anomaly-blue">{anomaly ? anomaly.name : 'Unselected'}</S.Value>
                         )}
                     </S.Field>
                     <S.Field>
@@ -119,9 +120,10 @@ export default function AgentSheet({ id }: AgentSheetProps) {
                                 color="yellow"
                                 className="w-40"
                                 disabled={!editing}
+                                placeholder="Unselected"
                             />
                         ) : (
-                            <S.Value className="w-40 border-reality-yellow text-reality-yellow">{reality.name}</S.Value>
+                            <S.Value className="w-40 border-reality-yellow text-reality-yellow">{reality ? reality.name : 'Unselected'}</S.Value>
                         )}
                     </S.Field>
                     <S.Field>
@@ -135,9 +137,10 @@ export default function AgentSheet({ id }: AgentSheetProps) {
                                 color="red"
                                 className="w-40"
                                 disabled={!editing}
+                                placeholder="Unselected"
                             />
                         ) : (
-                            <S.Value className="w-40 border-agency-red text-agency-red">{competency.name}</S.Value>
+                            <S.Value className="w-40 border-agency-red text-agency-red">{competency ? competency.name : 'Unselected'}</S.Value>
                         )}
                     </S.Field>
                 </div>

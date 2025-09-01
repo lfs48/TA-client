@@ -11,9 +11,9 @@ export interface Agent {
     name: string;
     gameId: string;
     playerId: string;
-    anomalyId: string;
-    realityId: string;
-    competencyId: string;
+    anomalyId?: string;
+    realityId?: string;
+    competencyId?: string;
 }
 
 export type APIAgent = Agent & {
@@ -33,7 +33,7 @@ export interface AgentsResponse {
 }
 
 export interface PostAgentRequest {
-    agent: Agent;
+    agent: Partial<Agent>;
 }
 
 export interface PatchAgentRequest {

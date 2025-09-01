@@ -1,7 +1,8 @@
 import { 
     AgentResponse, 
     AgentsResponse,
-    PatchAgentRequest, 
+    PatchAgentRequest,
+    PostAgentRequest, 
 } from '@/types';
 import { rootApi } from './root.api';
 
@@ -25,7 +26,7 @@ export const agentApi = rootApi.injectEndpoints({
                 method: 'GET',
             })
         }),
-        postAgent: builder.mutation<AgentResponse, string>({
+        postAgent: builder.mutation<AgentResponse, PostAgentRequest>({
             query: (data) => ({
                 url: `agent`,
                 method: 'POST',

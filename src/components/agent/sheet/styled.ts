@@ -15,6 +15,9 @@ export const Field = tw.div`
 export const Value = tw.span`
     border-2
     px-2
-    py-1
     rounded
+    flex
+    items-center
+    h-[2.25rem]
+    py-1
 `
