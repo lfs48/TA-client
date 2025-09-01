@@ -1,3 +1,6 @@
+import { QUALITIES } from "constants/qualities.constant";
+import { Qualities } from "enum";
+
 import { 
     Anomaly,
     Game,
@@ -14,6 +17,7 @@ export interface Agent {
     anomalyId?: string;
     realityId?: string;
     competencyId?: string;
+    qualities: AgentQualities;
 }
 
 export type APIAgent = Agent & {
@@ -39,3 +43,10 @@ export interface PostAgentRequest {
 export interface PatchAgentRequest {
     agent: Partial<Agent>;
 }
+
+export interface AgentQuality {
+    current: number;
+    max: number;
+}
+
+export type AgentQualities = Record<Qualities, AgentQuality>;
