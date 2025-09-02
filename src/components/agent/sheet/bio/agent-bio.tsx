@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
-import * as S from './styled';
+import * as S from '../styled';
 import { usePatchAgentMutation } from "@/api/agent.api";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
 
