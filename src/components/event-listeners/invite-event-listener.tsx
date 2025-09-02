@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { socket, socketEvents } from "@/socket";
 import { InviteResponse } from "@/types";
-import { receiveInvite } from "reducers/entities/invites.reducer";
+import { receiveInvite } from "@/reducers/entities/invites.reducer";
 
 export default function InviteEventListener() {
     const dispatch = useDispatch();
