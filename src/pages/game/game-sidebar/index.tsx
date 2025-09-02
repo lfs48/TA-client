@@ -2,9 +2,9 @@ import { useCallback, useMemo, useState } from "react";
 import SettingsTab from "./settings-tab";
 import { GameSidebarTabs } from "@/enum/game-sidebar-tabs.enum";
 import PlayersTab from "./players-tab";
-import { Game, RootState } from "@/types";
-import { useSelector } from "react-redux";
+import { Game } from "@/types";
 import AgentsTab from "./agents-tab";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 const tabs = {
     [GameSidebarTabs.AGENTS]: {
@@ -29,7 +29,7 @@ export default function GameSidebar({
     game,
 }: GameSidebarProps) {
 
-    const userId = useSelector((state:RootState) => state.session.id) ?? '';
+    const userId = useAppSelector(state => state.session.id) ?? '';
     const isGM = userId === game.gmId;
 
     const [tab, setTab] = useState(GameSidebarTabs.SETTINGS);

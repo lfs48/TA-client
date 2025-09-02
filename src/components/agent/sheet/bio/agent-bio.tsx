@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux";
-import { Agent, Anomaly, Competency, Reality, RootState } from "@/types";
+import { Agent, Anomaly, Competency, Reality } from "@/types";
 import { useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
@@ -7,6 +6,7 @@ import { ButtonColors, ButtonStyles } from "@/enum";
 import * as S from '../styled';
 import { usePatchAgentMutation } from "@/api/agent.api";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface AgentSheetProps {
     id: string;
@@ -14,12 +14,12 @@ interface AgentSheetProps {
 
 export default function AgentBio({ id }: AgentSheetProps) {
 
-    const agent = useSelector((state: RootState) => selectAgentById(state, id)) as Agent;
+    const agent = useAppSelector(state => selectAgentById(state, id)) as Agent;
     const { name, anomalyId, realityId, competencyId, playerId } = agent;
-    const anomalies = useSelector((state:RootState) => state.entities.anomalies);
-    const realities = useSelector((state:RootState) => state.entities.realities);
-    const competencies = useSelector((state:RootState) => state.entities.competencies);
-    const { id: userId } = useSelector((state: RootState) => state.session);
+    const anomalies = useAppSelector(state => state.entities.anomalies);
+    const realities = useAppSelector(state => state.entities.realities);
+    const competencies = useAppSelector(state => state.entities.competencies);
+    const { id: userId } = useAppSelector(state => state.session);
     const anomalyOptions = useMemo(() => Object.values(anomalies).map(anomaly => ({
         value: anomaly.id,
         label: anomaly.name

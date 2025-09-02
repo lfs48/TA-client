@@ -1,15 +1,15 @@
 import GameContext from "../game-context";
-import { useSelector } from "react-redux";
 import { selectEntities } from "@/reducers/entities/entities.reducer";
-import { EntityTypeName, RootState } from "@/types";
+import { EntityTypeName } from "@/types";
 import { useContext, useMemo } from "react";
 import { RiCloseLine } from "@remixicon/react";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 export default function WorkspaceTabs() {
 
     const { openTabs, closeTab, setSelectedTab } = useContext(GameContext);
 
-    const entities = useSelector((state:RootState) => selectEntities(state, openTabs));
+    const entities = useAppSelector(state => selectEntities(state, openTabs));
 
     const tabs = useMemo(()=>{
         return Object.entries(openTabs).map(([id, type]) => {

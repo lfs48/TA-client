@@ -1,8 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useSelector } from 'react-redux';
 
 import { useGetUserGamesQuery } from '@/api/game.api';
-import { RootState } from '@/types';
 import GameSkeleton from './game-skeleton';
 import GameCard from './game-card';
 import LobbyControls from './lobby-controls';
@@ -14,14 +12,15 @@ import InviteCard from './invite-card';
 import { selectPendingUserInvites } from '@/reducers/entities/invites.reducer';
 import { useGetUserInvitesQuery } from '@/api/invite.api';
 import InviteEventListener from '@/components/event-listeners/invite-event-listener';
+import { useAppSelector } from '@/hooks/useAppSelector.hook';
 
 export default function Lobby() {
 
     const [creating, setCreating] = useState(false);
 
-    const userId = useSelector((state:RootState) => state.session.id);
-    const games = useSelector((state: RootState) => selectGames(state));
-    const invites = useSelector((state: RootState) => selectPendingUserInvites(state, userId));
+    const userId = useAppSelector(state => state.session.id);
+    const games = useAppSelector(state => selectGames(state));
+    const invites = useAppSelector(state => selectPendingUserInvites(state, userId));
 
     const getGamesProps = useGetUserGamesQuery(userId ?? skipToken);
     const getInvitesProps = useGetUserInvitesQuery(userId ?? skipToken);

@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import { RiUserFill } from "@remixicon/react";
 import toast from 'react-hot-toast';
 
@@ -9,8 +8,9 @@ import { usePostInviteMutation } from "@/api/invite.api";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { selectUsersById } from "@/reducers/entities/users.reducer";
-import { Game, RootState, User } from "@/types";
+import { Game, User } from "@/types";
 import { isErrorResponse } from "@/util/error.util";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface PlayersTabProps {
     game: Game;
@@ -22,7 +22,7 @@ export default function PlayersTab({
 
     const { id, playerIds } = game;
 
-    const players = useSelector((state:RootState) => selectUsersById(state, playerIds));
+    const players = useAppSelector(state => selectUsersById(state, playerIds));
     
     const [inviteInput, setInviteInput] = useState('');
 

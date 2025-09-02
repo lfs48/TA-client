@@ -1,14 +1,12 @@
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
-
-import { RootState } from "@/types";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 export default function AuthRoute({children}) {
 
     const navigate = useNavigate();
 
-    const { authenticated } = useSelector( (state:RootState) => state.session);
+    const { authenticated } = useAppSelector(state => state.session);
 
     useEffect(() => {
         if (authenticated) {

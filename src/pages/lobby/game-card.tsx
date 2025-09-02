@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import Button from "@/components/UI/button";
-import { Game, RootState } from "@/types";
+import { Game } from "@/types";
 import { ButtonColors, ButtonStyles } from "@/enum";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface GameCardProps {
     game: Game;
@@ -14,7 +14,7 @@ export default function GameCard({
 
     const navigate = useNavigate();
 
-    const id = useSelector((state:RootState) => state.session.id);
+    const id = useAppSelector(state => state.session.id);
     const isGM = id === game.gmId;
 
     const handleOpenGame = () => {

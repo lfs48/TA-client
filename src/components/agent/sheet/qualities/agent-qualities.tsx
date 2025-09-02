@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
-import { Agent, RootState } from "@/types";
+import { Agent } from "@/types";
 import QualityBar from "./quality-bar";
 import { Qualities } from "@/enum";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface AgentQualitiesProps {
     id: string;
@@ -10,7 +10,7 @@ interface AgentQualitiesProps {
 
 export default function AgentQualities({ id }: AgentQualitiesProps) {
 
-    const agent = useSelector((state: RootState) => selectAgentById(state, id)) as Agent;
+    const agent = useAppSelector(state => selectAgentById(state, id)) as Agent;
 
     const bars = Object.values(Qualities).map((quality) => {
         const { current, max } = agent.qualities[quality] || { current: 0, max: 0 };

@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
-import { RootState } from "@/types";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface AgentSheetHeaderProps {
     id: string;
@@ -8,7 +7,7 @@ interface AgentSheetHeaderProps {
 
 export default function AgentHeader({ id }: AgentSheetHeaderProps) {
 
-    const agent = useSelector((state: RootState) => selectAgentById(state, id));
+    const agent = useAppSelector(state => selectAgentById(state, id));
     
     return (
         <div>

@@ -1,9 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/query';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { useGetGameByPassphraseQuery } from '@/api/game.api';
-import { EntityTypeName, RootState } from '@/types';
+import { EntityTypeName } from '@/types';
 import { selectGameById } from '@/reducers/entities/games.reducer';
 import { useCallback, useEffect, useState } from 'react';
 import GameSidebar from './game-sidebar';
@@ -11,6 +10,7 @@ import GameContext from '@/pages/game/game-context';
 import { useGetARCsQuery } from '@/api/arcs.api';
 import { WorkspaceTabs } from '@/types';
 import GameWorkspace from '@/pages/game/game-workspace';
+import { useAppSelector } from '@/hooks/useAppSelector.hook';
 
 export default function Game() {
 
@@ -34,7 +34,7 @@ export default function Game() {
     const { data, isSuccess, isLoading } = useGetGameByPassphraseQuery(passphrase ?? skipToken);
     const { data: arcData } = useGetARCsQuery();
 
-    const game = useSelector((state: RootState) => selectGameById(state, id));
+    const game = useAppSelector(state => selectGameById(state, id));
 
     useEffect(() => {
         if(isSuccess && data.game && data.game.id) {

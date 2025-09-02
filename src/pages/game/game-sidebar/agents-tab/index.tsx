@@ -1,11 +1,11 @@
 import { useGetGameAgentsQuery, usePostAgentMutation } from "@/api/agent.api";
-import { useSelector } from "react-redux";
 import { selectAgentsByIds } from "@/reducers/entities/agent.reducer";
-import { Game, RootState } from "@/types";
+import { Game } from "@/types";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import GameContext from "../../game-context";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface AgentsTabProps {
     game: Game;
@@ -17,7 +17,7 @@ export default function AgentsTab({ game }: AgentsTabProps) {
 
     const { isSuccess, isLoading } = useGetGameAgentsQuery(game.id);
     const [triggerPostAgent, { data: postData, isLoading: isCreating, isSuccess: postSuccess }] = usePostAgentMutation();
-    const agents = useSelector((state: RootState) => selectAgentsByIds(state, game.agentIds));
+    const agents = useAppSelector(state => selectAgentsByIds(state, game.agentIds));
 
     const handleOpenAgent = (id: string) => {
         openTab(id, 'agents');

@@ -1,13 +1,13 @@
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 
-import { Invite, RootState } from "@/types";
+import { Invite } from "@/types";
 import { selectGameById } from "@/reducers/entities/games.reducer";
 import { selectUserById } from "@/reducers/entities/users.reducer";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { useAcceptInviteMutation, useRejectInviteMutation } from "@/api/invite.api";
 import { useLazyGetUserGamesQuery } from "@/api/game.api";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
 interface InviteCardProps {
     invite: Invite;
@@ -18,8 +18,8 @@ export default function InviteCard({
 }: InviteCardProps) {
 
     const { id, gameId, inviterId, inviteeId } = invite;
-    const game = useSelector((state:RootState) => selectGameById(state, gameId));
-    const inviter = useSelector((state:RootState) => selectUserById(state, inviterId));
+    const game = useAppSelector(state => selectGameById(state, gameId));
+    const inviter = useAppSelector(state => selectUserById(state, inviterId));
 
     const [triggerAcceptInvite, acceptProps] = useAcceptInviteMutation();
     const [triggerRejectInvite, rejectProps] = useRejectInviteMutation();
