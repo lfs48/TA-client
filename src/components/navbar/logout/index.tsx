@@ -3,6 +3,7 @@ import { logout } from "@/reducers/session.reducer";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
 import { Tooltip } from "react-tooltip";
+import { createPortal } from "react-dom";
 
 export default function Logout() {
 
@@ -20,9 +21,11 @@ export default function Logout() {
             data-tooltip-id='logout-tooltip'
             data-tooltip-content='Log Out'
         >
-            <RiLogoutBoxLine className='size-[2rem]'/>
+            <RiLogoutBoxLine className='size-[1.75rem]'/>
         </button>
-        <Tooltip id='logout-tooltip' />
+        {createPortal(
+            <Tooltip id='logout-tooltip' />
+        , document.body)}
         </>
     )
 }
