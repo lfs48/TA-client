@@ -18,7 +18,7 @@ export default function WorkspaceTabs() {
                 return(
                     <div 
                         key={id}
-                        className="w-32 flex justify-between items-center bg-gray-300 p-1 rounded cursor-pointer"
+                        className="w-32 h-6 flex justify-between items-center bg-gray-300 p-1 rounded cursor-pointer"
                         onClick={() => setSelectedTab(id)}
                     >
                         <span className="text-xs overflow-ellipsis">{entityTabName(type, entity)}</span>
@@ -33,7 +33,7 @@ export default function WorkspaceTabs() {
     }, [openTabs, entities])
 
     return tabs.length > 0 ? (
-        <div className="bg-white rounded p-2">
+        <div className="flex flex-wrap space-x-2 gap-y-2 bg-white rounded p-2">
             {tabs}
         </div>
     ) : null;
