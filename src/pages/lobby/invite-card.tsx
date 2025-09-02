@@ -42,7 +42,7 @@ export default function InviteCard({
     return (
         <div className="flex justify-between items-center space-x-2 px-2 md:px-4 py-1 md:py-2 bg-white rounded">
             <span className="text-[0.75rem] md:text-[1rem]">You've been invited to join <b>{game?.title}</b> by <b>{inviter?.username}</b></span>
-            <div className="flex flex-col md:flex-row md:space-x-2 space-y-1">
+            <div className="flex flex-col md:flex-row md:space-x-2 space-y-1 md:space-y-0">
                 <Button
                     buttonClasses="w-[5rem] text-[0.75rem] md:text-[1rem]"
                     color={ButtonColors.GREEN}
