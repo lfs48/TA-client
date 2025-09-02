@@ -8,7 +8,7 @@ import invitesReducer from './invites.reducer';
 import realitiesReducer from './realities.reducer';
 import usersReducer from './users.reducer';
 import { createAppSelector } from "@/util";
-import { RootState } from "@/types";
+import { EntityTypeName, RootState } from "@/types";
 
 const entitiesReducer = combineReducers({
     anomalies: anomaliesReducer,
@@ -19,8 +19,6 @@ const entitiesReducer = combineReducers({
     realities: realitiesReducer,
     users: usersReducer,
 });
-
-type EntityTypeName = keyof typeof entitiesReducer;
 
 interface SelectEntitiesProps {
     [id: string]: EntityTypeName;
