@@ -21,3 +21,10 @@ export const Value = tw.span`
     h-[2.25rem]
     py-1
 `
+
+export const Section = tw.div`
+    py-4
+    px-4
+    border-b
+    border-gray-200
+`

@@ -26,9 +26,11 @@ export default function AgentQualities({ id }: AgentQualitiesProps) {
     });
 
     return (
-        <div>
-            <h2>Quality Assurances</h2>
-            {bars}
+        <div className="space-y-2">
+            <h2 className="text-xl">Quality Assurances</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+                {bars}  
+            </div>
         </div>
     );
 }

@@ -50,3 +50,8 @@ export interface AgentQuality {
 }
 
 export type AgentQualities = Record<Qualities, AgentQuality>;
+
+export interface PatchQualityRequest {
+    quality: Qualities;
+    quantity: number;
+}

@@ -2,6 +2,7 @@ import {
     AgentResponse, 
     AgentsResponse,
     PatchAgentRequest,
+    PatchQualityRequest,
     PostAgentRequest, 
 } from '@/types';
 import { rootApi } from './root.api';
@@ -39,6 +40,20 @@ export const agentApi = rootApi.injectEndpoints({
                 method: 'PATCH',
                 body: data
             })
+        }),
+        adjustCurrentQuality: builder.mutation<AgentResponse, { id: string; data: PatchQualityRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}/qa/current`,
+                method: 'PATCH',
+                body: data
+            })
+        }),
+        adjustMaxQuality: builder.mutation<AgentResponse, { id: string; data: PatchQualityRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}/qa/max`,
+                method: 'PATCH',
+                body: data
+            })
         })
     }),
     overrideExisting: false
@@ -50,4 +65,6 @@ export const {
     useGetGameAgentsQuery,
     usePostAgentMutation,
     usePatchAgentMutation,
+    useAdjustCurrentQualityMutation,
+    useAdjustMaxQualityMutation
 } = agentApi;
