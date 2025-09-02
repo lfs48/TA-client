@@ -4,7 +4,7 @@ interface TriangleProps {
   filled?: boolean;
   strokeWidth?: number;
   rotate?: boolean;
-  className?: string;
+  [prop: string]: any;
 }
 
 const Triangle = ({ 
@@ -13,7 +13,7 @@ const Triangle = ({
   filled = true,
   strokeWidth = 6,
   rotate = false,
-  className = ''
+  ...props
 }: TriangleProps) => {
   return (
     <svg 
@@ -21,7 +21,7 @@ const Triangle = ({
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       style={rotate ? { transform: "rotate(180deg)" } : {}}
-      className={className}
+      {...props}
     >
       <polygon 
         points="100,30 170,170 30,170" 
