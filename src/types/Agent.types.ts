@@ -17,6 +17,8 @@ export interface Agent {
     realityId?: string;
     competencyId?: string;
     qualities: AgentQualities;
+    currency: AgentCurrencies;
+
 }
 
 export type APIAgent = Agent & {
@@ -53,4 +55,15 @@ export type AgentQualities = Record<Qualities, AgentQuality>;
 export interface PatchQualityRequest {
     quality: Qualities;
     quantity: number;
+}
+
+export interface AgentCurrency {
+    current: number;
+    banked: number;
+    spent: number;
+}
+
+export interface AgentCurrencies {
+    commendations: AgentCurrency;
+    demerits: AgentCurrency;
 }

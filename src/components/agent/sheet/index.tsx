@@ -2,7 +2,7 @@
 import * as S from "./styled";
 import AgentBio from "./bio/agent-bio";
 import AgentQualities from "./qualities/agent-qualities";
-import AgentHeader from "./header/agent-header";
+import AgentCurrency from "./currency/agent-currency";
 
 interface AgentSheetProps {
     id: string;
@@ -18,6 +18,9 @@ export default function AgentSheet({ id }: AgentSheetProps) {
             </S.Section>
             <S.Section>
                 <AgentQualities id={id} />
+            </S.Section>
+            <S.Section>
+                <AgentCurrency id={id} />
             </S.Section>
         </div>
     );
