@@ -71,7 +71,7 @@ export default function QualityBar({
                 <span className="font-bold font-mono">{current}/{max}</span>
                 <h2>{capitalize(quality)}</h2>
             </div>
-            <div className="flex -space-x-1.5">
+            <div className="flex -space-x-1">
                 {triangles}
                 <div 
                     className="relative cursor-pointer ml-2"
