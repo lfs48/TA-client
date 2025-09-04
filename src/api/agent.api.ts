@@ -2,8 +2,10 @@ import {
     AgentResponse, 
     AgentsResponse,
     PatchAgentRequest,
+    PatchCurrencyRequest,
     PatchQualityRequest,
-    PostAgentRequest, 
+    PostAgentRequest,
+    ResetCurrencyRequest, 
 } from '@/types';
 import { rootApi } from './root.api';
 
@@ -54,6 +56,27 @@ export const agentApi = rootApi.injectEndpoints({
                 method: 'PATCH',
                 body: data
             })
+        }),
+        earnCurrency: builder.mutation<AgentResponse, { id: string; data: PatchCurrencyRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}/currency/earn`,
+                method: 'PATCH',
+                body: data
+            })
+        }),
+        spendCurrency: builder.mutation<AgentResponse, { id: string; data: PatchCurrencyRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}/currency/spend`,
+                method: 'PATCH',
+                body: data
+            })
+        }),
+        resetAgentCurrency: builder.mutation<AgentResponse, { id: string, data: ResetCurrencyRequest }>({
+            query: ({ id, data }) => ({
+                url: `agent/${id}/currency/reset-current`,
+                method: 'PATCH',
+                body: data
+            })
         })
     }),
     overrideExisting: false
@@ -66,5 +89,8 @@ export const {
     usePostAgentMutation,
     usePatchAgentMutation,
     useAdjustCurrentQualityMutation,
-    useAdjustMaxQualityMutation
+    useAdjustMaxQualityMutation,
+    useEarnCurrencyMutation,
+    useSpendCurrencyMutation,
+    useResetAgentCurrencyMutation,
 } = agentApi;

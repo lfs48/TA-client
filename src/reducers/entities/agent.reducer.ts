@@ -23,6 +23,9 @@ const agentsSlice = createSlice({
           agentApi.endpoints.patchAgent.matchFulfilled,
           agentApi.endpoints.adjustCurrentQuality.matchFulfilled,
           agentApi.endpoints.adjustMaxQuality.matchFulfilled,
+          agentApi.endpoints.earnCurrency.matchFulfilled,
+          agentApi.endpoints.spendCurrency.matchFulfilled,
+          agentApi.endpoints.resetAgentCurrency.matchFulfilled,
         ),
         (state, action) => {
           const { agent } = action.payload;

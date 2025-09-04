@@ -57,6 +57,8 @@ export interface PatchQualityRequest {
     quantity: number;
 }
 
+export type Currency = 'commendations' | 'demerits';
+
 export interface AgentCurrency {
     current: number;
     banked: number;
@@ -66,4 +68,13 @@ export interface AgentCurrency {
 export interface AgentCurrencies {
     commendations: AgentCurrency;
     demerits: AgentCurrency;
+}
+
+export interface PatchCurrencyRequest {
+    currency: Currency;
+    quantity: number;
+}
+
+export interface ResetCurrencyRequest {
+    currency: Currency;
 }
