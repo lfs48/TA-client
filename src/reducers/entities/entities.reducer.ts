@@ -1,5 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
+import abilitiesReducer from './abilities.reducer';
 import anomaliesReducer from './anomalies.reducer';
 import agentsReducer from './agent.reducer';
 import competenciesReducer from './competencies.reducer';
@@ -11,6 +12,7 @@ import { createAppSelector } from "@/util";
 import { EntityTypeName, RootState } from "@/types";
 
 const entitiesReducer = combineReducers({
+    abilities: abilitiesReducer,
     anomalies: anomaliesReducer,
     agents: agentsReducer,
     competencies: competenciesReducer,
@@ -22,7 +24,7 @@ const entitiesReducer = combineReducers({
 
 interface SelectEntitiesProps {
     [id: string]: EntityTypeName;
-};
+}
 
 interface SelectEntitiesResult {
     [type: string]: {
@@ -32,6 +34,7 @@ interface SelectEntitiesResult {
         };
     };
 }
+
 export const selectEntities = createAppSelector(
     [
     (state: RootState) => state.entities,

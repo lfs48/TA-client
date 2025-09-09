@@ -1,8 +1,8 @@
 import { rootApi } from './root.api';
-import { Anomaly } from '@/types/Anomaly.type';
+import { APIAnomaly } from '@/types/Anomaly.type';
 
 interface AnomaliesResponse {
-    anomalies: Anomaly[];
+    anomalies: APIAnomaly[];
 }
 
 const anomaliesApi = rootApi.injectEndpoints({

@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { Anomaly, APIAgent, RootState } from "@/types";
+import { Anomaly, APIAgent, APIAnomaly, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
@@ -17,18 +17,18 @@ const anomaliesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
-      .addMatcher(anomaliesApi.endpoints.getAnomalies.matchFulfilled, (state, action) => {
-        const { anomalies } = action.payload;
-        anomalies.forEach((anomaly: Anomaly) => {
-          state[anomaly.id] = anomaly;
-        });
-      })
-      .addMatcher(arcsApi.endpoints.getARCs.matchFulfilled, (state, action) => {
-        const { anomalies } = action.payload;
-        anomalies.forEach((anomaly: Anomaly) => {
-          state[anomaly.id] = anomaly;
-        });
-      })
+      .addMatcher(
+        isAnyOf(
+          anomaliesApi.endpoints.getAnomalies.matchFulfilled,
+          arcsApi.endpoints.getARCs.matchFulfilled,
+        ),
+        (state, action) => {
+          const { anomalies } = action.payload;
+          anomalies.forEach((anomaly) => {
+            state[anomaly.id] = stripAnomalyRelations(anomaly);
+          });
+        }
+      )
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,
@@ -77,3 +77,10 @@ export const selectAnomaliesByIds = createAppSelector(
 );
 
 export default anomaliesSlice.reducer;
+
+function stripAnomalyRelations(anomaly: APIAnomaly) {
+  return {
+    ...anomaly,
+    abilities: undefined,
+  }
+}

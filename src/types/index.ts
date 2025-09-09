@@ -1,3 +1,4 @@
+export type * from './Ability.types';
 export type * from './Agent.types';
 export type * from './Anomaly.type';
 export type * from './Auth.types';

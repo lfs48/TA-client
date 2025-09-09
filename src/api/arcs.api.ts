@@ -1,9 +1,12 @@
-import { Competency, Reality } from 'types';
+import { 
+    APIAnomaly, 
+    Competency, 
+    Reality 
+} from '@/types';
 import { rootApi } from './root.api';
-import { Anomaly } from '@/types/Anomaly.type';
 
 interface ARCsResponse {
-    anomalies: Anomaly[];
+    anomalies: APIAnomaly[];
     realities: Reality[];
     competencies: Competency[];
 }

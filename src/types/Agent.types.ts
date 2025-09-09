@@ -1,6 +1,7 @@
-import { Qualities } from "enum";
+import { Qualities } from "@/enum";
 
 import { 
+    AbilityInstance,
     Anomaly,
     Game,
     User,
@@ -18,7 +19,8 @@ export interface Agent {
     competencyId?: string;
     qualities: AgentQualities;
     currency: AgentCurrencies;
-
+    abilityInstanceIds: string[];
+    abilityInstances: AbilityInstance[];
 }
 
 export type APIAgent = Agent & {
@@ -27,6 +29,7 @@ export type APIAgent = Agent & {
     anomaly: Anomaly;
     reality: Reality;
     competency: Competency;
+    abilityInstances: AbilityInstance[];
 }
 
 export interface AgentResponse {
