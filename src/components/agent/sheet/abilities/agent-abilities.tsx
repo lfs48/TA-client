@@ -21,7 +21,7 @@ export default function AgentAbilities({ abilityIds }: AgentAbilitiesProps) {
 
   return (
     <div className="space-y-2">
-      <h1 className="text-xl font-bold text-anomaly-blue">Anomalous Abilities</h1>
+      <h1 className="text-xl font-bold text-anomaly-blue">Anomaly Abilities</h1>
       <div className="grid grid-cols-3 gap-x-4 gap-y-2">
         {agentAbilities}
       </div>

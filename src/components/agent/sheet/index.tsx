@@ -16,7 +16,7 @@ export default function AgentSheet({ id }: AgentSheetProps) {
     const agent = useAppSelector((state) => selectAgentById(state, id));
     const abilityIds = agent?.abilityInstances.map(ai => ai.abilityId) || [];
     return (
-        <div className='flex flex-col bg-white rounded shadow-lg'>
+        <div className='h-[calc(100vh-9rem)] flex flex-col bg-white rounded shadow-lg overflow-auto'>
             <h1 className="text-sm text-agency-red pt-2 pl-4">Agent</h1>
             <S.Section>
                 <AgentBio id={id} />
