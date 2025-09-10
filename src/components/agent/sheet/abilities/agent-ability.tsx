@@ -1,5 +1,5 @@
 import { Ability } from "@/types";
-import { RiCheckFill, RiCloseFill, RiStarFill } from "@remixicon/react";
+import { RiCheckFill, RiCloseFill, RiCloseLargeFill, RiCloseLine, RiStarFill } from "@remixicon/react";
 import parse from 'html-react-parser';
 import * as S from './styled';
 
@@ -18,7 +18,7 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
                 {parse(description)}
             </div>
             <S.Section>
-                <div className="size-5 pt-[0.2rem]">
+                <div className="w-5 pt-[0.2rem]">
                     <RiCheckFill className="size-5 flex-shrink-0 text-anomaly-blue"/>
                 </div>
                 <p>
@@ -27,7 +27,7 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
             </S.Section>
             {additional && (
                 <S.Section>
-                    <div className="size-5 pt-[0.4rem]">
+                    <div className="w-5 pt-[0.4rem]">
                         <RiStarFill className="size-[0.85rem] flex-shrink-0 text-anomaly-blue"/>
                     </div>
                     <p>
@@ -36,8 +36,8 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
                 </S.Section>
             )}
             <S.Section>
-                <div className="size-5 pt-[0.2rem]">
-                    <RiCloseFill className="size-5 flex-shrink-0 text-agency-red"/>
+                <div className="w-5  pt-[0.4rem]">
+                    <RiCloseLargeFill className="size-[0.85rem] flex-shrink-0 text-agency-red"/>
                 </div>
                 <p>
                     {parse(failure)}
