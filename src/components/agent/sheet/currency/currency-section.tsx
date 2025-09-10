@@ -69,14 +69,14 @@ export default function CurrencySection({
                     </div>
                     <S.LineItem>
                         <div className="flex space-x-2">
-                            <RiAwardFill className="size-5 text-agency-red"/>
+                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
                             <S.SubLabel>Total Banked</S.SubLabel>
                         </div>
                         <div>{banked}</div>
                     </S.LineItem>
                     <S.LineItem>
                         <div className="flex space-x-2">
-                            <RiAwardFill className="size-5 text-agency-red"/>
+                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
                             <S.SubLabel>Cumulative Earned</S.SubLabel>
                         </div>
                         <div>{banked + spent}</div>
