@@ -6,6 +6,7 @@ import AgentCurrency from "./currency/agent-currency";
 import AgentAbilities from "./abilities/agent-abilities";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
+import AgentHeader from "./header/agent-header";
 
 interface AgentSheetProps {
     id: string;
@@ -17,7 +18,7 @@ export default function AgentSheet({ id }: AgentSheetProps) {
     const abilityIds = agent?.abilityInstances.map(ai => ai.abilityId) || [];
     return (
         <div className='h-[calc(100vh-9rem)] flex flex-col bg-white rounded shadow-lg overflow-auto'>
-            <h1 className="text-sm text-agency-red pt-2 pl-4">Agent</h1>
+            <AgentHeader name={agent?.name || ''} />
             <S.Section>
                 <AgentBio id={id} />
             </S.Section>
