@@ -1,7 +1,7 @@
 import { Ability } from "@/types";
-import { RiCheckFill, RiCloseFill, RiCloseLargeFill, RiCloseLine, RiStarFill } from "@remixicon/react";
-import parse from 'html-react-parser';
+import { RiCheckFill, RiCloseLargeFill, RiStarFill } from "@remixicon/react";
 import * as S from './styled';
+import HTMLParser from "@/components/html-parser";
 
 interface AgentAbilityProps {
   ability: Ability;
@@ -15,14 +15,14 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
         <div className="space-y-1 bg-anomaly-blue-100 py-2 rounded">
             <h3 className="text-lg text-anomaly-blue font-bold px-2 border-b border-anomaly-blue-300 pb-1">{title}</h3>
             <div className="px-2">
-                {parse(description)}
+                <HTMLParser text={description}/>
             </div>
             <S.Section>
                 <div className="w-5 pt-[0.2rem]">
                     <RiCheckFill className="size-5 flex-shrink-0 text-anomaly-blue"/>
                 </div>
                 <p>
-                    {parse(success)}
+                    <HTMLParser text={success}/>
                 </p>
             </S.Section>
             {additional && (
@@ -31,7 +31,7 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
                         <RiStarFill className="size-[0.85rem] flex-shrink-0 text-anomaly-blue"/>
                     </div>
                     <p>
-                        {parse(additional)}
+                        <HTMLParser text={additional}/>
                     </p>
                 </S.Section>
             )}
@@ -40,7 +40,7 @@ export default function AgentAbility({ ability }: AgentAbilityProps) {
                     <RiCloseLargeFill className="size-[0.85rem] flex-shrink-0 text-agency-red"/>
                 </div>
                 <p>
-                    {parse(failure)}
+                    <HTMLParser text={failure}/>
                 </p>
             </S.Section>
         </div>
