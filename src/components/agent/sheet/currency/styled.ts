@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components';
 
 export const LineItem = tw.div`
-    w-[21.5rem]
+    w-[20rem]
     flex 
     justify-between 
     bg-gray-200 

@@ -53,7 +53,7 @@ export default function CurrencySection({
 
     return (
         <div className="flex flex-col space-y-3">
-                    <span className="text-lg font-bold">Commendations</span>
+                    <span className="text-lg font-bold">{currency === 'commendations' ? 'Commendations' : 'Demerits'}</span>
                     <div className="flex space-x-2">
                         <S.LineItem>
                             <div className="flex space-x-2">
@@ -87,26 +87,26 @@ export default function CurrencySection({
                             onChange={(value) => setInput(value)}
                             min={1}
                             max={999}
-                            className="w-20"
+                            className="w-16"
                         />
                         <Button
                             color={ButtonColors .RED}
                             style={ButtonStyles.FILL}
-                            buttonClasses="w-20 py-1"
+                            buttonClasses="w-16 h-[2.28rem] text-sm py-1"
                             disabled={loading}
                             onClick={() => handleTransaction('earn', input)}
                         >Award</Button>
                         <Button
                             color={ButtonColors.PURPLE}
                             style={ButtonStyles.OUTLINE}
-                            buttonClasses="w-20 py-1"
+                            buttonClasses="w-16 text-sm py-1"
                             disabled={loading}
                             onClick={() => handleTransaction('spend', input)}
                         >Spend</Button>
                         <Button
                             color={ButtonColors.PURPLE}
                             style={ButtonStyles.FILL}
-                            buttonClasses="w-20 py-1"
+                            buttonClasses="w-16 text-sm py-1"
                             disabled={loading}
                             onClick={() => handleTransaction('earn', -1 * input)}
                         >Rescind</Button>

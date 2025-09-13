@@ -21,6 +21,9 @@ export interface Agent {
     currency: AgentCurrencies;
     abilityInstanceIds: string[];
     abilityInstances: AbilityInstance[];
+    directive: number;
+    sanctioned: boolean[];
+    assessment: number[];
 }
 
 export type APIAgent = Agent & {

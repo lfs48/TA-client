@@ -7,6 +7,7 @@ import AgentAbilities from "./abilities/agent-abilities";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { selectAgentById } from "@/reducers/entities/agent.reducer";
 import AgentHeader from "./header/agent-header";
+import AgentBehavior from "./behavior/agent-behavior";
 
 interface AgentSheetProps {
     id: string;
