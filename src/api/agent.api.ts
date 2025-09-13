@@ -71,11 +71,11 @@ export const agentApi = rootApi.injectEndpoints({
                 body: data
             })
         }),
-        resetAgentCurrency: builder.mutation<AgentResponse, { id: string, data: ResetCurrencyRequest }>({
-            query: ({ id, data }) => ({
-                url: `agent/${id}/currency/reset-current`,
+        resetAgent: builder.mutation<AgentResponse, string>({
+            query: (id) => ({
+                url: `agent/${id}/reset`,
                 method: 'PATCH',
-                body: data
+                body: {},
             })
         })
     }),
@@ -92,5 +92,5 @@ export const {
     useAdjustMaxQualityMutation,
     useEarnCurrencyMutation,
     useSpendCurrencyMutation,
-    useResetAgentCurrencyMutation,
+    useResetAgentMutation,
 } = agentApi;

@@ -21,7 +21,7 @@ export default function AgentSheet({ id }: AgentSheetProps) {
     return (
         <AgentSheetContext.Provider value={{ agent: agent }}>
             <div className='h-[calc(100vh-9rem)] flex flex-col bg-white rounded shadow-lg overflow-y-auto scrollbar-thin'>
-                <AgentHeader name={agent?.name || ''} />
+                <AgentHeader />
                 <S.Section>
                     <AgentBio />
                 </S.Section>

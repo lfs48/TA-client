@@ -1,12 +1,11 @@
 import { Currency } from "@/types";
 import { 
     useEarnCurrencyMutation, 
-    useResetAgentCurrencyMutation, 
     useSpendCurrencyMutation 
 } from "@/api/agent.api";
 import { useState } from "react";
 import * as S from './styled';
-import { RiAuctionFill, RiAwardFill, RiResetLeftLine } from "@remixicon/react";
+import { RiAuctionFill, RiAwardFill } from "@remixicon/react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import Button from "@/components/UI/button";
 import NumberInput from "@/components/UI/number-input";
@@ -31,9 +30,8 @@ export default function CurrencySection({
 
     const [triggerEarn, {isLoading: earnLoading}] = useEarnCurrencyMutation();
     const [triggerSpend, {isLoading: spendLoading}] = useSpendCurrencyMutation();
-    const [triggerReset, {isLoading: resetLoading}] = useResetAgentCurrencyMutation();
 
-    const loading = earnLoading || spendLoading || resetLoading;
+    const loading = earnLoading || spendLoading;
 
     const handleTransaction = async (type: 'earn' | 'spend', quantity: number) => {
         const data = { currency, quantity };
@@ -45,28 +43,16 @@ export default function CurrencySection({
         setInput(0);
     };
 
-    const handleReset = async () => {
-        if (!loading) {
-            await triggerReset({ id, data: { currency } });
-        }
-    };
-
     return (
         <div className="flex flex-col space-y-3">
                     <span className="text-lg font-bold">{currency === 'commendations' ? 'Commendations' : 'Demerits'}</span>
-                    <div className="flex space-x-2">
-                        <S.LineItem>
-                            <div className="flex space-x-2">
-                                <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
-                                <S.SubLabel>Earned this Mission</S.SubLabel>
-                            </div>
-                            <div>{current}</div>
-                        </S.LineItem>
-                        <RiResetLeftLine 
-                            className="size-5 text-agency-red mt-1 cursor-pointer"
-                            onClick={() => handleReset()}
-                        />
-                    </div>
+                    <S.LineItem>
+                        <div className="flex space-x-2">
+                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
+                            <S.SubLabel>Earned this Mission</S.SubLabel>
+                        </div>
+                        <div>{current}</div>
+                    </S.LineItem>
                     <S.LineItem>
                         <div className="flex space-x-2">
                             <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
