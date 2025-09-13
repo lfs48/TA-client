@@ -59,8 +59,14 @@ export default function AgentsTab({ game }: AgentsTabProps) {
             style={ButtonStyles.FILL} 
             buttonClasses="w-full py-1"
             onClick={handleCreateAgent}
+            loading={isLoading || isCreating}
         >New Agent</Button>
-        {isSuccess && agents.length > 0 ? (
+        {isLoading && (
+            [...Array(4)].map((_, index) => (
+                <div key={index} className="h-8 bg-gray-200 rounded animate-pulse" />
+            ))
+        )}
+        {!isLoading && isSuccess && agents.length > 0 ? (
             <ul className="space-y-2">
                 {agentList}
             </ul>
