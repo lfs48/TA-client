@@ -2,8 +2,7 @@ import Triangle from "@/components/svg/triangle";
 import { RiAddFill, RiSubtractFill } from "@remixicon/react";
 import { useAdjustCurrentQualityMutation, useAdjustMaxQualityMutation } from "@/api/agent.api";
 import {capitalize} from 'lodash';
-import { useMemo } from "react";
-import { Qualities } from "enum";
+import { Qualities } from "@/enum";
 
 interface QualityBarProps {
     quality: Qualities;

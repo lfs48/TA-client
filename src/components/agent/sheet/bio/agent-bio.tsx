@@ -1,21 +1,17 @@
 import { Agent, Anomaly, Competency, Reality } from "@/types";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import * as S from '../styled';
 import { usePatchAgentMutation } from "@/api/agent.api";
-import { selectAgentById } from "@/reducers/entities/agent.reducer";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
+import AgentSheetContext from "../agent-sheet-context";
 
-interface AgentSheetProps {
-    id: string;
-};
+export default function AgentBio() {
 
-export default function AgentBio({ id }: AgentSheetProps) {
-
-    const agent = useAppSelector(state => selectAgentById(state, id)) as Agent;
-    const { name, anomalyId, realityId, competencyId, playerId } = agent;
+    const { agent } = useContext(AgentSheetContext);
+    const { id, name, anomalyId, realityId, competencyId, playerId } = agent;
     const anomalies = useAppSelector(state => state.entities.anomalies);
     const realities = useAppSelector(state => state.entities.realities);
     const competencies = useAppSelector(state => state.entities.competencies);

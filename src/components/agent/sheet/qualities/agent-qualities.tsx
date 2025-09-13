@@ -1,19 +1,15 @@
-import { selectAgentById } from "@/reducers/entities/agent.reducer";
-import { Agent } from "@/types";
 import QualityBar from "./quality-bar";
 import { Qualities } from "@/enum";
-import { useAppSelector } from "@/hooks/useAppSelector.hook";
+import { useContext } from "react";
+import AgentSheetContext from "../agent-sheet-context";
 
-interface AgentQualitiesProps {
-    id: string;
-}
+export default function AgentQualities() {
 
-export default function AgentQualities({ id }: AgentQualitiesProps) {
-
-    const agent = useAppSelector(state => selectAgentById(state, id)) as Agent;
+    const { agent } = useContext(AgentSheetContext);
+    const { id, qualities } = agent;
 
     const bars = Object.values(Qualities).map((quality) => {
-        const { current, max } = agent.qualities[quality] || { current: 0, max: 0 };
+        const { current, max } = qualities[quality];
         return (
             <QualityBar
                 key={quality}

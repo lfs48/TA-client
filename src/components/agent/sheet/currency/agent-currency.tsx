@@ -1,19 +1,13 @@
-import { useAppSelector } from "@/hooks/useAppSelector.hook";
-import { selectAgentById } from "@/reducers/entities/agent.reducer";
-import { Agent } from "@/types";
 import CurrencySection from "./currency-section";
 import AgentBehavior from "./agent-behavior";
+import AgentSheetContext from "components/agent/sheet/agent-sheet-context";
+import { useContext } from "react";
 
-interface AgentCurrencyProps {
-    id: string;
-}
+export default function AgentCurrency() {
 
-export default function AgentCurrency({
-    id,
-}: AgentCurrencyProps) {
-
-    const agent = useAppSelector(state => selectAgentById(state, id)) as Agent;
-    const {commendations, demerits} = agent?.currency;
+    const { agent } = useContext(AgentSheetContext);
+    const { id, currency } = agent;
+    const { commendations, demerits } = currency;
 
     return (
         <div>
@@ -37,7 +31,7 @@ export default function AgentCurrency({
                         />
                     </div>
                 </div>
-                <AgentBehavior id={agent.id} />
+                <AgentBehavior />
             </div>
         </div>
     );

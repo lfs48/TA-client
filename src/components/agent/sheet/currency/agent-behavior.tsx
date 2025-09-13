@@ -1,14 +1,11 @@
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
-import { selectAgentById } from "@/reducers/entities/agent.reducer";
 import { selectCompetencyById } from "@/reducers/entities/competencies.reducer";
+import AgentSheetContext from "../agent-sheet-context";
+import { useContext } from "react";
 
-interface AgentBehaviorProps {
-    id: string;
-}
+export default function AgentBehavior() {
 
-export default function AgentBehavior({ id }: AgentBehaviorProps) {
-
-    const agent = useAppSelector(state => selectAgentById(state, id));
+    const { agent } = useContext(AgentSheetContext);
     const competency = useAppSelector(state => selectCompetencyById(state, agent?.competencyId || ''));
     const directive = competency?.directives[agent?.directive || 0] || '';
     
