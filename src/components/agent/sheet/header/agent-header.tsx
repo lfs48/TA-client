@@ -27,6 +27,7 @@ export default function AgentHeader() {
                 color={ButtonColors.RED}
                 onClick={handleConfirmReset}
                 buttonClasses="py-1 px-2 text-xs"
+                loading={isLoading}
             >
                 Mission Reset
             </Button>

@@ -5,7 +5,6 @@ import {
     PatchCurrencyRequest,
     PatchQualityRequest,
     PostAgentRequest,
-    ResetCurrencyRequest, 
 } from '@/types';
 import { rootApi } from './root.api';
 

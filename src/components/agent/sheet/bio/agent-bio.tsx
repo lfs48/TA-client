@@ -1,4 +1,4 @@
-import { Agent, Anomaly, Competency, Reality } from "@/types";
+import { Anomaly, Competency, Reality } from "@/types";
 import { useContext, useEffect, useMemo, useState } from "react";
 import Select from "@/components/UI/select";
 import Button from "@/components/UI/button";
