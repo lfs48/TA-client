@@ -1,6 +1,6 @@
 import CurrencySection from "./currency-section";
 import AgentBehavior from "./agent-behavior";
-import AgentSheetContext from "components/agent/sheet/agent-sheet-context";
+import AgentSheetContext from "../agent-sheet-context";
 import { useContext } from "react";
 
 export default function AgentCurrency() {

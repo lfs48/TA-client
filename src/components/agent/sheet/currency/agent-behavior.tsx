@@ -2,6 +2,9 @@ import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { selectCompetencyById } from "@/reducers/entities/competencies.reducer";
 import AgentSheetContext from "../agent-sheet-context";
 import { useContext } from "react";
+import { usePatchAgentMutation } from "@/api/agent.api";
+import { toggleSanctioned } from "@/util/agent.util";
+import Checkbox from "@/components/UI/checkbox";
 
 export default function AgentBehavior() {
 
@@ -9,12 +12,29 @@ export default function AgentBehavior() {
     const competency = useAppSelector(state => selectCompetencyById(state, agent?.competencyId || ''));
     const directive = competency?.directives[agent?.directive || 0] || '';
     
+    const [triggerPatchAgent, { isLoading }] = usePatchAgentMutation();
+
     const sanctioned = competency?.sanctioned.map((s, i) => (
         <li key={i} className="flex items-center space-x-2">
-            <input type="checkbox" checked={agent?.sanctioned[i]} readOnly />
+            <Checkbox
+                checked={agent?.sanctioned[i]} 
+                onChange={() => handleToggleSanctioned(i)}
+                color='red'
+                disabled={isLoading}
+            />
             <span>{s}</span>
         </li>
     ));
+
+    const handleToggleSanctioned = (index: number) => {
+        const newAgent = toggleSanctioned(agent, index);
+        triggerPatchAgent({
+            id: agent.id,
+            data: {
+                agent: newAgent
+            }
+        });
+    };
 
     return (
         <div className="flex flex-col space-y-2">
