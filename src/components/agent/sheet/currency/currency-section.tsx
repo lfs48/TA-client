@@ -45,59 +45,59 @@ export default function CurrencySection({
 
     return (
         <div className="flex flex-col space-y-3">
-                    <span className="text-lg font-bold">{currency === 'commendations' ? 'Commendations' : 'Demerits'}</span>
-                    <S.LineItem>
-                        <div className="flex space-x-2">
-                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
-                            <S.SubLabel>Earned this Mission</S.SubLabel>
-                        </div>
-                        <div>{current}</div>
-                    </S.LineItem>
-                    <S.LineItem>
-                        <div className="flex space-x-2">
-                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
-                            <S.SubLabel>Total Banked</S.SubLabel>
-                        </div>
-                        <div>{banked}</div>
-                    </S.LineItem>
-                    <S.LineItem>
-                        <div className="flex space-x-2">
-                            <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
-                            <S.SubLabel>Cumulative Earned</S.SubLabel>
-                        </div>
-                        <div>{banked + spent}</div>
-                    </S.LineItem>
-                    <div className="flex items-end space-x-2">
-                        <NumberInput
-                            value={input}
-                            onChange={(value) => setInput(value)}
-                            min={1}
-                            max={999}
-                            className="w-16"
-                        />
-                        <Button
-                            color={ButtonColors .RED}
-                            style={ButtonStyles.FILL}
-                            buttonClasses="w-16 h-[2.28rem] text-sm py-1"
-                            disabled={loading}
-                            onClick={() => handleTransaction('earn', input)}
-                        >Award</Button>
-                        <Button
-                            color={ButtonColors.PURPLE}
-                            style={ButtonStyles.OUTLINE}
-                            buttonClasses="w-16 text-sm py-1"
-                            disabled={loading}
-                            onClick={() => handleTransaction('spend', input)}
-                        >Spend</Button>
-                        <Button
-                            color={ButtonColors.PURPLE}
-                            style={ButtonStyles.FILL}
-                            buttonClasses="w-16 text-sm py-1"
-                            disabled={loading}
-                            onClick={() => handleTransaction('earn', -1 * input)}
-                        >Rescind</Button>
-                    </div>
+            <span className="text-xl font-bold">{currency === 'commendations' ? 'Commendations' : 'Demerits'}</span>
+            <S.LineItem>
+                <div className="flex space-x-2">
+                    <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
+                    <S.SubLabel>Earned this Mission</S.SubLabel>
                 </div>
+                <div>{current}</div>
+            </S.LineItem>
+            <S.LineItem>
+                <div className="flex space-x-2">
+                    <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
+                    <S.SubLabel>Total Banked</S.SubLabel>
+                </div>
+                <div>{banked}</div>
+            </S.LineItem>
+            <S.LineItem>
+                <div className="flex space-x-2">
+                    <CurrencyIcon currency={currency} className="size-5 text-agency-red"/>
+                    <S.SubLabel>Cumulative Earned</S.SubLabel>
+                </div>
+                <div>{banked + spent}</div>
+            </S.LineItem>
+            <div className="flex items-end space-x-2">
+                <NumberInput
+                    value={input}
+                    onChange={(value) => setInput(value)}
+                    min={1}
+                    max={999}
+                    className="w-20"
+                />
+                <Button
+                    color={ButtonColors .RED}
+                    style={ButtonStyles.FILL}
+                    buttonClasses="w-20 py-1"
+                    disabled={loading}
+                    onClick={() => handleTransaction('earn', input)}
+                >Award</Button>
+                <Button
+                    color={ButtonColors.PURPLE}
+                    style={ButtonStyles.OUTLINE}
+                    buttonClasses="w-20 py-1"
+                    disabled={loading}
+                    onClick={() => handleTransaction('spend', input)}
+                >Spend</Button>
+                <Button
+                    color={ButtonColors.PURPLE}
+                    style={ButtonStyles.FILL}
+                    buttonClasses="w-20 py-1"
+                    disabled={loading}
+                    onClick={() => handleTransaction('earn', -1 * input)}
+                >Rescind</Button>
+            </div>
+        </div>
     );
 }
 

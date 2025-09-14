@@ -39,12 +39,12 @@ export default function AgentBehavior() {
     return (
         <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-1">
-                <h3 className="text-lg font-bold">Prime Directive</h3>
+                <h3 className="text-xl">Prime Directive</h3>
                 <span>{directive}</span>
             </div>
             <div>
-                <h3 className="text-lg font-bold">Sanctioned Behaviors</h3>
-                <ul className="list-inside list-none">
+                <h3 className="text-xl mb-1">Sanctioned Behaviors</h3>
+                <ul className="list-inside list-none space-y-1">
                     {sanctioned}
                 </ul>
             </div>
