@@ -1,7 +1,9 @@
 import React from "react";
-import { EntityTypeName } from "@/types";
+import { Game, EntityTypeName } from "@/types";
+import { gameSkeleton } from "@/util/game.util";
 
 interface GameContextState {
+    game: Game;
     openTabs: {
         [id: string]: EntityTypeName;
     }
@@ -12,6 +14,7 @@ interface GameContextState {
 }
 
 const GameContext = React.createContext<GameContextState>({
+    game: gameSkeleton,
     openTabs: {},
     openTab: () => {},
     closeTab: () => {},

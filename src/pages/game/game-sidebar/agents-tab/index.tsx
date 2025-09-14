@@ -1,19 +1,14 @@
 import { useGetGameAgentsQuery, usePostAgentMutation } from "@/api/agent.api";
 import { selectAgentsByIds } from "@/reducers/entities/agent.reducer";
-import { Game } from "@/types";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import GameContext from "../../game-context";
 import Button from "@/components/UI/button";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
 
-interface AgentsTabProps {
-    game: Game;
-};
+export default function AgentsTab() {
 
-export default function AgentsTab({ game }: AgentsTabProps) {
-
-    const {openTab, setSelectedTab} = useContext(GameContext);
+    const {game, openTab, setSelectedTab} = useContext(GameContext);
 
     const { isSuccess, isLoading } = useGetGameAgentsQuery(game.id);
     const [triggerPostAgent, { data: postData, isLoading: isCreating, isSuccess: postSuccess }] = usePostAgentMutation();
@@ -49,7 +44,7 @@ export default function AgentsTab({ game }: AgentsTabProps) {
         >
             {agent.name}
         </li>
-    )), [agents]);
+    )), [agents, game]);
 
     return (
     <div className="h-full flex flex-col p-4 space-y-4">

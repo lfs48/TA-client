@@ -1,17 +1,13 @@
 import { Game } from "@/types";
 import Button from "@/components/UI/button";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import { usePatchGameMutation } from "@/api/game.api";
+import GameContext from "../../game-context";
 
-interface SettingsTabProps {
-    game: Game;
-}
+export default function SettingsTab() {
 
-export default function SettingsTab({
-    game,
-}: SettingsTabProps) {
-
+    const { game } = useContext(GameContext);
     const { title, description } = game;
 
     const [editingTitle, setEditingTitle] = useState(false);

@@ -11,6 +11,7 @@ import { useGetARCsQuery } from '@/api/arcs.api';
 import { WorkspaceTabs } from '@/types';
 import GameWorkspace from '@/pages/game/game-workspace';
 import { useAppSelector } from '@/hooks/useAppSelector.hook';
+import { gameSkeleton } from '@/util/game.util';
 
 export default function Game() {
 
@@ -34,7 +35,7 @@ export default function Game() {
     const { data, isSuccess, isLoading } = useGetGameByPassphraseQuery(passphrase ?? skipToken);
     const { data: arcData } = useGetARCsQuery();
 
-    const game = useAppSelector(state => selectGameById(state, id));
+    const game = useAppSelector(state => selectGameById(state, id)) || gameSkeleton;
 
     useEffect(() => {
         if(isSuccess && data.game && data.game.id) {
@@ -47,6 +48,7 @@ export default function Game() {
             {(isSuccess && game) &&
                 <GameContext.Provider 
                     value={{ 
+                        game,
                         openTabs, 
                         openTab, 
                         closeTab, 
@@ -54,7 +56,7 @@ export default function Game() {
                         setSelectedTab 
                 }}>
                     <GameWorkspace />
-                    <GameSidebar game={game}/>
+                    <GameSidebar />
                 </GameContext.Provider>
             }
         </div>

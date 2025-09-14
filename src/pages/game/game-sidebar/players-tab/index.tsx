@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { RiUserFill } from "@remixicon/react";
 import toast from 'react-hot-toast';
 
@@ -11,15 +11,11 @@ import { selectUsersById } from "@/reducers/entities/users.reducer";
 import { Game, User } from "@/types";
 import { isErrorResponse } from "@/util/error.util";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
+import GameContext from "../../game-context";
 
-interface PlayersTabProps {
-    game: Game;
-}
+export default function PlayersTab() {
 
-export default function PlayersTab({
-    game,
-}: PlayersTabProps) {
-
+    const { game } = useContext(GameContext);
     const { id, playerIds } = game;
 
     const players = useAppSelector(state => selectUsersById(state, playerIds));

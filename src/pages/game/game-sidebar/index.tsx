@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import SettingsTab from "./settings-tab";
 import { GameSidebarTabs } from "@/enum/game-sidebar-tabs.enum";
 import PlayersTab from "./players-tab";
-import { Game } from "@/types";
 import AgentsTab from "./agents-tab";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
+import GameContext from "../game-context";
 
 const tabs = {
     [GameSidebarTabs.AGENTS]: {
@@ -21,14 +21,9 @@ const tabs = {
     }
 };
 
-interface GameSidebarProps {
-    game: Game;
-}
+export default function GameSidebar() {
 
-export default function GameSidebar({
-    game,
-}: GameSidebarProps) {
-
+    const game = useContext(GameContext).game;
     const userId = useAppSelector(state => state.session.id) ?? '';
     const isGM = userId === game.gmId;
 
@@ -37,11 +32,11 @@ export default function GameSidebar({
     const getActiveTab = useCallback(() => {
         switch(tab) {
             case(GameSidebarTabs.AGENTS):
-                return <AgentsTab game={game} />;
+                return <AgentsTab />;
             case(GameSidebarTabs.SETTINGS):
-                return <SettingsTab game={game}/>;
+                return <SettingsTab />;
             case(GameSidebarTabs.PLAYERS):
-                return <PlayersTab game={game}/>
+                return <PlayersTab />;
         }
     }, [tab, game]);
 
