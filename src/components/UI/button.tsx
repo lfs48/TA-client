@@ -60,6 +60,8 @@ function buttonColorClasses(color:ButtonColors, style:ButtonStyles) {
     switch(style) {
         case(ButtonStyles.FILL):
             switch(color) {
+                case(ButtonColors.BLUE):
+                    return 'border-2 border-anomaly-blue bg-anomaly-blue text-white';
                 case(ButtonColors.RED):
                     return 'border-2 border-agency-red bg-agency-red text-white';
                 case(ButtonColors.PURPLE):
@@ -69,6 +71,8 @@ function buttonColorClasses(color:ButtonColors, style:ButtonStyles) {
             }
         case(ButtonStyles.OUTLINE):
             switch(color) {
+                case(ButtonColors.BLUE):
+                    return 'border-2 border-anomaly-blue text-anomaly-blue';
                 case(ButtonColors.RED):
                     return 'border-2 border-agency-red text-agency-red';
                 case(ButtonColors.PURPLE):
