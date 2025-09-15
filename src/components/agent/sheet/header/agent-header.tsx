@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { ButtonColors, ButtonStyles } from "@/enum";
 import confirmReset from "./confirm-reset";
 import { useResetAgentMutation } from "@/api/agent.api";
+import AgentTabs from "./agent-tabs";
 
 export default function AgentHeader() {
 
@@ -20,8 +21,11 @@ export default function AgentHeader() {
     }
 
     return (
-        <div className="sticky top-0 flex justify-between px-2 py-2 border-b border-b-gray-300 bg-white z-10">
-            <h1 className="text-sm text-agency-red pt-2 pl-4">Agent {name}</h1>
+        <div className="sticky top-0 flex justify-between items-center px-2 py-2 border-b border-b-gray-300 bg-white z-10">
+            <div className="flex items-center">
+                <h1 className="text text-agency-red pt-2 pl-4 mr-6">Agent {name}</h1>
+                <AgentTabs />
+            </div>
             <Button
                 style={ButtonStyles.OUTLINE}
                 color={ButtonColors.RED}

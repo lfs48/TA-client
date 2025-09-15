@@ -1,23 +1,22 @@
 import AgentAbility from "./agent-ability";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { selectAbilitiesByIds } from "@/reducers/entities/abilities.reducer";
+import AgentSheetContext from "../agent-sheet-context";
 
-interface AgentAbilitiesProps {
-  abilityIds: string[];
-}
+export default function AgentAbilities() {
 
-export default function AgentAbilities({ abilityIds }: AgentAbilitiesProps) {
+  const { agent } = useContext(AgentSheetContext);
+  const abilityIds = agent?.abilityInstances.map(ai => ai.abilityId) || [];
+  const abilities = useAppSelector((state) =>
+    selectAbilitiesByIds(state, abilityIds)
+  );
 
-    const abilities = useAppSelector((state) =>
-      selectAbilitiesByIds(state, abilityIds)
-    );
-
-    const agentAbilities = useMemo(() => {
-      return abilities.map((ability) => (
-        <AgentAbility key={ability.id} ability={ability} />
-      ));
-    }, [abilities]);
+  const agentAbilities = useMemo(() => {
+    return abilities.map((ability) => (
+      <AgentAbility key={ability.id} ability={ability} />
+    ));
+  }, [abilities]);
 
   return (
     <div className="space-y-2">

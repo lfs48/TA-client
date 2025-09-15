@@ -9,6 +9,8 @@ import { selectAgentById } from "@/reducers/entities/agent.reducer";
 import AgentHeader from "./header/agent-header";
 import AgentSheetContext from "./agent-sheet-context";
 import { agentSkeleton } from "@/util/agent.util";
+import { useState } from "react";
+import { AgentSheetTab } from "@/types";
 
 interface AgentSheetProps {
     id: string;
@@ -16,25 +18,40 @@ interface AgentSheetProps {
 
 export default function AgentSheet({ id }: AgentSheetProps) {
 
+    const [tab, setTab] = useState<AgentSheetTab>('overview');
     const agent = useAppSelector((state) => selectAgentById(state, id)) || agentSkeleton;
     const abilityIds = agent?.abilityInstances.map(ai => ai.abilityId) || [];
     return (
-        <AgentSheetContext.Provider value={{ agent: agent }}>
+        <AgentSheetContext.Provider value={{ agent: agent, tab: tab, setTab: setTab }}>
             <div className='h-[calc(100vh-9rem)] flex flex-col bg-white rounded shadow-lg overflow-y-auto scrollbar-thin'>
                 <AgentHeader />
-                <S.Section>
-                    <AgentBio />
-                </S.Section>
-                <S.Section>
-                    <AgentQualities />
-                </S.Section>
-                <S.Section>
-                    <AgentCurrency />
-                </S.Section>
-                <S.Section>
-                    <AgentAbilities abilityIds={abilityIds || []} />
-                </S.Section>
+                {sheetContent(tab)}
             </div>
         </AgentSheetContext.Provider>
     );
+}
+
+function sheetContent(tab: AgentSheetTab) {
+    switch(tab) {
+        case 'overview':
+            return (
+                <>
+                    <S.Section>
+                       <AgentBio /> 
+                    </S.Section>
+                    <S.Section>
+                       <AgentQualities />
+                    </S.Section>
+                    <S.Section>
+                       <AgentCurrency />
+                    </S.Section>
+                </>
+            );
+        case 'anomaly':
+            return(
+                <S.Section>
+                    <AgentAbilities />
+                </S.Section>
+            );
+    }
 }

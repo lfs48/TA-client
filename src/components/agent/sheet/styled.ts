@@ -27,4 +27,5 @@ export const Section = tw.div`
     px-4
     border-b
     border-gray-200
+    last:border-b-0
 `

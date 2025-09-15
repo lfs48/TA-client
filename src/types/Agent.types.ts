@@ -84,3 +84,5 @@ export interface PatchCurrencyRequest {
 export interface ResetCurrencyRequest {
     currency: Currency;
 }
+
+export type AgentSheetTab = 'overview' | 'anomaly' | 'reality' | 'competency';
