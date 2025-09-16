@@ -3,6 +3,7 @@ import { AbilityInstance, APIAgent, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
+import { abilityInstancesApi } from "@/api/ability-instances.api";
 
 interface AbilityInstancesState {
   [id: string]: AbilityInstance;
@@ -15,6 +16,15 @@ const abilityInstancesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
+      .addMatcher(
+        isAnyOf(
+          abilityInstancesApi.endpoints.patchAbilityInstance.matchFulfilled,
+        ),
+        (state, action) => {
+          const { abilityInstance } = action.payload;
+          state[abilityInstance.id] = abilityInstance;
+        }
+      )
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,

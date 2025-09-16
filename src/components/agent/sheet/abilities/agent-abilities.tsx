@@ -1,9 +1,6 @@
 import AgentAbility from "./agent-ability";
-import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { useContext, useMemo } from "react";
-import { selectAbilitiesByIds } from "@/reducers/entities/abilities.reducer";
 import AgentSheetContext from "../agent-sheet-context";
-import { selectAbilityInstancesByIds } from "reducers/entities/ability-instances.reducer";
 
 export default function AgentAbilities() {
 
