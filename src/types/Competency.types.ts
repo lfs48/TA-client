@@ -3,7 +3,7 @@ export interface Competency {
     name: string;
     directives: string[];
     sanctioned: string[];
-    assessment: CompetencyAssessment;
+    assessment: CompetencyAssessment[];
 }
 
 export interface CompetencyAssessment {

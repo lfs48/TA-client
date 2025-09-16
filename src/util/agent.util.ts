@@ -1,4 +1,4 @@
-import { Agent } from "types";
+import { Agent } from "@/types";
 import { Qualities } from "@/enum";
 
 export const agentSkeleton: Agent = {
@@ -37,5 +37,14 @@ export function toggleSanctioned(agent:Agent, index:number):Agent {
     return {
         ...agent,
         sanctioned: newSanctioned
+    };
+};
+
+export function toggleAssessment(agent:Agent, index:number, answerIndex:number):Agent {
+    const newAssessment = [...agent.assessment];
+    newAssessment[index] = newAssessment[index] === answerIndex ? 0 : answerIndex;
+    return {
+        ...agent,
+        assessment: newAssessment
     };
 }

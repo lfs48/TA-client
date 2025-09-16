@@ -14,15 +14,22 @@ export default function AgentTabs() {
                 style={tab === 'overview' ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
                 onClick={() => setTab('overview')} 
                 className={tab === 'overview' ? 'active' : ''}
-                buttonClasses="py-1 px-2 text-xs"
+                buttonClasses="w-24 py-1 text-xs"
             >Overview</Button>
             <Button 
                 color={ButtonColors.BLUE}
                 style={tab === 'anomaly' ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
                 onClick={() => setTab('anomaly')} 
                 className={tab === 'anomaly' ? 'active' : ''}
-                buttonClasses="py-1 px-2 text-xs"
+                buttonClasses="w-24 py-1 text-xs"
             >Anomaly</Button>
+            <Button
+                color={ButtonColors.RED}
+                style={tab === 'competency' ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
+                onClick={() => setTab('competency')}
+                className={tab === 'competency' ? 'active' : ''}
+                buttonClasses="w-24 py-1 text-xs"
+            >Competency</Button>
         </div>
     )
 }
