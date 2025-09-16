@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { RiCheckLine } from '@remixicon/react';
 
 interface CheckboxProps {
   checked?: boolean;
@@ -89,7 +90,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
       <div
         className={`
           ${sizeClasses}
-          border-2 rounded-sm cursor-pointer transition-colors duration-200
+          border-2 rounded-sm cursor-pointer transition-colors duration-200 relative
+          flex items-center justify-center
           ${checked 
             ? colorClasses.checked 
             : `bg-white ${colorClasses.border} ${!disabled ? colorClasses.hover : ''}`
@@ -105,7 +107,14 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
             onChange?.(!checked);
           }
         }}
-      />
+      >
+        {checked && (
+          <RiCheckLine 
+            className="text-white" 
+            size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14}
+          />
+        )}
+      </div>
     </div>
   );
 });
