@@ -8,7 +8,6 @@ import { abilityInstanceSkeleton, abilitySkeleton } from "@/util/ability.util";
 import Checkbox from "@/components/UI/checkbox";
 import { usePatchAbilityInstanceMutation } from "@/api/ability-instances.api";
 import { useMemo } from "react";
-import Triangle from "@/components/svg/triangle";
 
 interface AgentAbilityProps {
   id: string;
@@ -40,6 +39,22 @@ export default function AgentAbility({ id }: AgentAbilityProps) {
         triggerPatch(body);
     }
 
+    const handleToggleAnswer = (key: string, value: number) => {
+        const body = {
+            id: id,
+            data: {
+                abilityInstance: {
+                    ...abilityInstance,
+                    answers: {
+                        ...abilityInstance.answers,
+                        [key]: value
+                    }
+                }
+            }
+        };
+        triggerPatch(body);
+    }
+
     const abilityAnswers = useMemo(() => {
         if (!answers) return null;
         return Object.entries(answers).map(([key, answer]) => (
@@ -49,14 +64,19 @@ export default function AgentAbility({ id }: AgentAbilityProps) {
                     <HTMLParser text={answer} />
                     <div className="flex space-x-1 items-center">
                         {[...Array(3).keys()].map(i => (
-                            <Checkbox key={i} checked={abilityInstance.answers[key] >= i + 1} />
+                            <Checkbox 
+                                key={i} 
+                                checked={abilityInstance.answers[key] > i}
+                                onChange={() => handleToggleAnswer(key, abilityInstance.answers[key] >= i + 1 ? i : i + 1)}
+                                disabled={isLoading}
+                            />
                         ))}
                         <p className="text-lg text-anomaly-blue font-bold">{key}</p>
                     </div>
                 </div>
             </div>
         ));
-    }, [answers]);
+    }, [answers, abilityInstance, isLoading]);
 
     return (
         <div className="space-y-1 bg-anomaly-blue-100 pb-2 rounded">
