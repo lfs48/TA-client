@@ -21,7 +21,6 @@ export default function AgentSheet({ id }: AgentSheetProps) {
 
     const [tab, setTab] = useState<AgentSheetTab>('overview');
     const agent = useAppSelector((state) => selectAgentById(state, id)) || agentSkeleton;
-    const abilityIds = agent?.abilityInstances.map(ai => ai.abilityId) || [];
     return (
         <AgentSheetContext.Provider value={{ agent: agent, tab: tab, setTab: setTab }}>
             <div className='h-[calc(100vh-9rem)] flex flex-col bg-white rounded shadow-lg overflow-y-auto scrollbar-thin'>

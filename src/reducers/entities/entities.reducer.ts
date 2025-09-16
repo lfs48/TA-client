@@ -1,6 +1,7 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 import abilitiesReducer from './abilities.reducer';
+import abilityInstancesReducer from './ability-instances.reducer';
 import anomaliesReducer from './anomalies.reducer';
 import agentsReducer from './agent.reducer';
 import competenciesReducer from './competencies.reducer';
@@ -13,6 +14,7 @@ import { EntityTypeName, RootState } from "@/types";
 
 const entitiesReducer = combineReducers({
     abilities: abilitiesReducer,
+    abilityInstances: abilityInstancesReducer,
     anomalies: anomaliesReducer,
     agents: agentsReducer,
     competencies: competenciesReducer,

@@ -20,7 +20,6 @@ export interface Agent {
     qualities: AgentQualities;
     currency: AgentCurrencies;
     abilityInstanceIds: string[];
-    abilityInstances: AbilityInstance[];
     directive: number;
     sanctioned: boolean[];
     assessment: number[];

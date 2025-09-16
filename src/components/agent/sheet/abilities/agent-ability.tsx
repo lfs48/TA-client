@@ -1,13 +1,21 @@
-import { Ability } from "@/types";
 import { RiCheckFill, RiCloseLargeFill, RiStarFill } from "@remixicon/react";
 import * as S from './styled';
 import HTMLParser from "@/components/html-parser";
+import { useAppSelector } from "@/hooks/useAppSelector.hook";
+import { selectAbilityInstanceById } from "@/reducers/entities/ability-instances.reducer";
+import { selectAbilityById } from "@/reducers/entities/abilities.reducer";
 
 interface AgentAbilityProps {
-  ability: Ability;
+  id: string;
 }
 
-export default function AgentAbility({ ability }: AgentAbilityProps) {
+export default function AgentAbility({ id }: AgentAbilityProps) {
+
+    const abilityInstance = useAppSelector(state => selectAbilityInstanceById(state, id));
+    const abilityId = abilityInstance?.abilityId;
+    const ability = useAppSelector(state => selectAbilityById(state, abilityId));
+
+    if (!ability) return null;
 
     const {title} = ability;
     const {description, success, additional, failure} = ability.data;

@@ -38,3 +38,18 @@ export interface AbilityInstanceAnswers {
 export interface APIAbility extends Ability {
     anomaly: Anomaly;
 }
+
+export interface AbilityInstanceResponse {
+    abilityInstance: AbilityInstance;
+}
+
+export interface APIAbilityInstance extends AbilityInstance {
+    ability: Ability;
+}
+
+export interface PatchAbilityInstanceRequest {
+    id: string;
+    data: {
+        abilityInstance: Partial<AbilityInstance>;
+    };
+}
