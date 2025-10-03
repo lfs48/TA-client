@@ -4,6 +4,8 @@ import { selectRequisitionInstanceById } from "@/reducers/entities/requisition-i
 import { selectRequisitionById } from "@/reducers/entities/requisitions.reducer";
 import Checkbox from "@/components/UI/checkbox";
 import { requisitionInstanceSkeleton, requisitionSkeleton } from "@/util/requisition.util";
+import { useCallback, useMemo } from "react";
+import { usePatchRequisitionInstanceMutation } from "@/api/requisition-instances.api";
 
 interface AgentRequisitionProps {
     id: string;
@@ -18,14 +20,28 @@ export default function AgentRequisition({
     const { requisitionId } = requisitionInstance || {};
     const requisition = useAppSelector(state => selectRequisitionById(state, requisitionId)) || requisitionSkeleton;
 
-    const useControls = Array.from({ length: maxUses }, (_, index) => (
+    const [triggerPatch, { isLoading }] = usePatchRequisitionInstanceMutation();
+
+    const useControls = useMemo(() => Array.from({ length: maxUses }, (_, index) => (
         <Checkbox
             key={index}
             color='red'
             checked={currentUses < index + 1}
-            onChange={() => {}}
+            onChange={() => handlePatchUses(index >= currentUses ? index + 1 : index)}
         />
-    ));
+    )), [id, currentUses, maxUses]);
+
+    const handlePatchUses = useCallback((newUses:number) => {
+        if (isLoading) return;
+
+        triggerPatch({ id, data: { requisitionInstance: { currentUses: newUses } } });
+    }, [id, isLoading, triggerPatch]);
+
+    const handlePatchRented = useCallback(() => {
+        if (isLoading) return;
+
+        triggerPatch({ id, data: { requisitionInstance: { rented: !requisitionInstance.rented } } });
+    }, [id, isLoading, triggerPatch]);
 
     return (
          <div className="pb-2 bg-agency-red-100 rounded">
@@ -41,7 +57,7 @@ export default function AgentRequisition({
                             <Checkbox
                                 color='red'
                                 checked={requisitionInstance.rented}
-                                onChange={() => {}}
+                                onChange={handlePatchRented}
                             />
                             <p>Rented?</p>
                             </>

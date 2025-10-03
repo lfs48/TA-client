@@ -3,6 +3,7 @@ import { RequisitionInstance, APIAgent, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
+import { requisitionInstancesApi } from "@/api/requisition-instances.api";
 
 interface RequisitionInstancesState {
   [id: string]: RequisitionInstance;
@@ -15,6 +16,15 @@ const requisitionInstancesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
+      .addMatcher(
+        isAnyOf(
+          requisitionInstancesApi.endpoints.patchRequisitionInstance.matchFulfilled
+        ),
+        (state, action) => {
+          const { requisitionInstance } = action.payload;
+          state[requisitionInstance.id] = requisitionInstance;
+        }
+      )
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,
