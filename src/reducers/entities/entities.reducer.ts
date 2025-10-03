@@ -8,6 +8,8 @@ import competenciesReducer from './competencies.reducer';
 import gamesReducer from './games.reducer';
 import invitesReducer from './invites.reducer';
 import realitiesReducer from './realities.reducer';
+import requisitionsReducer from './requisitions.reducer';
+import requisitionInstancesReducer from './requisition-instances.reducer';
 import usersReducer from './users.reducer';
 import { createAppSelector } from "@/util";
 import { EntityTypeName, RootState } from "@/types";
@@ -21,6 +23,8 @@ const entitiesReducer = combineReducers({
     games: gamesReducer,
     invites: invitesReducer,
     realities: realitiesReducer,
+    requisitions: requisitionsReducer,
+    requisitionInstances: requisitionInstancesReducer,
     users: usersReducer,
 });
 

@@ -1,6 +1,6 @@
 import { 
     APIAnomaly, 
-    Competency, 
+    APICompetency, 
     Reality 
 } from '@/types';
 import { rootApi } from './root.api';
@@ -8,7 +8,7 @@ import { rootApi } from './root.api';
 interface ARCsResponse {
     anomalies: APIAnomaly[];
     realities: Reality[];
-    competencies: Competency[];
+    competencies: APICompetency[];
 }
 
 const arcsApi = rootApi.injectEndpoints({

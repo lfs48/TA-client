@@ -1,8 +1,8 @@
 import { rootApi } from './root.api';
-import { Competency } from '@/types/Competency.types';
+import { APICompetency } from '@/types/Competency.types';
 
 interface CompetenciesResponse {
-    competencies: Competency[];
+    competencies: APICompetency[];
 }
 
 const competenciesApi = rootApi.injectEndpoints({

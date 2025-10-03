@@ -7,6 +7,7 @@ import {
     User,
     Reality,
     Competency,
+    RequisitionInstance,
  } from "./index";
 
 export interface Agent {
@@ -20,6 +21,7 @@ export interface Agent {
     qualities: AgentQualities;
     currency: AgentCurrencies;
     abilityInstanceIds: string[];
+    requisitionInstanceIds: string[];
     directive: number;
     sanctioned: boolean[];
     assessment: number[];
@@ -32,6 +34,7 @@ export type APIAgent = Agent & {
     reality: Reality;
     competency: Competency;
     abilityInstances: AbilityInstance[];
+    requisitionInstances: RequisitionInstance[];
 }
 
 export interface AgentResponse {

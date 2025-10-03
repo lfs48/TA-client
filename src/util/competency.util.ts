@@ -10,4 +10,5 @@ export const competencySkeleton: Competency = {
         answers: [],
         qas: [],
     }],
+    requisitionId: '',
 };

@@ -25,6 +25,7 @@ export const agentSkeleton: Agent = {
         demerits: { current: 0, banked: 0, spent: 0 },
     },
     abilityInstanceIds: [],
+    requisitionInstanceIds: [],
     directive: 0,
     sanctioned: [false, false, false, false, false, false, false, false, false],
     assessment: [0, 0, 0, 0, 0, 0, 0, 0, 0],

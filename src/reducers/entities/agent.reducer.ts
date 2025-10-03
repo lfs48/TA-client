@@ -95,6 +95,6 @@ export const selectAgentsByIds = createAppSelector(
 export default agentsSlice.reducer;
 
 function stripAgentRelations(agent: APIAgent): Agent {
-  const { game, player, abilityInstances, ...rest } = agent;
+  const { game, player, anomaly, reality, competency, abilityInstances, ...rest } = agent;
   return rest;
 }
