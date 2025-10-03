@@ -12,6 +12,7 @@ import { agentSkeleton } from "@/util/agent.util";
 import { useState } from "react";
 import { AgentSheetTab } from "@/types";
 import AgentAssessment from "./competency/agent-assessment";
+import AgentRequisitions from "./competency/agent-requisitions";
 
 interface AgentSheetProps {
     id: string;
@@ -55,9 +56,14 @@ function sheetContent(tab: AgentSheetTab) {
             );
         case 'competency':
             return(
+                <>
                 <S.Section>
                     <AgentAssessment />
                 </S.Section>
+                <S.Section>
+                    <AgentRequisitions />
+                </S.Section>
+                </>
             );
     }
 }
