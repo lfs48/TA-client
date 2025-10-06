@@ -3,6 +3,7 @@ export enum ButtonColors {
     PURPLE = 'purple',
     GREEN = 'green',
     BLUE = 'blue',
+    YELLOW = 'yellow',
 };
 
 export enum ButtonStyles {

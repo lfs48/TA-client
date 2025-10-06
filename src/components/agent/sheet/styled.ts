@@ -29,3 +29,9 @@ export const Section = tw.div`
     border-gray-200
     last:border-b-0
 `
+
+export const SectionHeader = tw.h2`
+    font-bold
+    text-lg
+    mb-2
+`

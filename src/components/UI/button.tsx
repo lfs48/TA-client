@@ -68,7 +68,10 @@ function buttonColorClasses(color:ButtonColors, style:ButtonStyles) {
                     return 'border-2 border-deep-purple bg-deep-purple text-white';
                 case(ButtonColors.GREEN):
                     return 'border-2 border-green-600 bg-green-600 text-white';
+                case(ButtonColors.YELLOW):
+                    return 'border-2 border-reality-yellow bg-reality-yellow text-white';
             }
+            break;
         case(ButtonStyles.OUTLINE):
             switch(color) {
                 case(ButtonColors.BLUE):
@@ -79,6 +82,9 @@ function buttonColorClasses(color:ButtonColors, style:ButtonStyles) {
                     return 'border-2 border-deep-purple text-deep-purple';
                 case(ButtonColors.GREEN):
                     return 'border-2 border-green-600 text-green-600';
+                case(ButtonColors.YELLOW):
+                    return 'border-2 border-reality-yellow text-reality-yellow';
             }
+            break;
     }
 }

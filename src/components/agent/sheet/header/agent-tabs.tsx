@@ -23,6 +23,13 @@ export default function AgentTabs() {
                 className={tab === 'anomaly' ? 'active' : ''}
                 buttonClasses="w-24 py-1 text-xs"
             >Anomaly</Button>
+            <Button 
+                color={ButtonColors.YELLOW}
+                style={tab === 'reality' ? ButtonStyles.FILL : ButtonStyles.OUTLINE}
+                onClick={() => setTab('reality')} 
+                className={tab === 'reality' ? 'active' : ''}
+                buttonClasses="w-24 py-1 text-xs"
+            >Reality</Button>
             <Button
                 color={ButtonColors.RED}
                 style={tab === 'competency' ? ButtonStyles.FILL : ButtonStyles.OUTLINE}

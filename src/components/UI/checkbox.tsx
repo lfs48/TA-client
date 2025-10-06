@@ -6,7 +6,7 @@ interface CheckboxProps {
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
   color?: 'red' | 'yellow' | 'blue' | 'gray';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   id?: string;
   name?: string;
@@ -66,6 +66,8 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
         return 'w-5 h-5';
       case 'lg':
         return 'w-6 h-6';
+      case 'xl':
+        return 'w-8 h-8';
       default:
         return 'w-5 h-5';
     }
