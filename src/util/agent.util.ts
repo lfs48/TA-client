@@ -26,9 +26,11 @@ export const agentSkeleton: Agent = {
     },
     abilityInstanceIds: [],
     requisitionInstanceIds: [],
+    relationshipIds: [],
     directive: 0,
     sanctioned: [false, false, false, false, false, false, false, false, false],
     assessment: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    trackFilled: 0,
 };
 
 export function toggleSanctioned(agent:Agent, index:number):Agent {

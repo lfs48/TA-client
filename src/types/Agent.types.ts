@@ -8,6 +8,7 @@ import {
     Reality,
     Competency,
     RequisitionInstance,
+    Relationship
  } from "./index";
 
 export interface Agent {
@@ -22,9 +23,11 @@ export interface Agent {
     currency: AgentCurrencies;
     abilityInstanceIds: string[];
     requisitionInstanceIds: string[];
+    relationshipIds: string[];
     directive: number;
     sanctioned: boolean[];
     assessment: number[];
+    trackFilled: number;
 }
 
 export type APIAgent = Agent & {
@@ -35,6 +38,7 @@ export type APIAgent = Agent & {
     competency: Competency;
     abilityInstances: AbilityInstance[];
     requisitionInstances: RequisitionInstance[];
+    relationships: Relationship[];
 }
 
 export interface AgentResponse {

@@ -8,6 +8,7 @@ export type * from './Error.types';
 export type * from './Game.types';
 export type * from './Invite.types';
 export type * from './Reality.types';
+export type * from './Relationship.types';
 export type * from './Requisition.types';
 export type * from './RootState.types';
 export type * from './User.types';
