@@ -24,6 +24,7 @@ export default function AgentRealityTrack({
     return (
         <div>
             <h1 className="text-xl text-reality-yellow mb-2">{title}</h1>
+            <p className="text-sm text-gray-500">{}</p>
             <div className="flex space-x-2">
                 {trackBoxes}
             </div>

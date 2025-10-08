@@ -1,10 +1,11 @@
 import AgentSheetContext from "@/components/agent/sheet/agent-sheet-context"
 import { useContext } from "react"
 import * as S from '../styled';
-import AgentRealityTrack from "@/components/agent/sheet/reality/agent-reality-track";
+import AgentRealityTrack from "./agent-reality-track";
 import { realitySkeleton } from "@/util/reality.util";
 import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { selectRealityById } from "@/reducers/entities/realities.reducer";
+import AgentRelationships from "./agent-relationships";
 
 export default function AgentReality() {
 
@@ -21,6 +22,9 @@ export default function AgentReality() {
                 trackFilled={trackFilled}
             />
         </S.Section>  
+        <S.Section>
+            <AgentRelationships />
+        </S.Section>
         </div>
 
     )
