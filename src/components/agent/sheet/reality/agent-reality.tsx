@@ -19,6 +19,7 @@ export default function AgentReality() {
             <AgentRealityTrack
                 id={agent.id}
                 title={track.title}
+                description={track.description}
                 trackFilled={trackFilled}
             />
         </S.Section>  

@@ -27,13 +27,36 @@ export default function AgentRelationship({ id }: AgentRelationshipsProps) {
     return (
         <div className="bg-reality-yellow-100 rounded">
             <h2 className="sticky top-0 p-2 text-reality-yellow border-b border-reality-yellow-200">{name}</h2>
-            <div className="h-80 p-2 overflow-y-auto scrollbar-thin">
+            <div className="h-72 p-2 overflow-y-auto scrollbar-thin">
                 <p className="p-2 text-sm">{description}</p>
             </div>
-            <footer className="sticky bottom-0 p-2 border-t border-reality-yellow-200 text-xs flex justify-between items-center">
-                <p className="text-sm italic">Connection</p>
-                <div className="flex space-x-1">
-                    {connectionBoxes}
+            <footer className="sticky bottom-0 border-t border-reality-yellow-200 text-xs flex flex-col">
+                <div className="flex justify-between p-2 border-b border-reality-yellow-200">
+                    <p className="text-sm italic">Bonus</p>
+                    <div className="flex space-x-4">
+                        <div className="flex space-x-1 items-center">
+                            <Checkbox
+                                color='yellow'
+                                checked={active}
+                                onChange={() => {}}
+                            />
+                            <p className="text-sm italic">Active?</p>
+                        </div>
+                        <div className="flex space-x-1 items-center">
+                            <Checkbox
+                                color='yellow'
+                                checked={uses === 0}
+                                onChange={() => {}}
+                            />
+                            <p className="text-sm italic">Used?</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex justify-between p-2">
+                    <p className="text-sm italic">Connection</p>
+                    <div className="flex space-x-1">
+                        {connectionBoxes}
+                    </div>
                 </div>
             </footer>
         </div>
