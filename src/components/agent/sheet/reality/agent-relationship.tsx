@@ -3,6 +3,7 @@ import { selectRelationshipById } from "@/reducers/entities/relationships.reduce
 import { relationshipSkeleton } from "@/util/relationship.util";
 import Checkbox from "@/components/UI/checkbox";
 import { useMemo } from "react";
+import { selectUserById } from "@/reducers/entities/users.reducer";
 
 interface AgentRelationshipsProps {
     id: string;
@@ -11,7 +12,10 @@ interface AgentRelationshipsProps {
 export default function AgentRelationship({ id }: AgentRelationshipsProps) {
 
     const relationship = useAppSelector(state => selectRelationshipById(state, id));
-    const { id: relationshipId, agentId, name, description, active, uses, connection } = relationship || relationshipSkeleton;
+    const { id: relationshipId, agentId, playerId, name, description, active, uses, connection } = relationship || relationshipSkeleton;
+
+    const player = useAppSelector(state => selectUserById(state, playerId));
+    const playerName = player ? player.username : 'Unassigned';
 
     const connectionBoxes = useMemo(() => (
         Array.from({ length: 9 }, (_, index) => (
@@ -26,7 +30,13 @@ export default function AgentRelationship({ id }: AgentRelationshipsProps) {
 
     return (
         <div className="bg-reality-yellow-100 rounded">
-            <h2 className="sticky top-0 p-2 text-reality-yellow border-b border-reality-yellow-200">{name}</h2>
+            <h2 className="sticky top-0 flex p-2 text-reality-yellow border-b border-reality-yellow-200">
+                <p className="basis-2/3 self-center pr-2 border-r border-reality-yellow-200">{name}</p>
+                <div className="basis-1/3 flex flex-col pl-2 justify-self-end">
+                    <p className="text-xs">Portrayed by</p>
+                    <p className="text-sm">{playerName}</p>
+                </div>
+            </h2>
             <div className="h-72 p-2 overflow-y-auto scrollbar-thin">
                 <p className="p-2 text-sm">{description}</p>
             </div>
