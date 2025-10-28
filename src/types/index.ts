@@ -2,6 +2,7 @@ export type * from './Ability.types';
 export type * from './Agent.types';
 export type * from './Anomaly.type';
 export type * from './Auth.types';
+export type * from './ConnectionBonus.types';
 export type * from './Competency.types';
 export type * from './Entity.types';
 export type * from './Error.types';

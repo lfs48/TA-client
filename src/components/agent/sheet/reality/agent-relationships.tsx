@@ -8,7 +8,7 @@ export default function AgentRelationships() {
     const { relationshipIds } = agent;
 
     const relationshipCards = useMemo(() => relationshipIds.map(id => (
-        <AgentRelationship key={id} id={id} />
+        <AgentRelationship key={id} agentId={id} />
     )), [relationshipIds]);
 
     return (

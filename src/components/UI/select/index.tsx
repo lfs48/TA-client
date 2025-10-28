@@ -19,6 +19,8 @@ interface SelectProps {
     arrow?: boolean;
     color?: ColorOption;
     label?: string;
+    searchable?: boolean;
+    searchPlaceholder?: string;
 }
 
 export default function Select({
@@ -33,12 +35,23 @@ export default function Select({
     arrow = true,
     color,
     label,
+    searchable = false,
+    searchPlaceholder = "Search...",
 }: SelectProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(value);
+    const [searchTerm, setSearchTerm] = useState('');
     const selectRef = useRef<HTMLDivElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const selectedOption = options.find(option => option.value === selectedValue);
+    
+    // Filter options based on search term
+    const filteredOptions = searchable 
+        ? options.filter(option => 
+            option.label.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : options;
 
     // Color mapping
     const getColorClasses = () => {
@@ -83,13 +96,24 @@ export default function Select({
     const handleToggle = () => {
         if (!disabled) {
             setIsOpen(!isOpen);
+            if (searchable && !isOpen) {
+                // Focus search input when opening
+                setTimeout(() => {
+                    searchInputRef.current?.focus();
+                }, 0);
+            }
         }
     };
 
     const handleOptionClick = (option: Option) => {
         setSelectedValue(option.value);
         setIsOpen(false);
+        setSearchTerm(''); // Clear search when selecting
         onChange?.(option.value);
+    };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     };
 
     // Close dropdown when clicking outside
@@ -105,6 +129,13 @@ export default function Select({
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    // Clear search when closing dropdown
+    useEffect(() => {
+        if (!isOpen) {
+            setSearchTerm('');
+        }
+    }, [isOpen]);
 
     // Handle keyboard navigation
     const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -123,19 +154,19 @@ export default function Select({
                 event.preventDefault();
                 if (!isOpen) {
                     setIsOpen(true);
-                } else {
-                    // Navigate to next option
-                    const currentIndex = options.findIndex(opt => opt.value === selectedValue);
-                    const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
-                    handleOptionClick(options[nextIndex]);
+                } else if (!searchable) {
+                    // Navigate to next option (only if not searchable)
+                    const currentIndex = filteredOptions.findIndex(opt => opt.value === selectedValue);
+                    const nextIndex = currentIndex < filteredOptions.length - 1 ? currentIndex + 1 : 0;
+                    handleOptionClick(filteredOptions[nextIndex]);
                 }
                 break;
             case 'ArrowUp':
                 event.preventDefault();
-                if (isOpen) {
-                    const currentIndex = options.findIndex(opt => opt.value === selectedValue);
-                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
-                    handleOptionClick(options[prevIndex]);
+                if (isOpen && !searchable) {
+                    const currentIndex = filteredOptions.findIndex(opt => opt.value === selectedValue);
+                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : filteredOptions.length - 1;
+                    handleOptionClick(filteredOptions[prevIndex]);
                 }
                 break;
         }
@@ -190,30 +221,54 @@ export default function Select({
             {/* Dropdown Options */}
             {isOpen && (
                 <div className={`
-                    absolute z-50 w-full mt-1 bg-white ${colorClasses.border} rounded shadow-lg max-h-60 overflow-auto
+                    absolute z-50 w-full mt-1 bg-white ${colorClasses.border} rounded shadow-lg max-h-60 overflow-hidden
                     ${menuClasses}
                 `}>
-                    {options.length === 0 ? (
-                        <div className="px-2 text-gray-500">No options available</div>
-                    ) : (
-                        options.map((option) => (
-                            <div
-                                key={option.value}
+                    {/* Search Input */}
+                    {searchable && (
+                        <div className="p-2 border-b border-gray-200">
+                            <input
+                                ref={searchInputRef}
+                                type="text"
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                                placeholder={searchPlaceholder}
                                 className={`
-                                    px-2 py-2 cursor-pointer transition-colors
-                                    ${selectedValue === option.value 
-                                        ? colorClasses.selected
-                                        : `${colorClasses.hover} ${colorClasses.text}`
-                                    }
+                                    w-full px-2 py-1 text-sm border rounded
+                                    focus:outline-none focus:ring-1 ${colorClasses.border.replace('border-2', 'focus:ring-current')}
+                                    ${colorClasses.text}
                                 `}
-                                onClick={() => handleOptionClick(option)}
-                                role="option"
-                                aria-selected={selectedValue === option.value}
-                            >
-                                {option.label}
-                            </div>
-                        ))
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                        </div>
                     )}
+                    
+                    {/* Options List */}
+                    <div className="max-h-52 overflow-auto">
+                        {filteredOptions.length === 0 ? (
+                            <div className="px-2 py-2 text-gray-500 text-sm">
+                                {searchable && searchTerm ? 'No matches found' : 'No options available'}
+                            </div>
+                        ) : (
+                            filteredOptions.map((option) => (
+                                <div
+                                    key={option.value}
+                                    className={`
+                                        px-2 py-2 cursor-pointer transition-colors text-sm
+                                        ${selectedValue === option.value 
+                                            ? colorClasses.selected
+                                            : `${colorClasses.hover} ${colorClasses.text}`
+                                        }
+                                    `}
+                                    onClick={() => handleOptionClick(option)}
+                                    role="option"
+                                    aria-selected={selectedValue === option.value}
+                                >
+                                    {option.label}
+                                </div>
+                            ))
+                        )}
+                    </div>
                 </div>
             )}
         </div>

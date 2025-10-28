@@ -1,4 +1,4 @@
-import { Agent, User } from "./index.ts";
+import { Agent, ConnectionBonus, User } from "./index.ts";
 
 export interface Relationship {
     id: string;
@@ -9,9 +9,11 @@ export interface Relationship {
     uses?: number;
     agentId: string;
     playerId: string;
+    connectionBonusId?: string;
 }
 
 export interface APIRelationship extends Relationship {
     agent: Agent;
     player: User;
+    connectionBonus?: ConnectionBonus;
 }

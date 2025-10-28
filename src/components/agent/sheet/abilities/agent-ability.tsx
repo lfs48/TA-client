@@ -137,7 +137,7 @@ export default function AgentAbility({ id }: AgentAbilityProps) {
                     </div>
                 </S.Section>
             </div>
-            <div className="sticky bottom-0 h-8 px-2 py-2 bg-anomaly-blue-100 border-t border-anomaly-blue-300">
+            <div className="h-8 px-2 py-2 bg-anomaly-blue-100 border-t border-anomaly-blue-300">
                 <div className="flex justify-end items-center space-x-1">
                     <Checkbox 
                         checked={practiced} 

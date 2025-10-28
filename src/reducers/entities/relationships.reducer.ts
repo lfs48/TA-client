@@ -3,6 +3,7 @@ import { Relationship, APIAgent, RootState } from "@/types";
 import { agentApi } from "@/api/agent.api";
 import { logout } from "@/reducers/session.reducer";
 import { createAppSelector } from "@/util/appSelector";
+import relationshipApi from "@/api/relationship.api";
 
 interface RelationshipsState {
   [id: string]: Relationship;
@@ -15,6 +16,15 @@ const relationshipsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(logout.type, () => ({}))
+      .addMatcher(
+        isAnyOf(
+          relationshipApi.endpoints.patchRelationship.matchFulfilled,
+        ),
+        (state, action) => {
+          const { relationship } = action.payload;
+          state[relationship.id] = relationship;
+        }
+      )
       .addMatcher(
         isAnyOf(
           agentApi.endpoints.getAgent.matchFulfilled,

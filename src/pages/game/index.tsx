@@ -12,6 +12,7 @@ import { WorkspaceTabs } from '@/types';
 import GameWorkspace from '@/pages/game/game-workspace';
 import { useAppSelector } from '@/hooks/useAppSelector.hook';
 import { gameSkeleton } from '@/util/game.util';
+import { useGetBonusesQuery } from '@/api/connection-bonus.api';
 
 export default function Game() {
 
@@ -34,6 +35,7 @@ export default function Game() {
     const { passphrase } = useParams();
     const { data, isSuccess, isLoading } = useGetGameByPassphraseQuery(passphrase ?? skipToken);
     const { data: arcData } = useGetARCsQuery();
+    const { bonuses } = useGetBonusesQuery();
 
     const game = useAppSelector(state => selectGameById(state, id)) || gameSkeleton;
 
