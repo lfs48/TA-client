@@ -5,6 +5,7 @@ import Checkbox from "@/components/UI/checkbox";
 import { useMemo } from "react";
 import { selectUserById } from "@/reducers/entities/users.reducer";
 import RelationshipBonus from "./relationship-bonus";
+import { usePatchRelationshipMutation } from "@/api/relationship.api";
 
 interface AgentRelationshipsProps {
     agentId: string;
@@ -18,13 +19,27 @@ export default function AgentRelationship({ agentId }: AgentRelationshipsProps) 
     const player = useAppSelector(state => selectUserById(state, playerId));
     const playerName = player ? player.username : 'Unassigned';
 
+    const [triggerPatch, { isLoading }] = usePatchRelationshipMutation();
+
+    const handleToggleConnection = (connection:number) => {
+        triggerPatch({ 
+            id: relationshipId,
+            body: {
+                relationship: {
+                    connection: connection
+                }
+            }
+        });
+    };
+
     const connectionBoxes = useMemo(() => (
         Array.from({ length: 9 }, (_, index) => (
             <Checkbox
+                showCheckmark={false}
                 key={index}
                 color='yellow'
                 checked={index < connection}
-                onChange={() => {}}
+                onChange={() => handleToggleConnection(index >= connection ? index + 1 : index)}
             />
         ))
     ), [connection]);
@@ -49,8 +64,9 @@ export default function AgentRelationship({ agentId }: AgentRelationshipsProps) 
             <footer className="border-t border-reality-yellow-300 text-xs flex flex-col">
                 <div className="flex justify-between p-2">
                     <p className="text-sm italic">Connection</p>
-                    <div className="flex space-x-1">
+                    <div className="flex items-center space-x-1">
                         {connectionBoxes}
+                        <p className="ml-1 font-bold text-base text-reality-yellow">{connection}</p>
                     </div>
                 </div>
             </footer>

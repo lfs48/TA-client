@@ -7,6 +7,7 @@ interface CheckboxProps {
   disabled?: boolean;
   color?: 'red' | 'yellow' | 'blue' | 'gray';
   size?: 'sm' | 'md' | 'lg' | 'xl';
+  showCheckmark?: boolean;
   className?: string;
   id?: string;
   name?: string;
@@ -18,6 +19,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
   disabled = false,
   color = 'blue',
   size = 'md',
+  showCheckmark = true,
   className = '',
   id,
   name,
@@ -110,7 +112,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(({
           }
         }}
       >
-        {checked && (
+        {checked && showCheckmark && (
           <RiCheckLine 
             className="text-white" 
             size={size === 'sm' ? 12 : size === 'lg' ? 18 : 14}
