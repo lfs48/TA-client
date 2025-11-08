@@ -2,10 +2,12 @@ import { useAppSelector } from "@/hooks/useAppSelector.hook";
 import { selectRelationshipById } from "@/reducers/entities/relationships.reducer";
 import { relationshipSkeleton } from "@/util/relationship.util";
 import Checkbox from "@/components/UI/checkbox";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { selectUserById } from "@/reducers/entities/users.reducer";
 import RelationshipBonus from "./relationship-bonus";
 import { usePatchRelationshipMutation } from "@/api/relationship.api";
+import { RiCloseFill, RiFileEditFill, RiPencilFill, RiSaveFill } from "@remixicon/react";
+import SelectPlayer from "./select-player";
 
 interface AgentRelationshipsProps {
     agentId: string;
@@ -18,6 +20,12 @@ export default function AgentRelationship({ agentId }: AgentRelationshipsProps) 
 
     const player = useAppSelector(state => selectUserById(state, playerId));
     const playerName = player ? player.username : 'Unassigned';
+
+    const [editing, setEditing] = useState(false);
+    const [nameInput, setNameInput] = useState(name);
+    const [descriptionInput, setDescriptionInput] = useState(description);
+    const [playerInput, setPlayerInput] = useState(playerId);
+    const [bonusInput, setBonusInput] = useState(connectionBonusId);
 
     const [triggerPatch, { isLoading }] = usePatchRelationshipMutation();
 
@@ -44,20 +52,55 @@ export default function AgentRelationship({ agentId }: AgentRelationshipsProps) 
         ))
     ), [connection]);
 
+    const handleCancelEdit = () => {
+        setEditing(false);
+        setNameInput(name);
+        setDescriptionInput(description);
+        setPlayerInput(playerId);
+        setBonusInput(connectionBonusId);
+    }
+
     return (
         <div className="bg-reality-yellow-100 rounded">
-            <h2 className="sticky top-0 flex p-2 text-reality-yellow border-b border-reality-yellow-300">
-                <p className="basis-2/3 self-center pr-2">{name}</p>
-                <div className="basis-1/3 flex flex-col pl-2 justify-self-end border-l border-reality-yellow-300">
-                    <p className="text-xs">Portrayed by</p>
-                    <p className="text-sm">{playerName}</p>
+            <div className="sticky top-0 flex justify-between p-2 border-b border-reality-yellow-300">
+                {editing ? (
+                    <input 
+                        type="text"
+                        value={nameInput}
+                        onChange={(e) => setNameInput(e.target.value)}
+                    />
+                ) : (
+                    <h2 className="text-reality-yellow">{name}</h2>
+                )}
+              <div>
+                {editing ? (
+                    <div className="flex space-x-2">
+                        <RiSaveFill />
+                        <RiCloseFill onClick={handleCancelEdit} />
+                    </div>
+                    ) : (
+                    <RiPencilFill
+                        onClick={() => setEditing(true)}
+                    />
+                )}
+              </div>
+            </div>
+            <div className="h-72 overflow-y-auto scrollbar-thin">
+                <div className="space-y-1 p-2">
+                    <h3 className="text-sm text-reality-yellow">Portrayed by</h3>
+                    {editing ? (
+                        <SelectPlayer />
+                    ) : (
+                        <p className="text-sm">{playerName}</p>
+                    )}
+                    <div className="border-b border-reality-yellow-200"></div>
                 </div>
-            </h2>
-            <div className="h-72 p-2 overflow-y-auto scrollbar-thin">
-                <div className="px-2 pb-2 border-b border-reality-yellow-200">
-                   <p className="text-sm">{description}</p> 
+                <div className="space-y-1 p-2">
+                    <h3 className="text-sm text-reality-yellow">Description</h3>
+                   <p className="text-sm">{description}</p>
+                   <div className="border-b border-reality-yellow-200"></div> 
                 </div>
-                <div className="pt-2">
+                <div className="p-2">
                     <RelationshipBonus relationshipId={relationshipId} />
                 </div>
             </div>

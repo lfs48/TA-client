@@ -98,4 +98,12 @@ export const selectUsersById = createAppSelector(
   ) : [])
 );
 
+export const selectUsersByGameId = createAppSelector(
+  [
+    (state: RootState) => state.entities.users,
+    (_: RootState, gameId?: string) => gameId,
+  ],
+  (users, gameId) => (gameId ? Object.values(users).filter(user => user.gameIds.includes(gameId)) : [])
+);
+
 export default usersSlice.reducer;

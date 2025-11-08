@@ -56,7 +56,7 @@ export default function RelationshipBonus({ relationshipId }:
 
     return(
         <div className="space-y-2">
-            <h2 className="text-reality-yellow">Connection Bonus</h2>
+            <h3 className="text-sm text-reality-yellow">Connection Bonus</h3>
             <SelectBonus 
                 relationshipId={relationshipId} 
                 bonusId={connectionBonusId} 
